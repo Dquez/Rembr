@@ -12,8 +12,8 @@ class Books extends React.Component {
     this.state = {
       books: [],
       title: "",
-      author: "",
-      synopsis: ""
+      url: "",
+      note: ""
     };
   }
 
@@ -24,9 +24,9 @@ class Books extends React.Component {
 
   // Loads all books  and sets them to this.state.books
   loadBooks = () => {
-    API.getBooks()
+    API.getArticles()
       .then(res =>
-        this.setState({ books: res.data, title: "", author: "", synopsis: "" })
+        this.setState({ books: res.data, title: "", url: "", note: "" })
       )
       .catch(err => console.log(err));
   };
@@ -107,7 +107,7 @@ class Books extends React.Component {
                     <ListItem key={book._id}>
                       <a href={"/books/" + book._id}>
                         <strong>
-                          {book.title} by {book.author}
+                          {book.title} by {book.url} and {book.note}
                         </strong>
                       </a>
                       <DeleteBtn onClick={() => this.deleteBook(book._id)} />

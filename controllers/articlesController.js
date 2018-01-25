@@ -37,9 +37,9 @@ const articleFunctions = {
   }
 }
 
-router.get("/api/articles", bookFunctions.findAll)
+router.get("/api/articles", articleFunctions.findAll)
 
-router.post("/api/article", bookFunctions.create)
+// router.post("/api/article", articleFunctions.create)
 
 // router.delete("/api/books/:id", bookFunctions.remove)
 

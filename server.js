@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 // Serve up static assets
 app.use(express.static("client/build"));
 // Add routes, both API and view
-app.use(booksController);
+app.use(articlesController);
 
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
