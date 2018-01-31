@@ -6,5 +6,12 @@
     "default_popup": "rembr-ext.html",
     "default_title": "React Ext"
   },
+  "permissions": ["http://*/", "activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["jquery.js", "content-script.js"]
+    }
+  ],
   "version": "1.0"
 }
