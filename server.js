@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const articlesController = require("./controllers/articlesController")
+const articlesController = require("./controllers/articlesController");
+const authController = require("./controllers/authController")
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -12,7 +13,8 @@ app.use(bodyParser.json());
 app.use(express.static("client/build"));
 // Add routes, both API and view
 app.use(articlesController);
-
+// route for authenticating user's cookie
+app.use(authController);
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB

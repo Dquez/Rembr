@@ -1,17 +1,16 @@
 {
   "short_name": "Rembr App",
   "name": "React Extension",
-  "manifest_version": 2,
-  "browser_action": {
-    "default_popup": "rembr-ext.html",
-    "default_title": "React Ext"
-  },
-  "permissions": ["http://*/", "activeTab"],
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["jquery.js", "content-script.js"]
-    }
-  ],
-  "version": "1.0"
+  "start_url": "./index.html",
+  "display": "standalone",	 
+  "theme_color": "#000000",		
+  "background_color": "#ffffff",
+  "icons": [	
+    {		    
+      "src": "favicon.ico",		      
+      "sizes": "192x192",		      
+      "type": "image/png"		
+     }		    
+    ]
 }
+

@@ -19,22 +19,11 @@ chrome.browserAction.setBadgeText({text: "ON"});
 console.log("Loaded.");
 
 chrome.runtime.onMessage.addListener(function(msg, _, sendResponse) {
-     if (msg.delayedResponse) {
-      // Note: setTimeout itself does NOT keep the page awake. We return true
-      // from the onMessage event handler, which keeps the message channel open -
-      // in turn keeping the event page awake - until we call sendResponse.
-      setTimeout(function() {
-        sendResponse("Got your message.");
-      }, 5000);
-      return true;
-    }
-    else if(msg.message == "article" ) {
+  if(msg.message == "article" ) {
         // sendMessage();
         sendResponse("Article received page started.");
         ;
       }
-    // If we don't return anything, the message channel will close, regardless
-    // of whether we called sendResponse.
   });
 
 
