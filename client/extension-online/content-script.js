@@ -30,6 +30,11 @@ $("#submit-article").on("click", (e)=>{
     }
 }); 
 
+
+//CLIENT ID 392788922715-b6qdj0k8nrhaecuabkgtgh02jn088l5c.apps.googleusercontent.com
+// CLIENT SECRET skOyVGy8lsAhaXDQXfIlRi6t
+
+
 // function postArticle(data){
 //   var dir = 'http://localhost:3000/login';
 //   var request = new XMLHttpRequest();
