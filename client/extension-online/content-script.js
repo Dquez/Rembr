@@ -1,4 +1,16 @@
 
+const googleAuth = new OAuth2('google', {
+  client_id: 'F3bv6-7PmyBo-GCCxiyewVN_Yf-CPOlg',
+  client_secret: 'ouBMIY2SQQcWutbygCho5HF64WkKDvyBJxTH5hSZAcdcHFycY77_xHXdwu2Cu_XC',
+  api_scope: 'https://www.googleapis.com/auth/tasks'
+});
+
+googleAuth.authorize(function() {
+  // Ready for action
+});
+// auth.getAccessToken();
+xhr.setRequestHeader('Authorization', 'OAuth ' + googleAuth.getAccessToken())
+
 $("#submit-article").on("click", (e)=>{
   e.preventDefault();
   alert("Hello");
