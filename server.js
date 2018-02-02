@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const articlesController = require("./controllers/articlesController");
-const authController = require("./controllers/authController")
+const authController = require("./controllers/authController");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -15,6 +15,7 @@ app.use(express.static("client/build"));
 app.use(articlesController);
 // route for authenticating user's cookie
 app.use(authController);
+
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
@@ -24,6 +25,11 @@ mongoose.connect(
     useMongoClient: true
   }
 );
+
+app.get("/please", (req, res)=> {
+  console.log("Hello please");
+  res.send("hello");
+})
 
 // Start the API server
 app.listen(PORT, function() {

@@ -1,40 +1,83 @@
-// Copyright (c) 2012 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-// Global variables only exist for the life of the page, so they get reset
-// each time the page is unloaded.
-var counter = 1;
-
 var lastTabId = -1;
+
 function sendMessage() {
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+  chrome.tabs.query({
+    active: true,
+    currentWindow: true
+  }, function (tabs) {
     lastTabId = tabs[0].id;
     chrome.tabs.sendMessage(lastTabId, "Background page started.");
   });
 }
 
 sendMessage();
-chrome.browserAction.setBadgeText({text: "ON"});
-console.log("Loaded.");
+chrome.browserAction.setBadgeText({
+  text: "ON"
+});
 
-chrome.runtime.onMessage.addListener(function(msg, _, sendResponse) {
-  if(msg.message == "article" ) {
-        // sendMessage();
-        sendResponse("Article received page started.");
-        ;
-      }
-  });
+// chrome.runtime.onMessage.addListener(function(request, sender, callback) {
+//   if (request.action == "xhttp") {
 
+//     $.ajax({
+//         type: request.method,
+//         url: request.url,
+//         data: request.data,
+//         success: function(responseText){
+//             callback(" request.action");
+//         },
+//         error: function(XMLHttpRequest, textStatus, errorThrown) {
+//             //if required, do some error handling
+//             callback();
+//         }
+//     });
 
-
-// chrome.runtime.onSuspend.addListener(function() {
-//   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-//     // After the unload event listener runs, the page will unload, so any
-//     // asynchronous callbacks will not fire.
-//     alert("This does not show up.");
-//   });
-//   console.log("Unloading.");
-//   chrome.browserAction.setBadgeText({text: ""});
-//   chrome.tabs.sendMessage(lastTabId, "Background page unloaded.");
+//     return true; // prevents the callback from being called too early on return
+//   }
 // });
+
+
+// chrome.runtime.onMessage.addListener(function(msg, _, sendResponse) {
+//   if(msg.message == "article" ) {
+//         sendResponse("Article received page started.");
+//       }
+//   });
+
+// chrome.runtime.onMessage.addListener(function (msg, _, sendResponse) {
+//   if (msg.message == "article") {
+//     // var xhr = new XMLHttpRequest();
+//     // xhr.open("GET", "http://localhost:3000/login", true);
+//     // xhr.onreadystatechange = function () {
+//     //   if (xhr.readyState == 4) {
+//     //     // JSON.parse does not evaluate the attacker's scripts.
+//     //     var resp = JSON.parse(xhr.responseText);
+//     //     console.log(resp);
+//     //     sendResponse(resp);
+//     //   }
+//     // }
+//     // xhr.send();
+
+//     $.ajax({
+//       url: "http://localhost:3001/login",
+//       type: "POST",
+//       success: function (data) {
+//         console.log(data);
+//         console.log("SUCCESS");
+//         sendResponse("Article was posted to the DB page started.");
+//         // $.ajax({
+//         //     url: "http://localhost/login", type: "POST", data: {
+//         //         "email": "me@alberto-elias.com",
+//         //         "password": "mypassword",
+//         //     },
+//         // dataType: "html",
+//         // success: function(data) {
+//         //    //now you can parse your report screen
+//         // }
+//         // });
+//       }
+//     });
+
+//   }
+// });
+
+
+
