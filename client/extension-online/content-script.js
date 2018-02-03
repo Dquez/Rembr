@@ -1,16 +1,4 @@
 
-const googleAuth = new OAuth2('google', {
-  client_id: 'F3bv6-7PmyBo-GCCxiyewVN_Yf-CPOlg',
-  client_secret: 'ouBMIY2SQQcWutbygCho5HF64WkKDvyBJxTH5hSZAcdcHFycY77_xHXdwu2Cu_XC',
-  api_scope: 'https://www.googleapis.com/auth/tasks'
-});
-
-googleAuth.authorize(function() {
-  // Ready for action
-});
-// auth.getAccessToken();
-xhr.setRequestHeader('Authorization', 'OAuth ' + googleAuth.getAccessToken())
-
 $("#submit-article").on("click", (e)=>{
   e.preventDefault();
   alert("Hello");
@@ -30,8 +18,11 @@ $("#submit-article").on("click", (e)=>{
     }
 }); 
 
+chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
+  // Use the token.
+});
 
-//CLIENT ID 392788922715-b6qdj0k8nrhaecuabkgtgh02jn088l5c.apps.googleusercontent.com
+//CLIENT ID 610105421590-cmlmi74luvqehuok9pbd8bfmeacf3qn5.apps.googleusercontent.com
 // CLIENT SECRET skOyVGy8lsAhaXDQXfIlRi6t
 
 
