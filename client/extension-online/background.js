@@ -15,12 +15,18 @@ chrome.browserAction.setBadgeText({
   text: "ON"
 });
 
-
-
+chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+    chrome.tabs.sendMessage(tabs[0].id, {action: "open_dialog_box"}, function(response) {});  
+  });
+});
 
 // chrome.runtime.onMessage.addListener(function(msg, _, sendResponse) {
-//   if(msg.message == "article" ) {
-//         sendResponse("Article received page started.");
+//   if(msg.status == "isLoggedIn" ) {
+//     // sendResponse("Logged in");
+//       chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
+//         sendResponse(token);
+//       });
 //       }
 //   });
 

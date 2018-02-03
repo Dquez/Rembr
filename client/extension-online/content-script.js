@@ -1,3 +1,21 @@
+// chrome.runtime.sendMessage({"status": "isLoggedIn"}, function(response) {
+//   console.log("Background page responded: " + response);
+// });
+
+chrome.identity.launchWebAuthFlow({url: "http://localhost:3001/login", 'interactive': true}, function (callback) {
+  console.log(callback);
+})
+chrome.identity.getProfileUserInfo(function (userInfo){
+  console.log(userInfo);
+})
+
+
+chrome.identity.getAuthToken({ 'interactive': true}, function(token) {
+  console.log(token);
+  // chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+  //   chrome.tabs.sendMessage(tabs[0].id, {action: "open_dialog_box"}, function(response) {});  
+  // });
+});
 
 $("#submit-article").on("click", (e)=>{
   e.preventDefault();
@@ -17,10 +35,10 @@ $("#submit-article").on("click", (e)=>{
        
     }
 }); 
-
-chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
-  // Use the token.
 });
+
+
+
 
 //CLIENT ID 610105421590-cmlmi74luvqehuok9pbd8bfmeacf3qn5.apps.googleusercontent.com
 // CLIENT SECRET skOyVGy8lsAhaXDQXfIlRi6t
@@ -63,10 +81,6 @@ chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
 // }); 
 
 
-chrome.runtime.sendMessage({"message": "article"}, function(response) {
-    console.log("Background page responded: " + response);
-  });
-});
 
 chrome.runtime.onMessage.addListener(function(msg, _, sendResponse) {
   console.log("Got message from background page: " + msg);
