@@ -2,39 +2,52 @@
 //   console.log("Background page responded: " + response);
 // });
 
-chrome.identity.launchWebAuthFlow({url: "http://localhost:3001/login", 'interactive': true}, function (callback) {
-  console.log(callback);
-})
+
+// chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+//   console.log(tabs);
+//   // chrome.tabs.sendMessage(tabs[0].id, {action: "open_dialog_box"}, function(response) {});  
+// });
+
 chrome.identity.getProfileUserInfo(function (userInfo){
-  console.log(userInfo);
+  if (!userInfo) {
+    chrome.identity.getAuthToken({ 'interactive': true}, function(token) {
+      if(!token){
+        chrome.identity.launchWebAuthFlow({url: "http://localhost:3001/login", 'interactive': true}, function (callback) {
+        console.log(callback);
+      })
+      } 
+    });
+  }
 })
-
-
-chrome.identity.getAuthToken({ 'interactive': true}, function(token) {
-  console.log(token);
-  // chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-  //   chrome.tabs.sendMessage(tabs[0].id, {action: "open_dialog_box"}, function(response) {});  
-  // });
-});
 
 $("#submit-article").on("click", (e)=>{
   e.preventDefault();
-  alert("Hello");
-  const title = $("#title").val().trim();
-  const tags = $('#tags option:selected').text();
-  const note = $("#note").val().trim();
-  const userArticle = {title, tags, note}
-  console.log(userArticle);
-  $.ajax({
-    url: "http://localhost:3001/login", 
-    type: "POST",
-    data:  userArticle,
-    success: function(data) {
-      console.log(data);
-      console.log("SUCCESS");
-       
-    }
-}); 
+
+  chrome.identity.getProfileUserInfo(function (userInfo){
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+      const email = userInfo.email;
+      const title = $("#title").val().trim();  
+      const url = tabs[0].url;  
+      const tags = $('#tags option:selected').text();
+      const note = $("#note").val().trim();
+      const date = Date.now();
+      const userArticle = {email, title, url, tags, note, date};
+    $.ajax({
+      url: "http://localhost:3001/login", 
+      type: "POST",
+      data:  userArticle,
+      success: function(data) {
+        console.log(data);
+        console.log("SUCCESS");  
+      },
+      fail: function(error){
+        console.log(error);
+      }
+  }); 
+  })
+    });
+    console.log(url);
+    
 });
 
 

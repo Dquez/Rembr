@@ -39,10 +39,7 @@ const articleFunctions = {
 
 router.get("/api/articles", articleFunctions.findAll)
 
-// router.post("/login", (req, res) => {
-//   console.log("LOGIN ROUTE");
-//   console.log(req.body);
-// });
+router.post("/login", articleFunctions.create);
 // router.post("/api/article", articleFunctions.create)
 
 // router.delete("/api/books/:id", bookFunctions.remove)

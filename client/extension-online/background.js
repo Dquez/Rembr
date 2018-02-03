@@ -1,34 +1,6 @@
-var lastTabId = -1;
-
-function sendMessage() {
-  chrome.tabs.query({
-    active: true,
-    currentWindow: true
-  }, function (tabs) {
-    lastTabId = tabs[0].id;
-    chrome.tabs.sendMessage(lastTabId, "Background page started.");
-  });
-}
-
-sendMessage();
 chrome.browserAction.setBadgeText({
   text: "ON"
 });
-
-chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-    chrome.tabs.sendMessage(tabs[0].id, {action: "open_dialog_box"}, function(response) {});  
-  });
-});
-
-// chrome.runtime.onMessage.addListener(function(msg, _, sendResponse) {
-//   if(msg.status == "isLoggedIn" ) {
-//     // sendResponse("Logged in");
-//       chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
-//         sendResponse(token);
-//       });
-//       }
-//   });
 
 // chrome.runtime.onMessage.addListener(function (msg, _, sendResponse) {
 //   if (msg.message == "article") {
@@ -44,25 +16,6 @@ chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
 //     // }
 //     // xhr.send();
 
-//     $.ajax({
-//       url: "http://localhost:3001/login",
-//       type: "POST",
-//       success: function (data) {
-//         console.log(data);
-//         console.log("SUCCESS");
-//         sendResponse("Article was posted to the DB page started.");
-//         // $.ajax({
-//         //     url: "http://localhost/login", type: "POST", data: {
-//         //         "email": "me@alberto-elias.com",
-//         //         "password": "mypassword",
-//         //     },
-//         // dataType: "html",
-//         // success: function(data) {
-//         //    //now you can parse your report screen
-//         // }
-//         // });
-//       }
-//     });
 
 //   }
 // });
