@@ -4,7 +4,7 @@
   "short_name": "Rembr App",
   "name": "React Extension",
   "version": "1.0.1", 
-  "permissions": ["http://*/", "https://*/", "activeTab", "tabs", "bookmarks", "identity",  "identity.email", "https://accounts.google.com/*", "https://www.googleapis.com/*"],
+  "permissions": ["http://*/", "https://*/", "activeTab", "tabs", "bookmarks", "identity",  "identity.email", "http://localhost:3000/*", "http://localhost:3001/*", "https://accounts.google.com/*", "https://www.googleapis.com/*"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false

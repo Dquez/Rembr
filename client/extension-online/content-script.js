@@ -7,16 +7,44 @@
 //   console.log(tabs);
 //   // chrome.tabs.sendMessage(tabs[0].id, {action: "open_dialog_box"}, function(response) {});  
 // });
+// chrome.identity.getRedirectURL(string path)
+
+// chrome.identity.launchWebAuthFlow({url: "http://localhost:3001/login", 'interactive': true}, function (callback) {
+//     console.log(callback);
+//   })
+  
+chrome.identity.getAuthToken({'interactive': true}, function(token) {
+  if(!token){
+  //   chrome.identity.launchWebAuthFlow({url: "http://localhost:3001/login", 'interactive': true}, function (callback) {
+  //   console.log(callback);
+  // })
+  } 
+});
 
 chrome.identity.getProfileUserInfo(function (userInfo){
   if (!userInfo) {
-    chrome.identity.getAuthToken({ 'interactive': true}, function(token) {
-      if(!token){
-        chrome.identity.launchWebAuthFlow({url: "http://localhost:3001/login", 'interactive': true}, function (callback) {
-        console.log(callback);
-      })
-      } 
-    });
+    // chrome.identity.getAuthToken({ 'interactive': true}, function(token) {
+    //   if(!token){
+
+
+      chrome.identity.getAuthToken({'interactive': true}, function(token) {
+        if(!token){
+        //   chrome.identity.launchWebAuthFlow({url: "http://localhost:3001/login", 'interactive': true}, function (callback) {
+        //   console.log(callback);
+        // })
+        } 
+      });
+
+
+
+      //   chrome.identity.launchWebAuthFlow({url: "http://localhost:3001/login", 'interactive': true}, function (callback) {
+      //   // console.log(callback);
+      //   chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
+      //     location.replace(tabs[0].url);
+      //   });
+      // })
+    //   } 
+    // });
   }
 })
 
@@ -46,8 +74,6 @@ $("#submit-article").on("click", (e)=>{
   }); 
   })
     });
-    console.log(url);
-    
 });
 
 

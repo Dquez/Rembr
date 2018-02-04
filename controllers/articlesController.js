@@ -1,7 +1,7 @@
 const path = require("path");
 const router = require("express").Router();
 const db = require("../models");
-
+const authCheck = require("../server");
 const articleFunctions = {
   findAll: function (req, res) {
     db.Article
@@ -37,9 +37,10 @@ const articleFunctions = {
   }
 }
 
-router.get("/api/articles", articleFunctions.findAll)
+router.get("/api/articles", authCheck, articleFunctions.findAll)
 
 router.post("/login", articleFunctions.create);
+
 // router.post("/api/article", articleFunctions.create)
 
 // router.delete("/api/books/:id", bookFunctions.remove)
