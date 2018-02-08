@@ -1,46 +1,6 @@
-var lastTabId = -1;
-
-function sendMessage() {
-  chrome.tabs.query({
-    active: true,
-    currentWindow: true
-  }, function (tabs) {
-    lastTabId = tabs[0].id;
-    chrome.tabs.sendMessage(lastTabId, "Background page started.");
-  });
-}
-
-sendMessage();
 chrome.browserAction.setBadgeText({
   text: "ON"
 });
-
-// chrome.runtime.onMessage.addListener(function(request, sender, callback) {
-//   if (request.action == "xhttp") {
-
-//     $.ajax({
-//         type: request.method,
-//         url: request.url,
-//         data: request.data,
-//         success: function(responseText){
-//             callback(" request.action");
-//         },
-//         error: function(XMLHttpRequest, textStatus, errorThrown) {
-//             //if required, do some error handling
-//             callback();
-//         }
-//     });
-
-//     return true; // prevents the callback from being called too early on return
-//   }
-// });
-
-
-// chrome.runtime.onMessage.addListener(function(msg, _, sendResponse) {
-//   if(msg.message == "article" ) {
-//         sendResponse("Article received page started.");
-//       }
-//   });
 
 // chrome.runtime.onMessage.addListener(function (msg, _, sendResponse) {
 //   if (msg.message == "article") {
@@ -56,25 +16,6 @@ chrome.browserAction.setBadgeText({
 //     // }
 //     // xhr.send();
 
-//     $.ajax({
-//       url: "http://localhost:3001/login",
-//       type: "POST",
-//       success: function (data) {
-//         console.log(data);
-//         console.log("SUCCESS");
-//         sendResponse("Article was posted to the DB page started.");
-//         // $.ajax({
-//         //     url: "http://localhost/login", type: "POST", data: {
-//         //         "email": "me@alberto-elias.com",
-//         //         "password": "mypassword",
-//         //     },
-//         // dataType: "html",
-//         // success: function(data) {
-//         //    //now you can parse your report screen
-//         // }
-//         // });
-//       }
-//     });
 
 //   }
 // });

@@ -4,10 +4,11 @@ const router = require("express").Router();
 
 
 
-router.post("/login", (req, res) => {
-  console.log("LOGIN ROUTE");
-  console.log(req.body);
-});
+// router.post("/login", (req, res) => {
+//   console.log("LOGIN ROUTE");
+//   console.log(req.body);
+//   res.send("Message receieved");
+// });
 // router.post("/api/article", articleFunctions.create)
 
 // router.delete("/api/books/:id", bookFunctions.remove)

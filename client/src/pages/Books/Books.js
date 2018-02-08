@@ -5,28 +5,35 @@ import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
-
+import {getUserInfo} from '../../utils/AuthService'; 
 class Books extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: [],
+      articles: [],
       title: "",
       url: "",
       note: ""
     };
   }
 
+
   // When the component mounts, load all books and save them to this.state.books
   componentDidMount() {
-    this.loadBooks();
+    // callback function to retrieve the user's email from the AuthService file
+    getUserInfo(email=> {
+      // console.log(email);
+      this.loadBooks(email);
+    })
+
+    
   }
 
   // Loads all books  and sets them to this.state.books
-  loadBooks = () => {
-    API.getArticles()
+  loadBooks = (email) => {
+    API.getArticles(email)
       .then(res =>
-        this.setState({ books: res.data, title: "", url: "", note: "" })
+        this.setState({ articles: res.data, title: "", url: "", note: "" })
       )
       .catch(err => console.log(err));
   };
@@ -65,7 +72,7 @@ class Books extends React.Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6">
+          {/* <Col size="md-6">
             <Jumbotron>
               <h1>What Books Should I Read?</h1>
             </Jumbotron>
@@ -95,22 +102,25 @@ class Books extends React.Component {
                 Submit Book
               </FormBtn>
             </form>
-          </Col>
+          </Col> */}
           <Col size="md-6 sm-12">
             <Jumbotron>
-              <h1>Books On My List</h1>
+              <h1>Articles on my list</h1>
             </Jumbotron>
-            {this.state.books.length ? (
+            {this.state.articles.length ? (
               <List>
-                {this.state.books.map(book => {
+                {this.state.articles.map(article => {
                   return (
-                    <ListItem key={book._id}>
-                      <a href={"/books/" + book._id}>
-                        <strong>
-                          {book.title} by {book.url} and {book.note}
-                        </strong>
-                      </a>
-                      <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                    <ListItem key={article._id}>
+                      {/* <a href={"/books/" + book._id}> */}
+                      <a href={article.url}>
+                      <strong><h3> {article.title} seen on {article.date} <br/> </h3> </strong>
+                        </a>
+                          <p>Note : {article.note}</p>
+                          <p>Tags: </p>
+                          <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
+                          </ul>                          
+                      <DeleteBtn onClick={() => this.deleteBook(article._id)} />
                     </ListItem>
                   );
                 })}

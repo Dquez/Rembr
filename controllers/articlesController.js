@@ -1,16 +1,17 @@
 const path = require("path");
 const router = require("express").Router();
 const db = require("../models");
-
+const authCheck = require("../server.js");
 const articleFunctions = {
   findAll: function (req, res) {
+    console.log(req.params.email);
     db.Article
-      .find(req.query)
+      .find({email : req.params.email})
       .sort({ date: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  findById: function (req, res) {
+  findByEmail: function (req, res) {
     db.Article
       .findById(req.params.id)
       .then(dbModel => res.json(dbModel))
@@ -37,12 +38,11 @@ const articleFunctions = {
   }
 }
 
-router.get("/api/articles", articleFunctions.findAll)
+router.get("/api/articles/:email", articleFunctions.findAll);
 
-// router.post("/login", (req, res) => {
-//   console.log("LOGIN ROUTE");
-//   console.log(req.body);
-// });
+router.post("/login", articleFunctions.create);
+
+
 // router.post("/api/article", articleFunctions.create)
 
 // router.delete("/api/books/:id", bookFunctions.remove)

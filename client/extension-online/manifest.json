@@ -1,20 +1,27 @@
 {
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvcPwqkk/1CliSczPg7vKG6Q6iTnovjFk8ozpnuPNwSdZNAU+6N7zfo0ptZeUUiTsyB9DCJpjxXIVJNqU/spzhwj6GxVkD38CLiQWWeF0cENNgihh7K5cJCFVRvoWUOPhiKbVsBUNnJsXKirCmdhqvzZ35514SFod72dXf5iZgWRUA39LK+P9dJBQpEJnKXirS4YyydgOGNLtxj2YBia+1cR0JRK6aDtZqZrhCZKjUnzcY99e62j3dOnKGmooj+lARVtjvw4v0I9tDMLzSrPLZ+iTwse7KVTZjUlei3mcPjGYUruA5+4KfC/kV7DQQsBifFEtB232AornczZivMVoOwIDAQAB",
   "manifest_version": 2,
   "short_name": "Rembr App",
   "name": "React Extension",
-  "version": "1.0", 
-  "permissions": ["http://*/", "https://*/", "activeTab", "tabs", "declarativeWebRequest", "bookmarks", "http://localhost:3000/*", "http://localhost:3001/*", "https://accounts.google.com/o/oauth2/token" ],
+  "version": "1.0.1", 
+  "permissions": ["http://*/", "https://*/", "activeTab", "tabs", "bookmarks", "identity",  "identity.email", "http://localhost:3000/*", "http://localhost:3001/*", "https://accounts.google.com/*", "https://www.googleapis.com/*"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>", "http://localhost:3001/*", "http://www.google.com/robots.txt*"],
-      "js": [ "jquery.js", "oauth2/oauth2_inject.js", "content-script.js"],
-      "run_at": "document_start"
+      "matches": ["<all_urls>", "http://localhost:3001/*", "http://localhost:3000/*"],
+      "js": [ "jquery.js", "content-script.js"]
     }
   ],
+  "oauth2": {
+    "client_id": "610105421590-cmlmi74luvqehuok9pbd8bfmeacf3qn5.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive"
+      
+    ]
+  },
   "browser_action": {
     "default_popup": "rembr-ext.html",
     "default_title": "React Ext"
