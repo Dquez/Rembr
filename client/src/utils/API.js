@@ -1,14 +1,28 @@
 import axios from "axios";
+import { getAccessToken } from './AuthService';
+
+const BASE_URL = 'http://localhost:3000';
 
 export default {
   // Gets all books
-  getArticles: function () {
-    return axios.get("/api/articles");
+  getArticles: function (email) {
+    // const userEmail = {
+    //   email : email
+    // }
+    // console.log(email);
+    const url = `${BASE_URL}/api/articles/${email}`;
+    // console.log(url);
+    return axios.get(url, email);
+
+    // .then(response => response.data)
   },
   postArticle: function(article) {
     console.log(article)
     return axios.post("/login", article);
   }
+}
+
+
   // // Deletes the book with the given id
   // deleteBook: function (id) {
   //   return axios.delete("/api/books/" + id);
@@ -24,4 +38,4 @@ export default {
   // patchBook: function (id, bookData) {
   //   return axios.patch("/api/books/" + id, bookData);
   // },
-};
+

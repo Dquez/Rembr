@@ -5,7 +5,7 @@ import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
-
+import {getUserInfo} from '../../utils/AuthService'; 
 class Books extends React.Component {
   constructor(props) {
     super(props);
@@ -17,14 +17,21 @@ class Books extends React.Component {
     };
   }
 
+
   // When the component mounts, load all books and save them to this.state.books
   componentDidMount() {
-    this.loadBooks();
+    // callback function to retrieve the user's email from the AuthService file
+    getUserInfo(email=> {
+      // console.log(email);
+      this.loadBooks(email);
+    })
+
+    
   }
 
   // Loads all books  and sets them to this.state.books
-  loadBooks = () => {
-    API.getArticles()
+  loadBooks = (email) => {
+    API.getArticles(email)
       .then(res =>
         this.setState({ articles: res.data, title: "", url: "", note: "" })
       )
