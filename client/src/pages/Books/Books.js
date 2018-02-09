@@ -22,7 +22,6 @@ class Books extends React.Component {
   componentDidMount() {
     // callback function to retrieve the user's email from the AuthService file
     getUserInfo(email=> {
-      // console.log(email);
       this.loadBooks(email);
     })
 

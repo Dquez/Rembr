@@ -4,12 +4,6 @@ import Jumbotron from "../../components/Jumbotron";
 import { isLoggedIn, getIdToken, getAccessToken } from '../../utils/AuthService';
 import { Link } from 'react-router-dom';
 class NoMatch extends React.Component {
-
-  componentDidMount() {
-    // console.log(getIdToken());
-    // console.log(getAccessToken());
-  }
-
   render() {
 
     return (
