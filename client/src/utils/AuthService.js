@@ -25,12 +25,14 @@ export function login() {
 
 
 export function getUserInfo(callback) {
-    // function getEmail() {
+    try {
         auth.client.userInfo(getAccessToken(), function (err, user) {
             callback(user.email)
         });
-    // }
-    // return getEmail();
+      }
+      catch(error) {
+        console.log(error);
+      }
 }
 
 

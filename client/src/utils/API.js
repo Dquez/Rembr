@@ -6,15 +6,8 @@ const BASE_URL = 'http://localhost:3000';
 export default {
   // Gets all books
   getArticles: function (email) {
-    // const userEmail = {
-    //   email : email
-    // }
-    // console.log(email);
     const url = `${BASE_URL}/api/articles/${email}`;
-    // console.log(url);
     return axios.get(url, email);
-
-    // .then(response => response.data)
   },
   postArticle: function(article) {
     console.log(article)

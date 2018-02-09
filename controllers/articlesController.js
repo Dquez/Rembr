@@ -4,7 +4,6 @@ const db = require("../models");
 const authCheck = require("../server.js");
 const articleFunctions = {
   findAll: function (req, res) {
-    console.log(req.params.email);
     db.Article
       .find({email : req.params.email})
       .sort({ date: -1 })
