@@ -1,22 +1,12 @@
-
-// chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-//   console.log(tabs);
-//   // chrome.tabs.sendMessage(tabs[0].id, {action: "open_dialog_box"}, function(response) {});  
-// });
-
 chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
   // Use the token.
 });
-
-
 
 $("#logout").on("click", (e)=>{
   chrome.identity.getAuthToken({'interactive': true}, function(token) {
     chrome.identity.removeCachedAuthToken({"token" : token}, (function(){}));
   })
 })
-
-
 
 $("#getTabs").on("click", (e)=>{
   e.preventDefault();
@@ -46,67 +36,42 @@ $("#getTabs").on("click", (e)=>{
   })
 })
 
-
-// chrome.identity.getProfileUserInfo(function (userInfo){
-//   if (!userInfo) {
-//     // chrome.identity.getAuthToken({ 'interactive': true}, function(token) {
-//     //   if(!token){
-
-
-
-
-
-    
-//       //   chrome.identity.launchWebAuthFlow({url: "http://localhost:3001/login", 'interactive': true}, function (callback) {
-//       //   // console.log(callback);
-//       //   chrome.tabs.query({active: true, currentWindow: true}, function(tabs){ 
-//       //     location.replace(tabs[0].url);
-//       //   });
-//       // })
-//     //   } 
-//     // });
-//   }
-// })
-
 $("#submit-article").on("click", (e)=>{
   e.preventDefault();
 
-  chrome.identity.getProfileUserInfo(function (userInfo){
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-      let url = null;
-      // If statement to determine whether or not the user selected one of the tabs from the list of tabs.
-      if ($('#tabs option:selected').text() !== "Select one of the tabs from the list") {
-        url = $('#tabs option:selected').data("url");
-      }
-      const email = userInfo.email;
-      const title = $("#title").val().trim(); 
-      // if they selected a tab from the list, it will be chosen, else the current tab is chosen. 
-      url = url || tabs[0].url; 
-      // console.log(url); 
-      const tags = $('#tags option:selected').text();
-      const note = $("#note").val().trim();
-      const date = Date.now();
-      const userArticle = {email, title, url, tags, note, date};
-      console.log(userArticle);
-    $.ajax({
-      url: "http://localhost:3001/login", 
-      type: "POST",
-      data:  userArticle,
-      success: function(data) {
-        console.log(data);
-        if(url !== tabs[0].url) {
-          chrome.tabs.remove($('#tabs option:selected').data("id"), function (){
-            alert(`Successfully removed ${$('#tabs option:selected').text()}`)
-          })
-        }
-      },
-      fail: function(error){
-        console.log(error);
-      }
-  }); 
+    chrome.identity.getProfileUserInfo(function (userInfo){
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
 
-
-  })
+          let url = null;
+          // If statement to determine whether or not the user selected one of the tabs from the list of tabs.
+          if ($('#tabs option:selected').text() !== "Select one of the tabs from the list") {
+            url = $('#tabs option:selected').data("url");
+          }
+          const email = userInfo.email;
+          const title = $("#title").val().trim(); 
+          // if they selected a tab from the list, it will be chosen, else the current tab is chosen. 
+          url = url || tabs[0].url; 
+          const tags = $('#tags option:selected').text();
+          const note = $("#note").val().trim();
+          const date = Date.now();
+          const userArticle = {email, title, url, tags, note, date};
+        $.ajax({
+          url: "http://localhost:3001/rembrTab", 
+          type: "POST",
+          data:  userArticle,
+          success: function(data) {
+            console.log(data);
+            if(url !== tabs[0].url) {
+              chrome.tabs.remove($('#tabs option:selected').data("id"), function (){
+                alert(`Successfully removed ${$('#tabs option:selected').text()}`)
+              })
+            }
+          },
+          fail: function(error){
+            console.log(error);
+          }
+        }); 
+      })
     });
 });
 

@@ -39,7 +39,7 @@ const articleFunctions = {
 
 router.get("/api/articles/:email", articleFunctions.findAll);
 
-router.post("/login", articleFunctions.create);
+router.post("/rembrTab", articleFunctions.create);
 
 
 // router.post("/api/article", articleFunctions.create)
