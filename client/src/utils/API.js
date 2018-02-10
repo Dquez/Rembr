@@ -7,7 +7,6 @@ import { getAccessToken } from './AuthService';
 export default {
   // Gets all books
   getArticles: function (email) {
-    console.log(email);
     // const url = `${BASE_URL}/api/articles/${email}`;
     return axios.get(`api/articles/${email}`, email);
   },
