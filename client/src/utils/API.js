@@ -7,6 +7,7 @@ const BASE_URL = "https://rembr-app.herokuapp.com/";
 export default {
   // Gets all books
   getArticles: function (email) {
+    console.log(email);
     const url = `${BASE_URL}/api/articles/${email}`;
     return axios.get(url, email);
   },
