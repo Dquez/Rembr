@@ -1,15 +1,15 @@
 import axios from "axios";
 import { getAccessToken } from './AuthService';
 
-const BASE_URL = "https://rembr-app.herokuapp.com/";
+// const BASE_URL = "https://rembr-app.herokuapp.com/";
 // const BASE_URL = "http://localhost:3000";
 
 export default {
   // Gets all books
   getArticles: function (email) {
     console.log(email);
-    const url = `${BASE_URL}/api/articles/${email}`;
-    return axios.get(url, email);
+    // const url = `${BASE_URL}/api/articles/${email}`;
+    return axios.get(`api/articles/${email}`, email);
   },
   postArticle: function(article) {
     console.log(article)
