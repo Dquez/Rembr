@@ -21,11 +21,12 @@
   "dependencies": {
     "auth0-js": "^9.2.1",
     "axios": "^0.16.2",
-    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
+    "dotenv": "^5.0.0",
     "express": "^4.15.4",
     "express-jwt": "^5.3.0",
+    "indico.io": "^0.10.5",
     "jwks-rsa": "^1.2.1",
     "jwt-decode": "^2.2.0",
     "mongoose": "^4.11.7",
