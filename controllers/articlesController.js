@@ -1,7 +1,18 @@
 const path = require("path");
 const router = require("express").Router();
 const db = require("../models");
-const authCheck = require("../server.js");
+const indico = require('indico.io');
+indico.apiKey = process.env.INDICO_API_KEY;
+
+// // single example
+// indico.sentiment("I love writing code!")
+//   .then(response => {
+//     console.log(response);
+//   })
+//   .catch(logError);
+
+
+
 const articleFunctions = {
   findAll: function (req, res) {
     db.Article
@@ -16,9 +27,9 @@ const articleFunctions = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  create: function (req, res) {
+  create: function (dbArticle, res) {
     db.Article
-      .create(req.body)
+      .create(dbArticle)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -39,7 +50,25 @@ const articleFunctions = {
 
 router.get("/api/articles/:email", articleFunctions.findAll);
 
-router.post("/rembrTab", articleFunctions.create);
+router.post("/rembrTab", (req, res)=> {
+const {email, title, url, note, date} = req.body;
+
+//String of the title, url and note to use the indico machine learning API to parse the data develop text tags for each article or webpage saved
+const input = `${title}, ${url}, ${note}`;
+
+indico.text_tags(input, {threshold: 0.08})
+  .then(response => {
+    const tags = [];
+    for(tag in response) {
+      tags.push(tag);
+    }
+    const dbArticle = {email, title, url, note, date, tags};
+    articleFunctions.create(dbArticle, res);
+  })
+  .catch(err => console.log(err));
+});
+
+
 
 
 // router.post("/api/article", articleFunctions.create)

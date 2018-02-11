@@ -5,10 +5,6 @@
   "name": "Rembr",
   "version": "1.0.3", 
   "permissions": ["http://*/", "https://*/", "activeTab", "tabs", "bookmarks", "identity",  "identity.email", "https://accounts.google.com/*", "https://www.googleapis.com/*"],
-  "background": {
-    "scripts": ["background.js"],
-    "persistent": false
-  },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],

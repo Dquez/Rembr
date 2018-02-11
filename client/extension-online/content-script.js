@@ -1,11 +1,19 @@
 chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
-  // Use the token.
+  chrome.browserAction.setBadgeText({
+    text: "ON"
+  });
 });
 
 $("#logout").on("click", (e)=>{
-  chrome.identity.getAuthToken({'interactive': true}, function(token) {
-    chrome.identity.removeCachedAuthToken({"token" : token}, (function(){}));
-  })
+  e.preventDefault()
+  const options = {
+    'interactive': true,
+    'url': 'https://accounts.google.com/logout'
+  }
+  chrome.identity.launchWebAuthFlow(options, function() {});
+    chrome.browserAction.setBadgeText({
+      text: "OFF"
+    });
 })
 
 $("#getTabs").on("click", (e)=>{
@@ -51,12 +59,13 @@ $("#submit-article").on("click", (e)=>{
           const title = $("#title").val().trim(); 
           // if they selected a tab from the list, it will be chosen, else the current tab is chosen. 
           url = url || tabs[0].url; 
-          const tags = $('#tags option:selected').text();
+          // const tags = $('#tags option:selected').text();
           const note = $("#note").val().trim();
           const date = Date.now();
-          const userArticle = {email, title, url, tags, note, date};
+          const userArticle = {email, title, url, note, date};
         $.ajax({
-          url: "https://rembr-app.herokuapp.com/rembrTab", 
+          // url: "https://rembr-app.herokuapp.com/rembrTab", 
+          url: "http://localhost:3000/rembrTab",
           type: "POST",
           data:  userArticle,
           success: function(data) {
