@@ -4,15 +4,6 @@ const db = require("../models");
 const indico = require('indico.io');
 indico.apiKey = process.env.INDICO_API_KEY;
 
-// // single example
-// indico.sentiment("I love writing code!")
-//   .then(response => {
-//     console.log(response);
-//   })
-//   .catch(logError);
-
-
-
 const articleFunctions = {
   findAll: function (req, res) {
     db.Article
@@ -60,6 +51,9 @@ indico.text_tags(input, {threshold: 0.08})
   .then(response => {
     const tags = [];
     for(tag in response) {
+      if(tag.includes("_")){
+        tag.replace("_", " ");
+      }
       tags.push(tag);
     }
     const dbArticle = {email, title, url, note, date, tags};

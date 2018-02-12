@@ -33,13 +33,12 @@ app.use(cors());
 // module.exports = authCheck;
 
 const articlesController = require("./controllers/articlesController");
-const indicoController = require("./controllers/indicoController");
 // Serve up static assets
 app.use(express.static("client/build"));
 // Add routes, both API and view
 app.use(articlesController);
-// route for authenticating user's cookie
-// app.use(indicoController);
+
+
 
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;

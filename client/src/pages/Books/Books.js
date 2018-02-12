@@ -2,10 +2,13 @@ import React from "react";
 import Jumbotron from "../../components/Jumbotron";
 import DeleteBtn from "../../components/DeleteBtn";
 import API from "../../utils/API";
+import Nav from "../../components/Nav";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import {getUserInfo} from '../../utils/AuthService'; 
+import "./article.css";
+
 class Books extends React.Component {
   constructor(props) {
     super(props);
@@ -71,37 +74,12 @@ class Books extends React.Component {
     return (
       <Container fluid>
         <Row>
-          {/* <Col size="md-6">
-            <Jumbotron>
-              <h1>What Books Should I Read?</h1>
-            </Jumbotron>
-            <form>
-              <Input
-                value={this.state.title}
-                onChange={this.handleInputChange}
-                name="title"
-                placeholder="Title (required)"
-              />
-              <Input
-                value={this.state.author}
-                onChange={this.handleInputChange}
-                name="author"
-                placeholder="Author (required)"
-              />
-              <TextArea
-                value={this.state.synopsis}
-                onChange={this.handleInputChange}
-                name="synopsis"
-                placeholder="Synopsis (Optional)"
-              />
-              <FormBtn
-                disabled={!(this.state.author && this.state.title)}
-                onClick={this.handleFormSubmit}
-              >
-                Submit Book
-              </FormBtn>
-            </form>
-          </Col> */}
+          <Col style="side-bar" size="md-3">
+            <Nav>
+
+
+            </Nav>
+          </Col>
           <Col size="md-6 sm-12">
             <Jumbotron>
               <h1>Articles on my list</h1>
