@@ -28,7 +28,12 @@ export function login() {
 export function getUserInfo(callback) {
     try {
         auth.client.userInfo(getAccessToken(), function (err, user) {
-            callback(user.email)
+            try {
+                callback(user.email)
+            }
+            catch(err) {
+                console.log(err);
+            }
         });
       }
       catch(error) {

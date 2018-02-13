@@ -7,7 +7,7 @@ const articleSchema = new Schema({
   url: { type: String, required: true },
   tags: {type: Array},
   note: {type: String},
-  isAssigned: {type: Boolean, default: false},
+  saveForLater: {type: Boolean, default: false},
   favorited: {type: Boolean, default: false},
   date: { type: Date, default: Date.now() }
 });

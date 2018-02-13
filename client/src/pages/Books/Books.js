@@ -1,5 +1,5 @@
 import React from "react";
-import Jumbotron from "../../components/Jumbotron";
+import Banner from "../../components/Banner";
 import DeleteBtn from "../../components/DeleteBtn";
 import API from "../../utils/API";
 import Nav from "../../components/Nav";
@@ -7,6 +7,9 @@ import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import {getUserInfo} from '../../utils/AuthService'; 
+import Particles from 'react-particles-js';
+import particlesConfig from "./particlesConfig.json";
+import PriorityBtn from "../../components/PriorityBtn";
 import "./article.css";
 
 class Books extends React.Component {
@@ -20,15 +23,12 @@ class Books extends React.Component {
     };
   }
 
-
   // When the component mounts, load all books and save them to this.state.books
   componentDidMount() {
     // callback function to retrieve the user's email from the AuthService file
     getUserInfo(email=> {
       this.loadBooks(email);
-    })
-
-    
+    }) 
   }
 
   // Loads all books  and sets them to this.state.books
@@ -71,22 +71,28 @@ class Books extends React.Component {
   };
 
   render() {
+    let priority = this.state.articles.filter(article=> !article.saveForLater && !article.favorited);
+    let backlog = this.state.articles.filter(article=> article.saveForLater);
+    let favorites = this.state.articles.filter(article=> article.favorited);
     return (
       <Container fluid>
         <Row>
-          <Col style="side-bar" size="md-3">
-            <Nav>
-
-
-            </Nav>
+          <Col style="side-bar" size="md-2">
+            <Nav/>
           </Col>
-          <Col size="md-6 sm-12">
-            <Jumbotron>
-              <h1>Articles on my list</h1>
-            </Jumbotron>
+          <Col style="main" size="md-9 sm-12">
+            <Banner>
+              <h1>Articles on my list</h1>  
+            </Banner>
+            <Particles style={{position:"relative", float:"left"}} params={particlesConfig}/>
+            <Container fluid>
+            <Row>
+              <Col size="md-4">
+              
             {this.state.articles.length ? (
               <List>
-                {this.state.articles.map(article => {
+                <h3>Priority</h3>
+                {priority.map(article => {
                   return (
                     <ListItem key={article._id}>
                       {/* <a href={"/books/" + book._id}> */}
@@ -105,6 +111,58 @@ class Books extends React.Component {
             ) : (
                 <h3>No Results to Display</h3>
               )}
+              </Col>
+              <Col size="md-4">
+              
+              {this.state.articles.length ? (
+                <List>
+                  <h3>Backlog</h3>
+                  {backlog.map(article => {
+                    return (
+                      <ListItem key={article._id}>
+                        {/* <a href={"/books/" + book._id}> */}
+                        <a href={article.url}>
+                        <strong><h3> {article.title} seen on {article.date} <br/> </h3> </strong>
+                          </a>
+                            <p>Note : {article.note}</p>
+                            <p>Tags: </p>
+                            <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
+                            </ul>                          
+                        <PriorityBtn type="priority" onClick={() => console.log("Clicked1")} />
+                      </ListItem>
+                    );
+                  })}
+                </List>
+              ) : (
+                  <h3>No Results to Display</h3>
+                )}
+                </Col>
+                <Col size="md-4">
+              {this.state.articles.length ? (
+                <List>
+                  <h3>Favorites</h3>
+                  {favorites.map(article => {
+                    return (
+                      <ListItem key={article._id}>
+                        {/* <a href={"/books/" + book._id}> */}
+                        <a href={article.url}>
+                        <strong><h3> {article.title} seen on {article.date} <br/> </h3> </strong>
+                          </a>
+                            <p>Note : {article.note}</p>
+                            <p>Tags: </p>
+                            <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
+                            </ul>                          
+                            <PriorityBtn type="backlog" onClick={() => console.log("Clicked2")} />
+                      </ListItem>
+                    );
+                  })}
+                </List>
+              ) : (
+                  <h3>No Results to Display</h3>
+                )}
+                </Col>
+              </Row>
+              </Container>
           </Col>
         </Row>
       </Container>
