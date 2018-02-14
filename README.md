@@ -1,42 +1,54 @@
-# Create React Express App
+# Rembr
+Rembr is a MERN, single-page web application for people who are tired of slowing down their computers with countless tabs and browsers open. Rembr's utility lies in the accompanying Chrome extension that saves a page's url, a custom title, and a note to remember why you saved the page in the first place. The extension and access to the web app free of charge, the only thing required is a gmail account so you can log in to the chrome extension and web app using the same email. Once you're logged in, save your webpage using the extension for later reading and then visit the web application when you're ready to read or organize your saved pages. An intuitive, personalized bookmarking system.
 
-## About This Boilerplate
+### [Rembr](https://rembr-app.herokuapp.com/) deployed on heroku
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+## Built With
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+* [auth0](https://www.npmjs.com/package/auth0-js) - Client Side Javascript toolkit for Auth0 API, authentication service
+* [axios](https://www.npmjs.com/package/axios) - Make XMLHttpRequests from the browser
+* [body-parser](https://www.npmjs.com/package/body-parser) - Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
+* [bootstrap](https://getbootstrap.com/) - Front-end framework for styling
+* [chrome extension](https://developer.chrome.com/extensions/devguide) - Has access to HTML5, JSON, Chrome-specific APIs 
+* [express](https://www.npmjs.com/package/express) - Framework we used to handle HTTP requests
+* [indico.io](https://www.npmjs.com/package/indico.io) - Artificial Intelligence APIs, Text Tagging used in this web app
+* [jQuery](https://jquery.com/) - Front-end JavaScript library. 
+* [mongoose](https://www.npmjs.com/package/mongoose) Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment.
+* [nodemon](https://www.npmjs.com/package/nodemon) - Watches the files in the directory in which nodemon was started, and if any files change, nodemon will automatically restart your node application.
+* [react](https://reactjs.org/) - A JavaScript library for building component-based user interfaces
+* [react-router-dom](https://www.npmjs.com/package/react-router) - Enables client-side routing and component rendering
 
-## Starting the app locally
+## Inspiration
+As any web developer will tell you, we love having multiple tabs open. Even if we don't intend on using the content of the tab for days, weeks, *or months*, we keep them open for that one time we might need the content on hand. This slows down your browser, prevents you from restarting your computer in fear of losing your precious tabs (*although with modern browsers, on restart, the browser will ask you to restore your tabs*). I wanted a way to avoid this pain point, without cluttering up my bookmarks with random web pages. *Fun fact* : During production, my active broswer window alone had 27 tabs open that I just couldn't let go of. 
 
-Start by installing front and backend dependencies. While in this directory, run the following commands:
+## How I built it
+Before I began coding out the app, I wireframed everything from the HTML page that pops up from the extension to the login and signup page. Mapping the structure of this app helped modularize all of my files in an MVC format and into reusable react components where applicable. My process:
+ * Wireframes
+ * Node-express server with MongoDB and front-end boilerplate code for React
+ * Chrome extension to get XMLHTTP requests sending to the server.
+ * Authentication for the chrome extension first (to have a email to assoicat the data with)
+ * Authentication for the client-side web app.
+ * Web designing, documentation
+ 
+The front-end for the web app is built with react, react-router-dom, and bootstrap. The backend is built with a node server, express framework and mongodb as a database. The extension uses HTML, bootstrap, and jquery/javascript.
 
-```
-yarn install
-cd client
-yarn install
-cd ..
-``
+## Challenges I ran into
+Before serious development even started, I knew I had to get ready to read the [chrome extension](https://developer.chrome.com/extensions/devguide) documentation. At first, the process of using background pages and content scripts seemed obscure but after reading through the docs, looking at examples, I was able to hone into exactly what my app needed. Some of the other *minor* issues I ran into along the way :
+* Develop a meaningful and original idea that solves a pain point that either I or the developer community face
+* Hooking up auth0 authentication for both the extension and the web app so users have access to their private data and it's secured. 
+* Developers available: as the sole developer for this app, my full-stack abilities were stretched to their limits as I tried to incorporate all functioning components into a polished web application. 
 
-After both installations complete, run the following command in your terminal:
+## Accomplishments that I'm proud of
+That being said, working on the entire app, from start to finish, including design specs, was immensly gratifying. Also, learning a new technology, google's [chrome extension](https://developer.chrome.com/extensions/devguide), proved to be a major boost in my confidence as a developer. Seamlessly including third party API's like particles-js and [indico.io](https://www.npmjs.com/package/indico.io) was also a great accomplishment.
 
-```
-yarn start
-```
 
-That's it, your app should be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
+## What I learned
+I learned how beneficial wireframing and brainstorming are before any major project. I also followed git version control best practices (checking out to a separate branch, not pushing to master), but more importantly I followed a work flow developed on Trello. I was able to quantify my progress by checking back with the goals I set out at the start of the project. The goals and expectations mutated as the project went on but I was always able to work towards a MVP with key pieces in mind that I needed to incorporate.
 
-## Deployment (Heroku)
 
-After confirming that you have an up to date git repository and a Heroku app created, complete the following:
+## What's next for Rembr
+I'd like to scale this app so it's more widely available and optimized if a large audience adapts the app into their daily lives. I'd also like to include a predictive modeling algorithm to let the user know of other articles they might be interested in. Lastly, I'd like to upload the DOM content of each saved article so the user can view their pages directly on Rembr, instead of opening on the web page in a new tab (*for those who want 100% departure from clutter*)
 
-1. Build the React app for production by running the following command:
+## Author
 
-```
-yarn build
-```
-
-2. Add and commit all changes to git
-
-3. Push to Heroku
-
-If all previous steps were followed correctly, your application should be deployed to Heroku!
+- [Dariell Vasquez](https://github.com/Dquez)
