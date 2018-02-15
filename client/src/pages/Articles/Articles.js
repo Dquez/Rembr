@@ -1,7 +1,8 @@
 import React from "react";
-import ReactTooltip from 'react-tooltip'
+import IconsContainer from "../../components/IconsContainer";
 import Banner from "../../components/Banner";
 import DeleteBtn from "../../components/DeleteBtn";
+import NoteIcon from "../../components/NoteIcon";
 import API from "../../utils/API";
 import Nav from "../../components/Nav";
 import { Col, Row, Container } from "../../components/Grid";
@@ -14,6 +15,7 @@ import particlesConfig from "./particlesConfig.json";
 import PriorityBtn from "../../components/PriorityBtn";
 import BacklogBtn from "../../components/BacklogBtn"; 
 import FavoriteBtn from "../../components/FavoriteBtn";
+import logo from './assets/images/R.png';
 import "./article.css";
 
 
@@ -22,7 +24,9 @@ class Articles extends React.Component {
     super(props);
     this.state = {
       articles: [],
-      email: ""
+      email: "",
+      articleId : null,
+      tag: ""
     };
   }
 
@@ -69,10 +73,28 @@ class Articles extends React.Component {
       .catch(err => console.log(err));
   };
 
+  handleInputChange = (e, articleId) => {
+    const {value} = e.target
+    this.setState ({
+      tag : value
+    })
+  }
+
+  handleSubmit = (e, id) => {
+    e.preventDefault();
+    const tag = this.state.tag;
+    API.addTag(id,tag)
+    .then(res => {
+      this.loadBooks(this.state.email);
+    })
+      .catch(err => console.log(err));
+  }
+
   render() {
     let priority = this.state.articles.filter(article=> !article.saveForLater && !article.favorited);
     let backlog = this.state.articles.filter(article=> article.saveForLater && !article.favorited);
     let favorites = this.state.articles.filter(article=> article.favorited);
+                        
     return (
       <Container fluid>
         <Row>
@@ -82,49 +104,60 @@ class Articles extends React.Component {
                 isLoggedIn() ?   <button className="btn btn-danger log" onClick={() =>{
                   logout()
                   window.location = "/books";
-                }}>Log out </button>: <button className="btn btn-info log" onClick={() => login()}>Log In</button>
+                }}>Log out </button>: <button className="btn btn-info" onClick={() => login()}>Log In</button>
             }
           </Col>
-          {/* <Container fluid> */}
           <Col style="main" size="md-10 sm-12">
           <Particles style={{position:"absolute"}} params={particlesConfig}/>
             <Banner>
-              <h1>Articles on my list</h1>  
+              <h4>Add Rembr to Chrome 
+                <a href="https://chrome.google.com/webstore/detail/rembr/mpbdabjachklldenkpdnpnhbnhoebnnm"><img src={logo} style={{width:"100px",height:"100px", marginLeft:"24px"}} target="_blank" alt="Rembr Icon" /></a>
+              </h4>  
             </Banner>
             <Row>
               <Col style="left-articles" size="md-4">
             {this.state.articles.length ? (
               <List>
-                <h3>Priority</h3>
+                <h3 style={{textAlign:"center"}}>Priority</h3>
                 {priority.map(article => {
-                  return (
-                    <div>
-                    <div data-tip={article.note}>
-                      <ReactTooltip place="right" type="info" effect="float"/>                    
-                      <ListItem key={article._id}>
+                  return (         
+                  <ListItem key={article._id}>
                       <a href={article.url}>
                       <strong><h3> {article.title} seen on {article.date} <br/> </h3> </strong>
                         </a>
-                          <p>Tags: </p>
-                          <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
+                          <div onClick={this.handleClickEvent}>
+                            <p>Tags:</p>
+                          
+                          <ul>{article.tags.length === 0 ? 
+                             <form style={{padding:"12px"}} onSubmit={(e) => {
+                              this.handleSubmit(e, article._id);
+                             }}>
+                             <input type="text" onChange={this.handleInputChange} className="form-control" placeholder="Enter a tag"/>
+                             </form>
+                            :
+                            article.tags.map((tag, i)=> <li key={i}>{tag}</li>)
+                            }
                           </ul>
-                      <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/>
-                      <BacklogBtn type="toBacklog" onClick={() => this.saveForLater(article._id, true)} />
+                          </div>
+                          <IconsContainer noteId="note" note={article.note}/>
+                          <IconsContainer favoriteId="favorite"> 
+                          <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/> </IconsContainer>
+                          <IconsContainer backlogId="backlog">
+                          <BacklogBtn type="toBacklog" onClick={() => this.saveForLater(article._id, true)} />
+                          </IconsContainer>
                       <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
-                    </ListItem>
-                    </div>
-                    </div>
+                </ListItem>
                   );
                 })}
               </List>
             ) : (
-                <h3>No Results to Display</h3>
+                <h3 style={{textAlign:"center"}}>No Results to Display Yet</h3>
               )}
               </Col>
               <Col style="mid-articles" size="md-4">
-              {this.state.articles.length ? (
+              {backlog.length ? (
                 <List>
-                  <h3>Backlog</h3>
+                  <h3 style={{textAlign:"center"}}>Backlog</h3>
                   {backlog.map(article => {
                     return (
                       <ListItem key={article._id}>
@@ -135,41 +168,50 @@ class Articles extends React.Component {
                             <p>Note : {article.note}</p>
                             <p>Tags: </p>
                             <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
-                            </ul>       
-                        <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/>
-                        <PriorityBtn onClick={() => this.saveForLater(article._id, false)} />
+                            </ul>
+                            <IconsContainer noteId="note" note={article.note}/>
+                          <IconsContainer favoriteId="favorite"> 
+                          <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/> </IconsContainer>
+                          <IconsContainer backlogId="backlog">
+                          <PriorityBtn onClick={() => this.saveForLater(article._id, false)} />
+                          </IconsContainer>       
                         <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
                       </ListItem>
                     );
                   })}
                 </List>
               ) : (
-                  <h3>No Results to Display</h3>
+                  <h3 style={{textAlign:"center"}}>Nothing on backlog yet</h3>
                 )}
                 </Col>
                 <Col style="right-articles" size="md-4">
-              {this.state.articles.length ? (
+              {favorites.length ? (
                 <List>
-                  <h3>Favorites</h3>
+                  <h3 style={{textAlign:"center"}}>Favorites</h3>
                   {favorites.map(article => {
                     return (
+                      
                       <ListItem key={article._id}>
-                        {/* <a href={"/books/" + book._id}> */}
+                       
                         <a href={article.url}>
                         <strong><h3> {article.title} seen on {article.date} <br/> </h3> </strong>
                           </a>
                             <p>Note : {article.note}</p>
                             <p>Tags: </p>
                             <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
-                            </ul>    
-                            <FavoriteBtn type="unfavorite" onClick={() => this.favoriteArticle(article._id, false)}/> 
+                            </ul>
+                            <IconsContainer noteId="note" note={article.note}/>
+                            <IconsContainer favoriteId="favorite"> 
+                            <FavoriteBtn type="unfavorite" data-tip={"Remove from favorites"} onClick={() => this.favoriteArticle(article._id, false)}/> 
+                            </IconsContainer>
                             <DeleteBtn onClick={() => this.deleteArticle(article._id)} />                     
                       </ListItem>
+
                     );
                   })}
                 </List>
               ) : (
-                  <h3>No Results to Display</h3>
+                  <h3 style={{textAlign:"center"}} >You haven't saved any favorites yet</h3>
                 )}
                 </Col>
               </Row>

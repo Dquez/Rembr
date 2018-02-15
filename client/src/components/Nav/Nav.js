@@ -3,27 +3,21 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { login, logout, isLoggedIn } from '../../utils/AuthService';
 import { Col, Row, Container } from "../../components/Grid";
+import logoDark from '../../pages/Articles/assets/images/R-dark.png';
 import "./nav.css"
 
 class Nav extends React.Component {
 
   render () {
-    // const { fluid, children } = this.props
-
-    return (
-      // <Container fluid>
-      // <Row>
+    return ( 
           <div className="nav-side">
-            <div className="navbar-brand">
-            <Link to="/"><img src="" alt=""/> LOGO IMAGE HERE</Link>
-            </div>
+            <a href="https://chrome.google.com/webstore/detail/rembr/mpbdabjachklldenkpdnpnhbnhoebnnm"><img src={logoDark} style={{width:"100px",height:"100px", marginLeft:"24px"}} target="_blank" alt="Rembr Icon" /></a>
             <div className="home">
             <Link to="/">Home</Link>
             </div>
-            <div className="navbar-tutorial">
+            {/* <div className="navbar-tutorial">
             <Link to="/tutorial">Tutorial</Link>
-            </div>
-
+            </div> */}
           </div>
     );
   }
