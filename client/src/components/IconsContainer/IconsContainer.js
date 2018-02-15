@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import NoteIcon from "../NoteIcon";
-
+import "./IconsContainer.css";
 class IconsContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -10,26 +10,26 @@ class IconsContainer extends React.Component {
 
   render () {
     return (
-      <div>
+      <div id="floatRight">
         {this.props.noteId && 
-          <div>
+          <span>
             <ReactTooltip id={this.props.noteId} place="right" type="dark" effect="float"/> 
-            <div data-for="note" data-tip={this.props.note}><NoteIcon /></div>
-          </div>
+            <span data-for="note" data-tip={this.props.note}><NoteIcon /></span>
+          </span>
         }
 
         {this.props.favoriteId && 
-        <div>
+        <span>
           <ReactTooltip id={this.props.favoriteId} place="right" type="dark" effect="float"/> 
-          <div data-for="favorite" data-tip="Favorite this article">{this.props.children}</div> 
-        </div>
+          <span data-for="favorite" data-tip="Favorite this article">{this.props.children}</span> 
+        </span>
         }
 
         {this.props.backlogId && 
-        <div>
+        <span>
           <ReactTooltip id={this.props.backlogId} place="right" type="dark" effect="float"/> 
-        <div data-for="backlog" data-tip="Backlog this article">{this.props.children}</div> 
-        </div>  
+        <span data-for="backlog" data-tip="Backlog this article">{this.props.children}</span> 
+        </span>  
         }
     </div>
     );

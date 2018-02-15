@@ -24,8 +24,14 @@ export default {
       favorited: decision
     });
   },
-
+  addTag: function (id, tag) {
+    return axios.patch("/api/articleTag/" + id, {
+      tags: tag
+    });
+  },
 }
+
+
 
 
 

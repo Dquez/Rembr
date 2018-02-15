@@ -6,10 +6,10 @@ class NoteIcon extends React.Component {
   render () {
     return (
         <FontAwesome
-          className='super-crazy-colors'
+          className='noteIcon'
           name='sticky-note'
           size='2x'
-          style={{ textShadow: '0 0 0 rgba(0, 0, 0, 0.1)' }}
+          style={{ textShadow: '0 0 0 rgba(0, 0, 0, 0.1)'}}
         />  
     );
   }

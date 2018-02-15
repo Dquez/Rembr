@@ -1,5 +1,4 @@
 import React from "react";
-// import ReactTooltip from 'react-tooltip'
 import IconsContainer from "../../components/IconsContainer";
 import Banner from "../../components/Banner";
 import DeleteBtn from "../../components/DeleteBtn";
@@ -24,7 +23,9 @@ class Articles extends React.Component {
     super(props);
     this.state = {
       articles: [],
-      email: ""
+      email: "",
+      articleId : null,
+      tag: ""
     };
   }
 
@@ -71,6 +72,27 @@ class Articles extends React.Component {
       .catch(err => console.log(err));
   };
 
+  handleInputChange = (e, articleId) => {
+    // console.log(this);
+    // console.log(this.state);
+    const {value} = e.target
+    this.setState ({
+      // articleId: articleId,
+      tag : value
+    })
+  }
+
+  handleSubmit = (e, id) => {
+    e.preventDefault();
+    
+    const tag = this.state.tag;
+    API.addTag(id,tag)
+    .then(res => {
+      this.loadBooks(this.state.email);
+    })
+      .catch(err => console.log(err));
+  }
+
   render() {
     let priority = this.state.articles.filter(article=> !article.saveForLater && !article.favorited);
     let backlog = this.state.articles.filter(article=> article.saveForLater && !article.favorited);
@@ -104,25 +126,26 @@ class Articles extends React.Component {
                       <a href={article.url}>
                       <strong><h3> {article.title} seen on {article.date} <br/> </h3> </strong>
                         </a>
-                          <p>Tags: </p>
-                          <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
+                          <div onClick={this.handleClickEvent}>
+                            <p>Tags:</p>
+                          
+                          <ul>{article.tags.length === 0 ? 
+                             <form onSubmit={(e) => {
+                              this.handleSubmit(e, article._id);
+                             }}>
+                             <input type="text" onChange={this.handleInputChange} className="form-control" placeholder="Enter a tag"/>
+                             </form>
+                            :
+                            article.tags.map((tag, i)=> <li key={i}>{tag}</li>)
+                            }
                           </ul>
+                          </div>
                           <IconsContainer noteId="note" note={article.note}/>
                           <IconsContainer favoriteId="favorite"> 
                           <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/> </IconsContainer>
                           <IconsContainer backlogId="backlog">
                           <BacklogBtn type="toBacklog" onClick={() => this.saveForLater(article._id, true)} />
                           </IconsContainer>
-                      {/* <ReactTooltip id="note" place="right" type="dark" effect="float"/>
-                      <ReactTooltip id="favorite" place="right" type="dark" effect="float"/>
-                      <ReactTooltip id="backlog" place="right" type="dark" effect="float"/>     
-                      <div data-for="note" data-tip={article.note}><NoteIcon /></div>
-                      <div data-for="favorite" data-tip="Favorite this article">    
-                      <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/>
-                      </div>
-                      <div data-for="backlog" data-tip="Backlog this article">    
-                      <BacklogBtn type="toBacklog" onClick={() => this.saveForLater(article._id, true)} />
-                      </div> */}
                       <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
                 </ListItem>
                   );
@@ -138,8 +161,6 @@ class Articles extends React.Component {
                   <h3>Backlog</h3>
                   {backlog.map(article => {
                     return (
-                      <div data-tip={article.note}>
-                      {/* <ReactTooltip place="right" type="dark" effect="float"/>      */}
                       <ListItem key={article._id}>
                         {/* <a href={"/books/" + book._id}> */}
                         <a href={article.url}>
@@ -148,12 +169,15 @@ class Articles extends React.Component {
                             <p>Note : {article.note}</p>
                             <p>Tags: </p>
                             <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
-                            </ul>       
-                        <FavoriteBtn data-for="favorite" data-tip={"Move to favorites"} type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/>
-                        <PriorityBtn data-tip={"Move to priority"} onClick={() => this.saveForLater(article._id, false)} />
+                            </ul>
+                            <IconsContainer noteId="note" note={article.note}/>
+                          <IconsContainer favoriteId="favorite"> 
+                          <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/> </IconsContainer>
+                          <IconsContainer backlogId="backlog">
+                          <PriorityBtn onClick={() => this.saveForLater(article._id, false)} />
+                          </IconsContainer>       
                         <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
                       </ListItem>
-                      </div>
                     );
                   })}
                 </List>
@@ -167,8 +191,7 @@ class Articles extends React.Component {
                   <h3>Favorites</h3>
                   {favorites.map(article => {
                     return (
-                      <div data-tip={article.note}>
-                      {/* <ReactTooltip place="right" type="dark" effect="float"/>      */}
+                      
                       <ListItem key={article._id}>
                         {/* <a href={"/books/" + book._id}> */}
                         <a href={article.url}>
@@ -177,11 +200,14 @@ class Articles extends React.Component {
                             <p>Note : {article.note}</p>
                             <p>Tags: </p>
                             <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
-                            </ul>    
+                            </ul>
+                            <IconsContainer noteId="note" note={article.note}/>
+                            <IconsContainer favoriteId="favorite"> 
                             <FavoriteBtn type="unfavorite" data-tip={"Remove from favorites"} onClick={() => this.favoriteArticle(article._id, false)}/> 
+                            </IconsContainer>
                             <DeleteBtn onClick={() => this.deleteArticle(article._id)} />                     
                       </ListItem>
-                      </div>
+
                     );
                   })}
                 </List>

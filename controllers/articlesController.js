@@ -45,6 +45,8 @@ router.patch("/api/articles/:id", articleFunctions.update);
 
 router.patch("/api/favoriteArticle/:id", articleFunctions.update);
 
+router.patch("/api/articleTag/:id", articleFunctions.update);
+
 router.delete("/api/article/:id", articleFunctions.remove)
 
 router.post("/rembrTab", (req, res)=> {

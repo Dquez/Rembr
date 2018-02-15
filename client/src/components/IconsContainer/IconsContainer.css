@@ -1,0 +1,10 @@
+#floatRight {
+    display:inline-block;
+    padding: 0 5px;
+
+}
+
+.noteIcon:hover {
+    cursor:help;
+   }
+   
