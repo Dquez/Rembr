@@ -7,13 +7,14 @@ import {requireAuth} from './utils/AuthService';
 
 const App = () =>
 <Router>
+  <div>
       <Switch>
-        <Route exact path="/" component={Articles} />
-        {/* <Route exact path="/books" onEnter={requireAuth} component={Books} /> */}
+        <Route exact path="/" onEnter={requireAuth} component={Articles} />
+        {/* <Route exact path="/books" component={Books} /> */}
         <Route path="/callback" component={Callback} />
         <Route component={NoMatch} />
       </Switch>
-  </Router>;
-
+  </div>
+</Router>;
 export default App;
 
