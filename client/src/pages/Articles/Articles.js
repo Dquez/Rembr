@@ -1,7 +1,9 @@
 import React from "react";
-import ReactTooltip from 'react-tooltip'
+// import ReactTooltip from 'react-tooltip'
+import IconsContainer from "../../components/IconsContainer";
 import Banner from "../../components/Banner";
 import DeleteBtn from "../../components/DeleteBtn";
+import NoteIcon from "../../components/NoteIcon";
 import API from "../../utils/API";
 import Nav from "../../components/Nav";
 import { Col, Row, Container } from "../../components/Grid";
@@ -73,6 +75,7 @@ class Articles extends React.Component {
     let priority = this.state.articles.filter(article=> !article.saveForLater && !article.favorited);
     let backlog = this.state.articles.filter(article=> article.saveForLater && !article.favorited);
     let favorites = this.state.articles.filter(article=> article.favorited);
+                        
     return (
       <Container fluid>
         <Row>
@@ -85,7 +88,6 @@ class Articles extends React.Component {
                 }}>Log out </button>: <button className="btn btn-info log" onClick={() => login()}>Log In</button>
             }
           </Col>
-          {/* <Container fluid> */}
           <Col style="main" size="md-10 sm-12">
           <Particles style={{position:"absolute"}} params={particlesConfig}/>
             <Banner>
@@ -97,23 +99,32 @@ class Articles extends React.Component {
               <List>
                 <h3>Priority</h3>
                 {priority.map(article => {
-                  return (
-                    <div>
-                    <div data-tip={article.note}>
-                      <ReactTooltip place="right" type="info" effect="float"/>                    
-                      <ListItem key={article._id}>
+                  return (         
+                  <ListItem key={article._id}>
                       <a href={article.url}>
                       <strong><h3> {article.title} seen on {article.date} <br/> </h3> </strong>
                         </a>
                           <p>Tags: </p>
                           <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
                           </ul>
+                          <IconsContainer noteId="note" note={article.note}/>
+                          <IconsContainer favoriteId="favorite"> 
+                          <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/> </IconsContainer>
+                          <IconsContainer backlogId="backlog">
+                          <BacklogBtn type="toBacklog" onClick={() => this.saveForLater(article._id, true)} />
+                          </IconsContainer>
+                      {/* <ReactTooltip id="note" place="right" type="dark" effect="float"/>
+                      <ReactTooltip id="favorite" place="right" type="dark" effect="float"/>
+                      <ReactTooltip id="backlog" place="right" type="dark" effect="float"/>     
+                      <div data-for="note" data-tip={article.note}><NoteIcon /></div>
+                      <div data-for="favorite" data-tip="Favorite this article">    
                       <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/>
+                      </div>
+                      <div data-for="backlog" data-tip="Backlog this article">    
                       <BacklogBtn type="toBacklog" onClick={() => this.saveForLater(article._id, true)} />
+                      </div> */}
                       <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
-                    </ListItem>
-                    </div>
-                    </div>
+                </ListItem>
                   );
                 })}
               </List>
@@ -127,6 +138,8 @@ class Articles extends React.Component {
                   <h3>Backlog</h3>
                   {backlog.map(article => {
                     return (
+                      <div data-tip={article.note}>
+                      {/* <ReactTooltip place="right" type="dark" effect="float"/>      */}
                       <ListItem key={article._id}>
                         {/* <a href={"/books/" + book._id}> */}
                         <a href={article.url}>
@@ -136,10 +149,11 @@ class Articles extends React.Component {
                             <p>Tags: </p>
                             <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
                             </ul>       
-                        <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/>
-                        <PriorityBtn onClick={() => this.saveForLater(article._id, false)} />
+                        <FavoriteBtn data-for="favorite" data-tip={"Move to favorites"} type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/>
+                        <PriorityBtn data-tip={"Move to priority"} onClick={() => this.saveForLater(article._id, false)} />
                         <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
                       </ListItem>
+                      </div>
                     );
                   })}
                 </List>
@@ -153,6 +167,8 @@ class Articles extends React.Component {
                   <h3>Favorites</h3>
                   {favorites.map(article => {
                     return (
+                      <div data-tip={article.note}>
+                      {/* <ReactTooltip place="right" type="dark" effect="float"/>      */}
                       <ListItem key={article._id}>
                         {/* <a href={"/books/" + book._id}> */}
                         <a href={article.url}>
@@ -162,9 +178,10 @@ class Articles extends React.Component {
                             <p>Tags: </p>
                             <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
                             </ul>    
-                            <FavoriteBtn type="unfavorite" onClick={() => this.favoriteArticle(article._id, false)}/> 
+                            <FavoriteBtn type="unfavorite" data-tip={"Remove from favorites"} onClick={() => this.favoriteArticle(article._id, false)}/> 
                             <DeleteBtn onClick={() => this.deleteArticle(article._id)} />                     
                       </ListItem>
+                      </div>
                     );
                   })}
                 </List>
