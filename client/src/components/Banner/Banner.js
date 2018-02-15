@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from 'prop-types';
-
-class Jumbotron extends React.Component {
+import "./banner.css";
+class Banner extends React.Component {
 
   render () {
 
     return (
-      <div style={{ height: 300, clear: 'both' }} className="jumbotron">
+      <div className="banner">
         {this.props.children}
       </div>
       );
@@ -14,8 +14,8 @@ class Jumbotron extends React.Component {
 
 }
 
-Jumbotron.props = {
+Banner.props = {
   children: PropTypes.node
 }
 
-export default Jumbotron;
+export default Banner;

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { Input, TextArea, FormBtn } from "../../components/Form";
-import Jumbotron from "../../components/Jumbotron";
+import Banner from "../../components/Banner";
 import API from "../../utils/API";
 
 class Detail extends React.Component {
@@ -50,11 +50,11 @@ class Detail extends React.Component {
     <Container fluid>
       <Row>
         <Col size="md-12">
-          <Jumbotron>
+          <Banner>
             <h1>
               {this.state.book.title} by {this.state.book.author}
             </h1>
-          </Jumbotron>
+          </Banner>
         </Col>
       </Row>
       <Row>
@@ -80,9 +80,9 @@ class Detail extends React.Component {
     <Container fluid>
       <Row>
         <Col size="md-12">
-          <Jumbotron>
+          <Banner>
             <h1>What Books Should I Read?</h1>
-          </Jumbotron>
+          </Banner>
         </Col>
       </Row>
       <Row>

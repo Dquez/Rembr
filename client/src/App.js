@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Books from "./pages/Books";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
-import Nav from "./components/Nav";
+// import Nav from "./components/Nav";
 import Callback from './components/Callback';
 import {Login, Signup} from "./components/Login-Signup";
 import {requireAuth} from './utils/AuthService';
@@ -11,7 +11,7 @@ import {requireAuth} from './utils/AuthService';
 const App = () =>
 <Router>
     <div>
-      <Nav />
+      {/* <Nav /> */}
       <Switch>
         <Route exact path="/" component={NoMatch} />
         {/* changed link to books component for testing purposes */}

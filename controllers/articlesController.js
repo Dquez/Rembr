@@ -4,15 +4,6 @@ const db = require("../models");
 const indico = require('indico.io');
 indico.apiKey = process.env.INDICO_API_KEY;
 
-// // single example
-// indico.sentiment("I love writing code!")
-//   .then(response => {
-//     console.log(response);
-//   })
-//   .catch(logError);
-
-
-
 const articleFunctions = {
   findAll: function (req, res) {
     db.Article
@@ -35,7 +26,7 @@ const articleFunctions = {
   },
   update: function (req, res) {
     db.Article
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .findOneAndUpdate({ _id: req.params.id}, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -49,6 +40,9 @@ const articleFunctions = {
 }
 
 router.get("/api/articles/:email", articleFunctions.findAll);
+router.patch("/api/articles/:id", articleFunctions.update);
+router.patch("/api/favoriteArticle/:id", articleFunctions.update);
+
 
 router.post("/rembrTab", (req, res)=> {
 const {email, title, url, note, date} = req.body;
@@ -60,7 +54,10 @@ indico.text_tags(input, {threshold: 0.08})
   .then(response => {
     const tags = [];
     for(tag in response) {
-      tags.push(tag);
+      if(tag.includes("_")){
+        tag = tag.replace(/_/g, ' ')
+      }
+        tags.push(tag);
     }
     const dbArticle = {email, title, url, note, date, tags};
     articleFunctions.create(dbArticle, res);
@@ -77,7 +74,7 @@ indico.text_tags(input, {threshold: 0.08})
 
 // router.get("/api/books/:id", bookFunctions.findById)
 
-// router.patch("/api/books/:id", bookFunctions.update)
+
 
 // If no API routes are hit, send the React app
 /*router.use(function (req, res) {

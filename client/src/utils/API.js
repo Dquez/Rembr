@@ -1,8 +1,4 @@
 import axios from "axios";
-import { getAccessToken } from './AuthService';
-
-// const BASE_URL = "https://rembr-app.herokuapp.com/";
-// const BASE_URL = "http://localhost:3000";
 
 export default {
   // Gets all books
@@ -13,7 +9,14 @@ export default {
   postArticle: function(article) {
     console.log(article)
     return axios.post("/login", article);
-  }
+  },
+  saveForLater: function (id, decision) {
+    return axios.patch("/api/articles/" + id, {saveForLater: decision});
+  },
+  favoriteArticle: function (id, decision) {
+    return axios.patch("/api/favoriteArticle/" + id, {favorited: decision});
+  },
+  
 }
 
 
