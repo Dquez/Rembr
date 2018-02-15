@@ -1,4 +1,19 @@
+body {
+    color: honeydew;
+    background-color :#1D3557;
+}
+
+
 #ext-form {
     width: 400px;
     padding: 10px;
+}
+#submit-article {
+    float:right;
+}
+
+#logout {
+    background-color:red;
+    border-color:red;
+    margin-top:  12px;
 }

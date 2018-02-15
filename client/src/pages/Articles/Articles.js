@@ -15,6 +15,7 @@ import particlesConfig from "./particlesConfig.json";
 import PriorityBtn from "../../components/PriorityBtn";
 import BacklogBtn from "../../components/BacklogBtn"; 
 import FavoriteBtn from "../../components/FavoriteBtn";
+import logo from './assets/images/R.png';
 import "./article.css";
 
 
@@ -73,18 +74,14 @@ class Articles extends React.Component {
   };
 
   handleInputChange = (e, articleId) => {
-    // console.log(this);
-    // console.log(this.state);
     const {value} = e.target
     this.setState ({
-      // articleId: articleId,
       tag : value
     })
   }
 
   handleSubmit = (e, id) => {
     e.preventDefault();
-    
     const tag = this.state.tag;
     API.addTag(id,tag)
     .then(res => {
@@ -107,19 +104,21 @@ class Articles extends React.Component {
                 isLoggedIn() ?   <button className="btn btn-danger log" onClick={() =>{
                   logout()
                   window.location = "/books";
-                }}>Log out </button>: <button className="btn btn-info log" onClick={() => login()}>Log In</button>
+                }}>Log out </button>: <button className="btn btn-info" onClick={() => login()}>Log In</button>
             }
           </Col>
           <Col style="main" size="md-10 sm-12">
           <Particles style={{position:"absolute"}} params={particlesConfig}/>
             <Banner>
-              <h1>Articles on my list</h1>  
+              <h4>Add Rembr to Chrome 
+                <a href="https://chrome.google.com/webstore/detail/rembr/mpbdabjachklldenkpdnpnhbnhoebnnm"><img src={logo} style={{width:"100px",height:"100px", marginLeft:"24px"}} target="_blank" alt="Rembr Icon" /></a>
+              </h4>  
             </Banner>
             <Row>
               <Col style="left-articles" size="md-4">
             {this.state.articles.length ? (
               <List>
-                <h3>Priority</h3>
+                <h3 style={{textAlign:"center"}}>Priority</h3>
                 {priority.map(article => {
                   return (         
                   <ListItem key={article._id}>
@@ -130,7 +129,7 @@ class Articles extends React.Component {
                             <p>Tags:</p>
                           
                           <ul>{article.tags.length === 0 ? 
-                             <form onSubmit={(e) => {
+                             <form style={{padding:"12px"}} onSubmit={(e) => {
                               this.handleSubmit(e, article._id);
                              }}>
                              <input type="text" onChange={this.handleInputChange} className="form-control" placeholder="Enter a tag"/>
@@ -152,13 +151,13 @@ class Articles extends React.Component {
                 })}
               </List>
             ) : (
-                <h3>No Results to Display</h3>
+                <h3 style={{textAlign:"center"}}>No Results to Display Yet</h3>
               )}
               </Col>
               <Col style="mid-articles" size="md-4">
-              {this.state.articles.length ? (
+              {backlog.length ? (
                 <List>
-                  <h3>Backlog</h3>
+                  <h3 style={{textAlign:"center"}}>Backlog</h3>
                   {backlog.map(article => {
                     return (
                       <ListItem key={article._id}>
@@ -182,18 +181,18 @@ class Articles extends React.Component {
                   })}
                 </List>
               ) : (
-                  <h3>No Results to Display</h3>
+                  <h3 style={{textAlign:"center"}}>Nothing on backlog yet</h3>
                 )}
                 </Col>
                 <Col style="right-articles" size="md-4">
-              {this.state.articles.length ? (
+              {favorites.length ? (
                 <List>
-                  <h3>Favorites</h3>
+                  <h3 style={{textAlign:"center"}}>Favorites</h3>
                   {favorites.map(article => {
                     return (
                       
                       <ListItem key={article._id}>
-                        {/* <a href={"/books/" + book._id}> */}
+                       
                         <a href={article.url}>
                         <strong><h3> {article.title} seen on {article.date} <br/> </h3> </strong>
                           </a>
@@ -212,7 +211,7 @@ class Articles extends React.Component {
                   })}
                 </List>
               ) : (
-                  <h3>No Results to Display</h3>
+                  <h3 style={{textAlign:"center"}} >You haven't saved any favorites yet</h3>
                 )}
                 </Col>
               </Row>

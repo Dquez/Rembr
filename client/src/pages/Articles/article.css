@@ -2,3 +2,7 @@
 .left-articles, .mid-articles, .right-articles {
     opacity: 0.8
 }
+.log {
+    background-color:red;
+    border-color:red;
+}
