@@ -1,10 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Articles from "./pages/Articles";
-
 import NoMatch from "./pages/NoMatch";
 import Callback from './components/Callback';
-
 import {requireAuth} from './utils/AuthService';
 
 const App = () =>
