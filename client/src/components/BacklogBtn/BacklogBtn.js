@@ -1,15 +1,15 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import "./PriorityBtn.css";
+// import "./PriorityBtn.css";
 const FontAwesome = require('react-fontawesome');
 
-class PriorityBtn extends React.Component {
+class BacklogBtn extends React.Component {
   render () {
     return (
       <span onClick={this.props.onClick}>
         <FontAwesome
           className='super-crazy-colors'
-          name='hourglass'
+          name='history'
           size='2x'
           style={{ textShadow: '0 0 0 rgba(0, 0, 0, 0.1)' }}
         />  
@@ -20,9 +20,9 @@ class PriorityBtn extends React.Component {
 
 
 
-PriorityBtn.props = {
+BacklogBtn.props = {
   type: PropTypes.string,
   onClick: PropTypes.func
 }
 
-export default PriorityBtn;
+export default BacklogBtn;

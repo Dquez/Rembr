@@ -10,7 +10,10 @@ import {getUserInfo} from '../../utils/AuthService';
 import Particles from 'react-particles-js';
 import particlesConfig from "./particlesConfig.json";
 import PriorityBtn from "../../components/PriorityBtn";
+import BacklogBtn from "../../components/BacklogBtn"; 
+import FavoriteBtn from "../../components/FavoriteBtn";
 import "./article.css";
+
 
 class Books extends React.Component {
   constructor(props) {
@@ -35,7 +38,7 @@ class Books extends React.Component {
   loadBooks = (email) => {
     API.getArticles(email)
       .then(res =>
-        this.setState({ articles: res.data, title: "", url: "", note: "" })
+        this.setState({ articles: res.data})
       )
       .catch(err => console.log(err));
   };
@@ -47,32 +50,25 @@ class Books extends React.Component {
       .catch(err => console.log(err));
   };
 
-  // Handles updating component state when the user types into the input field
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
+  saveForLater = (id, decision) => {
+    API.saveForLater(id, decision)
+      .then(res => getUserInfo(email=> {
+        this.loadBooks(email);
+      }))
+      .catch(err => console.log(err));
   };
 
-  // When the form is submitted, use the API.saveBook method to save the book data
-  // Then reload books from the database
-  handleFormSubmit = event => {
-    event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveBook({
-        title: this.state.title,
-        author: this.state.author,
-        synopsis: this.state.synopsis
-      })
-        .then(res => this.loadBooks())
-        .catch(err => console.log(err));
-    }
+  favoriteArticle = (id, decision) => {
+    API.favoriteArticle(id, decision)
+      .then(res => getUserInfo(email=> {
+        this.loadBooks(email);
+      }))
+      .catch(err => console.log(err));
   };
 
   render() {
     let priority = this.state.articles.filter(article=> !article.saveForLater && !article.favorited);
-    let backlog = this.state.articles.filter(article=> article.saveForLater);
+    let backlog = this.state.articles.filter(article=> article.saveForLater && !article.favorited);
     let favorites = this.state.articles.filter(article=> article.favorited);
     return (
       <Container fluid>
@@ -80,29 +76,29 @@ class Books extends React.Component {
           <Col style="side-bar" size="md-2">
             <Nav/>
           </Col>
-          <Col style="main" size="md-9 sm-12">
+          {/* <Container fluid> */}
+          <Col style="main" size="md-10 sm-12">
+          <Particles style={{position:"absolute"}} params={particlesConfig}/>
             <Banner>
               <h1>Articles on my list</h1>  
             </Banner>
-            <Particles style={{position:"relative", float:"left"}} params={particlesConfig}/>
-            <Container fluid>
             <Row>
-              <Col size="md-4">
-              
+              <Col style="left-articles" size="md-4">
             {this.state.articles.length ? (
               <List>
                 <h3>Priority</h3>
                 {priority.map(article => {
                   return (
                     <ListItem key={article._id}>
-                      {/* <a href={"/books/" + book._id}> */}
                       <a href={article.url}>
                       <strong><h3> {article.title} seen on {article.date} <br/> </h3> </strong>
                         </a>
                           <p>Note : {article.note}</p>
                           <p>Tags: </p>
                           <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
-                          </ul>                          
+                          </ul>
+                      <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/>
+                      <BacklogBtn type="toBacklog" onClick={() => this.saveForLater(article._id, true)} />
                       <DeleteBtn onClick={() => this.deleteBook(article._id)} />
                     </ListItem>
                   );
@@ -112,8 +108,7 @@ class Books extends React.Component {
                 <h3>No Results to Display</h3>
               )}
               </Col>
-              <Col size="md-4">
-              
+              <Col style="mid-articles" size="md-4">
               {this.state.articles.length ? (
                 <List>
                   <h3>Backlog</h3>
@@ -127,8 +122,9 @@ class Books extends React.Component {
                             <p>Note : {article.note}</p>
                             <p>Tags: </p>
                             <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
-                            </ul>                          
-                        <PriorityBtn type="priority" onClick={() => console.log("Clicked1")} />
+                            </ul>       
+                        <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/>
+                        <PriorityBtn onClick={() => this.saveForLater(article._id, false)} />
                       </ListItem>
                     );
                   })}
@@ -137,7 +133,7 @@ class Books extends React.Component {
                   <h3>No Results to Display</h3>
                 )}
                 </Col>
-                <Col size="md-4">
+                <Col style="right-articles" size="md-4">
               {this.state.articles.length ? (
                 <List>
                   <h3>Favorites</h3>
@@ -151,8 +147,9 @@ class Books extends React.Component {
                             <p>Note : {article.note}</p>
                             <p>Tags: </p>
                             <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
-                            </ul>                          
-                            <PriorityBtn type="backlog" onClick={() => console.log("Clicked2")} />
+                            </ul>    
+                            <FavoriteBtn type="unfavorite" onClick={() => this.favoriteArticle(article._id, false)}/>                      
+                            <PriorityBtn type="toBacklog" onClick={() => this.saveForLater(article._id, true)}/>  
                       </ListItem>
                     );
                   })}
@@ -162,8 +159,9 @@ class Books extends React.Component {
                 )}
                 </Col>
               </Row>
-              </Container>
+              
           </Col>
+          {/* </Container> */}
         </Row>
       </Container>
     );
