@@ -6,9 +6,9 @@ class DeleteBtn extends React.Component {
   
   render () {
     return (
-      <span className="delete-btn" onClick={this.props.onClick}>
-        ✗
-      </span>
+      <button id="delete-btn" className="btn btn-sm btn-danger" onClick={this.props.onClick}>
+        Remove Page
+      </button>
     );
   }
 }

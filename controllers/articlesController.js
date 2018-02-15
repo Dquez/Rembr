@@ -40,9 +40,12 @@ const articleFunctions = {
 }
 
 router.get("/api/articles/:email", articleFunctions.findAll);
+
 router.patch("/api/articles/:id", articleFunctions.update);
+
 router.patch("/api/favoriteArticle/:id", articleFunctions.update);
 
+router.delete("/api/article/:id", articleFunctions.remove)
 
 router.post("/rembrTab", (req, res)=> {
 const {email, title, url, note, date} = req.body;
@@ -70,7 +73,7 @@ indico.text_tags(input, {threshold: 0.08})
 
 // router.post("/api/article", articleFunctions.create)
 
-// router.delete("/api/books/:id", bookFunctions.remove)
+
 
 // router.get("/api/books/:id", bookFunctions.findById)
 

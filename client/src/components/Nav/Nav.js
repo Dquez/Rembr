@@ -11,9 +11,8 @@ class Nav extends React.Component {
     // const { fluid, children } = this.props
 
     return (
-      <Container fluid>
-      <Row>
-          {/* <Col size="md-12"> */}
+      // <Container fluid>
+      // <Row>
           <div className="nav-side">
             <div className="navbar-brand">
             <Link to="/"><img src="" alt=""/> LOGO IMAGE HERE</Link>
@@ -24,13 +23,8 @@ class Nav extends React.Component {
             <div className="navbar-tutorial">
             <Link to="/tutorial">Tutorial</Link>
             </div>
-            {
-                (isLoggedIn()) ? ( <button className="btn btn-danger log" onClick={() => logout()}>Log out </button> ) : ( <button className="btn btn-info log" onClick={() => login()}>Log In</button> )
-            }
+
           </div>
-        {/* </Col> */}
-      </Row>
-    </Container>
     );
   }
 

@@ -1,4 +1,5 @@
 import React from "react";
+import ReactTooltip from 'react-tooltip'
 import Banner from "../../components/Banner";
 import DeleteBtn from "../../components/DeleteBtn";
 import API from "../../utils/API";
@@ -7,6 +8,7 @@ import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import {getUserInfo} from '../../utils/AuthService'; 
+import { login, logout, isLoggedIn } from '../../utils/AuthService';
 import Particles from 'react-particles-js';
 import particlesConfig from "./particlesConfig.json";
 import PriorityBtn from "../../components/PriorityBtn";
@@ -15,14 +17,12 @@ import FavoriteBtn from "../../components/FavoriteBtn";
 import "./article.css";
 
 
-class Books extends React.Component {
+class Articles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       articles: [],
-      title: "",
-      url: "",
-      note: ""
+      email: ""
     };
   }
 
@@ -30,6 +30,9 @@ class Books extends React.Component {
   componentDidMount() {
     // callback function to retrieve the user's email from the AuthService file
     getUserInfo(email=> {
+      this.setState({
+        email: email
+      })
       this.loadBooks(email);
     }) 
   }
@@ -44,25 +47,25 @@ class Books extends React.Component {
   };
 
   // Deletes a book from the database with a given id, then reloads books from the db
-  deleteBook = id => {
-    API.deleteBook(id)
+  deleteArticle = id => {
+    API.deleteArticle(id)
       .then(res => this.loadBooks())
       .catch(err => console.log(err));
   };
 
   saveForLater = (id, decision) => {
     API.saveForLater(id, decision)
-      .then(res => getUserInfo(email=> {
-        this.loadBooks(email);
-      }))
+      .then(res => {
+        this.loadBooks(this.state.email);
+      })
       .catch(err => console.log(err));
   };
 
   favoriteArticle = (id, decision) => {
     API.favoriteArticle(id, decision)
-      .then(res => getUserInfo(email=> {
-        this.loadBooks(email);
-      }))
+    .then(res => {
+      this.loadBooks(this.state.email);
+    })
       .catch(err => console.log(err));
   };
 
@@ -75,6 +78,12 @@ class Books extends React.Component {
         <Row>
           <Col style="side-bar" size="md-2">
             <Nav/>
+            {
+                isLoggedIn() ?   <button className="btn btn-danger log" onClick={() =>{
+                  logout()
+                  window.location = "/books";
+                }}>Log out </button>: <button className="btn btn-info log" onClick={() => login()}>Log In</button>
+            }
           </Col>
           {/* <Container fluid> */}
           <Col style="main" size="md-10 sm-12">
@@ -89,18 +98,22 @@ class Books extends React.Component {
                 <h3>Priority</h3>
                 {priority.map(article => {
                   return (
-                    <ListItem key={article._id}>
+                    <div>
+                    <div data-tip={article.note}>
+                      <ReactTooltip place="right" type="info" effect="float"/>                    
+                      <ListItem key={article._id}>
                       <a href={article.url}>
                       <strong><h3> {article.title} seen on {article.date} <br/> </h3> </strong>
                         </a>
-                          <p>Note : {article.note}</p>
                           <p>Tags: </p>
                           <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
                           </ul>
                       <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/>
                       <BacklogBtn type="toBacklog" onClick={() => this.saveForLater(article._id, true)} />
-                      <DeleteBtn onClick={() => this.deleteBook(article._id)} />
+                      <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
                     </ListItem>
+                    </div>
+                    </div>
                   );
                 })}
               </List>
@@ -125,6 +138,7 @@ class Books extends React.Component {
                             </ul>       
                         <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/>
                         <PriorityBtn onClick={() => this.saveForLater(article._id, false)} />
+                        <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
                       </ListItem>
                     );
                   })}
@@ -148,8 +162,8 @@ class Books extends React.Component {
                             <p>Tags: </p>
                             <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
                             </ul>    
-                            <FavoriteBtn type="unfavorite" onClick={() => this.favoriteArticle(article._id, false)}/>                      
-                            <PriorityBtn type="toBacklog" onClick={() => this.saveForLater(article._id, true)}/>  
+                            <FavoriteBtn type="unfavorite" onClick={() => this.favoriteArticle(article._id, false)}/> 
+                            <DeleteBtn onClick={() => this.deleteArticle(article._id)} />                     
                       </ListItem>
                     );
                   })}
@@ -168,4 +182,4 @@ class Books extends React.Component {
   }
 }
 
-export default Books;
+export default Articles;
