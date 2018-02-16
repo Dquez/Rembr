@@ -39,6 +39,11 @@ const articleFunctions = {
   }
 }
 
+router.get("/callback", (req,res)=> {
+  console.log("hit")
+  res.send("Okay");
+})
+
 router.get("/api/articles/:email", articleFunctions.findAll);
 
 router.patch("/api/articles/:id", articleFunctions.update);
