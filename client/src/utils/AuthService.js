@@ -24,7 +24,6 @@ export function login() {
     });
 }
 
-
 export function getUserInfo(callback) {
     try {
         auth.client.userInfo(getAccessToken(), function (err, user) {

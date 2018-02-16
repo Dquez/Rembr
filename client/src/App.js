@@ -9,9 +9,9 @@ const App = () =>
 <Router>
   <div>
       <Switch>
+        <Route path="/callback" component={Callback} />
         <Route exact path="/" onEnter={requireAuth} component={Articles} />
         {/* <Route exact path="/books" component={Books} /> */}
-        <Route path="/callback" component={Callback} />
         <Route component={NoMatch} />
       </Switch>
   </div>
