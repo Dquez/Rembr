@@ -64,8 +64,8 @@ $("#submit-article").on("click", (e)=>{
           const date = Date.now();
           const userArticle = {email, title, url, note, date};
         $.ajax({
-          url: "https://rembr-app.herokuapp.com/rembrTab", 
-          // url: "http://localhost:3000/rembrTab",
+          // url: "https://rembr-app.herokuapp.com/rembrTab", 
+          url: "http://localhost:3000/rembrTab",
           type: "POST",
           data:  userArticle,
           success: function(data) {

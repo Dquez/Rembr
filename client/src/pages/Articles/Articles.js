@@ -53,7 +53,7 @@ class Articles extends React.Component {
   // Deletes a book from the database with a given id, then reloads books from the db
   deleteArticle = id => {
     API.deleteArticle(id)
-      .then(res => this.loadBooks())
+      .then(res => this.loadBooks(this.state.email))
       .catch(err => console.log(err));
   };
 
@@ -123,7 +123,7 @@ class Articles extends React.Component {
                   return (         
                   <ListItem key={article._id}>
                       <a href={article.url}>
-                      <strong><h3> {article.title} seen on {article.date} <br/> </h3> </strong>
+                      <strong><h4> {article.title} seen on {article.date.split("T")[0]} <br/> </h4> </strong>
                         </a>
                           <div onClick={this.handleClickEvent}>
                             <p>Tags:</p>

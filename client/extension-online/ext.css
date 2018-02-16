@@ -9,7 +9,7 @@ body {
     padding: 10px;
 }
 #submit-article {
-    float:right;
+    margin-bottom: 12px;
 }
 
 #logout {
