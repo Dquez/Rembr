@@ -12,12 +12,6 @@ const articleFunctions = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  findByEmail: function (req, res) {
-    db.Article
-      .findById(req.params.id)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
   create: function (dbArticle, res) {
     db.Article
       .create(dbArticle)
@@ -38,11 +32,6 @@ const articleFunctions = {
       .catch(err => res.status(422).json(err));
   }
 }
-
-router.get("/callback", (req,res)=> {
-  console.log("hit")
-  res.send("Okay");
-})
 
 router.get("/api/articles/:email", articleFunctions.findAll);
 
@@ -75,20 +64,9 @@ indico.text_tags(input, {threshold: 0.08})
   .catch(err => console.log(err));
 });
 
-
-
-
-// router.post("/api/article", articleFunctions.create)
-
-
-
-// router.get("/api/books/:id", bookFunctions.findById)
-
-
-
-// If no API routes are hit, send the React app
-/*router.use(function (req, res) {
+//  If no API routes are hit, send the React app
+router.use(function (req, res) {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});*/
+});
 
 module.exports = router;

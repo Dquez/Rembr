@@ -114,6 +114,7 @@ class Articles extends React.Component {
                 <a href="https://chrome.google.com/webstore/detail/rembr/mpbdabjachklldenkpdnpnhbnhoebnnm"><img src={logo} style={{width:"100px",height:"100px", marginLeft:"24px"}} target="_blank" alt="Rembr Icon" /></a>
               </h4>  
             </Banner>
+
             <Row>
               <Col style="left-articles" size="md-4">
             {this.state.articles.length ? (
@@ -172,7 +173,7 @@ class Articles extends React.Component {
                             <IconsContainer noteId="note" note={article.note}/>
                           <IconsContainer favoriteId="favorite"> 
                           <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/> </IconsContainer>
-                          <IconsContainer backlogId="backlog">
+                          <IconsContainer priorityId="priority">
                           <PriorityBtn onClick={() => this.saveForLater(article._id, false)} />
                           </IconsContainer>       
                         <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
@@ -201,8 +202,8 @@ class Articles extends React.Component {
                             <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
                             </ul>
                             <IconsContainer noteId="note" note={article.note}/>
-                            <IconsContainer favoriteId="favorite"> 
-                            <FavoriteBtn type="unfavorite" data-tip={"Remove from favorites"} onClick={() => this.favoriteArticle(article._id, false)}/> 
+                            <IconsContainer unfavoriteId="unfavorite"> 
+                            <FavoriteBtn onClick={() => this.favoriteArticle(article._id, false)}/> 
                             </IconsContainer>
                             <DeleteBtn onClick={() => this.deleteArticle(article._id)} />                     
                       </ListItem>
