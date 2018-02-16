@@ -11,7 +11,6 @@ const SCOPE = 'openid profile email';
 const AUDIENCE = 'https://rembr-app.auth0.com/api/v2/';
 
 var auth = new auth0.WebAuth({
-    redirectUrl: 'https://rembr-app.herokuapp.com/callback',
     clientID: CLIENT_ID,
     domain: CLIENT_DOMAIN
 });
@@ -19,7 +18,7 @@ var auth = new auth0.WebAuth({
 export function login() {
     auth.authorize({
         responseType: 'token id_token',
-        redirectUri: REDIRECT,
+        // redirectUri: REDIRECT,
         audience: AUDIENCE,
         scope: SCOPE
     });

@@ -103,7 +103,7 @@ class Articles extends React.Component {
             {
                 isLoggedIn() ?   <button className="btn btn-danger log" onClick={() =>{
                   logout()
-                  window.location = "/books";
+                  window.location = "/";
                 }}>Log out </button>: <button className="btn btn-info" onClick={() => login()}>Log In</button>
             }
           </Col>
