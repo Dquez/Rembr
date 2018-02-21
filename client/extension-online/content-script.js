@@ -50,7 +50,7 @@ $(document).on('change', '#tabs', function (e) {
 
 $("#submit-article").on("click", (e) => {
   e.preventDefault();
-
+  $("#submit-article").html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
   chrome.identity.getProfileUserInfo(userInfo => {
     chrome.tabs.query({active: true, currentWindow: true}, tabs => {
       let url = null;
@@ -82,8 +82,14 @@ $("#submit-article").on("click", (e) => {
           }
           $("#title").val("");
           $("#note").val("");
+          // added this timeout for UX to know when and if their article was saved.
+          setTimeout(()=> {
+            $("#submit-article").text("Submit");
+          },500);
+          
         },
         fail: error => {
+          $("#submit-article").text("Submit");
           console.log(error);
         }
       });
