@@ -8,3 +8,12 @@
     font-size: 16px;
     font-weight: 300;
 }
+
+a:hover {
+    text-decoration: none;
+}
+
+.btn {
+    font-family: 'Lucida Sans', sans-serif;
+    font-weight: 300;
+}

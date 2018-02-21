@@ -2,7 +2,9 @@
 .left-articles, .mid-articles, .right-articles {
     opacity: 0.8
 }
-.log {
-    background-color:red;
-    border-color:red;
+
+p {
+    font-family: 'Lucida Sans', sans-serif;
+    font-size: 1.2em;
+    font-weight:300;
 }

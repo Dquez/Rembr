@@ -9,13 +9,12 @@ import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import {getUserInfo} from '../../utils/AuthService'; 
-import { login, logout, isLoggedIn } from '../../utils/AuthService';
+import {isLoggedIn } from '../../utils/AuthService';
 import Particles from 'react-particles-js';
 import particlesConfig from "./particlesConfig.json";
 import PriorityBtn from "../../components/PriorityBtn";
 import BacklogBtn from "../../components/BacklogBtn"; 
 import FavoriteBtn from "../../components/FavoriteBtn";
-import logo from './assets/images/R.png';
 import "./article.css";
 
 
@@ -100,24 +99,19 @@ class Articles extends React.Component {
         <Row>
           <Col style="side-bar" size="md-2">
             <Nav/>
-            {
-                isLoggedIn() ?   <button className="btn btn-danger log" onClick={() =>{
-                  logout()
-                  window.location = "/";
-                }}>Log out </button>: <button className="btn btn-info" onClick={() => login()}>Log In</button>
-            }
           </Col>
           <Col style="main" size="md-10 sm-12">
           <Particles style={{position:"absolute"}} params={particlesConfig}/>
-            <Banner>
-              <a href="https://chrome.google.com/webstore/detail/rembr/mpbdabjachklldenkpdnpnhbnhoebnnm"><img src={logo} style={{width:"100px",height:"100px", marginLeft:"24px"}} target="_blank" alt="Rembr Icon" /></a>
-              <h4 style={{display:"inline"}}>Add Rembr to Chrome </h4>
-              <p>Rembr helps you save articles from anywhere on the web so you can free up your tab bar and bookmarks. Save notes to understand why you saved the pages to begin with.</p>
-            </Banner>
-
+          <Banner/>
             <Row>
+            {!isLoggedIn() && 
+            <Col size="md-12"> <h3 className="text-center">Please log in to view your articles.</h3> </Col>}
+            {!this.state.articles.length && isLoggedIn() ? 
+            <Col size="md-12"><h3 className="text-center">Please save articles using the extension to view them here.</h3></Col> : ""}
+            {isLoggedIn() && this.state.articles.length ?
+             <div>
               <Col style="left-articles" size="md-4">
-            {this.state.articles.length ? (
+              {priority.length ? (
               <List>
                 <h3 style={{textAlign:"center"}}>Priority</h3>
                 {priority.map(article => {
@@ -146,13 +140,14 @@ class Articles extends React.Component {
                           <IconsContainer backlogId="backlog">
                           <BacklogBtn type="toBacklog" onClick={() => this.saveForLater(article._id, true)} />
                           </IconsContainer>
-                      <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
+                          <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
                 </ListItem>
                   );
                 })}
               </List>
-            ) : (
-                <h3 style={{textAlign:"center"}}>No Results to Display Yet</h3>
+              )
+              : (
+                <h3 style={{textAlign:"center"}}>Priority</h3>
               )}
               </Col>
               <Col style="mid-articles" size="md-4">
@@ -162,7 +157,6 @@ class Articles extends React.Component {
                   {backlog.map(article => {
                     return (
                       <ListItem key={article._id}>
-                        {/* <a href={"/books/" + book._id}> */}
                         <a href={article.url}>
                         <strong><h3> {article.title} seen on {article.date} <br/> </h3> </strong>
                           </a>
@@ -215,10 +209,10 @@ class Articles extends React.Component {
                   <h3 style={{textAlign:"center"}} >You haven't saved any favorites yet</h3>
                 )}
                 </Col>
+              </div> : ""}
               </Row>
               
           </Col>
-          {/* </Container> */}
         </Row>
       </Container>
     );

@@ -10,7 +10,19 @@
     display: inline-block;
     clear:both;
     position: relative;
-    font-size: 17px;
+    font-size: 18px;
     margin: 0, 10em, 0, 0;
+    font-family: 'Lucida Sans', sans-serif;
+    font-weight: 300;
+    color: #E63946;
 }
 
+.btn-danger {
+    background-color:#E63946;
+    border-color:#E63946;
+}
+
+.btn-danger:hover {
+    background-color:#b10404;
+    border-color:#b10404;
+}
