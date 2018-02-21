@@ -3,7 +3,7 @@
   "manifest_version": 2,
   "short_name": "Rembr",
   "name": "Rembr",
-  "version": "1.0.4", 
+  "version": "1.0.4.1", 
   "permissions": ["http://*/", "https://*/", "activeTab", "tabs", "bookmarks", "identity",  "identity.email", "https://accounts.google.com/*", "https://www.googleapis.com/*"],
   "content_scripts": [
     {

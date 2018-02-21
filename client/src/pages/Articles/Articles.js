@@ -110,9 +110,9 @@ class Articles extends React.Component {
           <Col style="main" size="md-10 sm-12">
           <Particles style={{position:"absolute"}} params={particlesConfig}/>
             <Banner>
-              <h4>Add Rembr to Chrome 
-                <a href="https://chrome.google.com/webstore/detail/rembr/mpbdabjachklldenkpdnpnhbnhoebnnm"><img src={logo} style={{width:"100px",height:"100px", marginLeft:"24px"}} target="_blank" alt="Rembr Icon" /></a>
-              </h4>  
+              <a href="https://chrome.google.com/webstore/detail/rembr/mpbdabjachklldenkpdnpnhbnhoebnnm"><img src={logo} style={{width:"100px",height:"100px", marginLeft:"24px"}} target="_blank" alt="Rembr Icon" /></a>
+              <h4 style={{display:"inline"}}>Add Rembr to Chrome </h4>
+              <p>Rembr helps you save articles from anywhere on the web so you can free up your tab bar and bookmarks. Save notes to understand why you saved the pages to begin with.</p>
             </Banner>
 
             <Row>
