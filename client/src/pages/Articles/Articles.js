@@ -119,10 +119,8 @@ class Articles extends React.Component {
                   <ListItem key={article._id}>
                       <a href={article.url}>
                       <strong><h4> {article.title} seen on {article.date.split("T")[0]} <br/> </h4> </strong>
-                        </a>
-                          <div onClick={this.handleClickEvent}>
-                            <p>Tags:</p>
-                          
+                      </a>
+                          <p>Tags:</p>
                           <ul>{article.tags.length === 0 ? 
                              <form style={{padding:"12px"}} onSubmit={(e) => {
                               this.handleSubmit(e, article._id);
@@ -133,7 +131,6 @@ class Articles extends React.Component {
                             article.tags.map((tag, i)=> <li key={i}>{tag}</li>)
                             }
                           </ul>
-                          </div>
                           <IconsContainer noteId="note" note={article.note}/>
                           <IconsContainer favoriteId="favorite"> 
                           <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/> </IconsContainer>
@@ -158,12 +155,10 @@ class Articles extends React.Component {
                     return (
                       <ListItem key={article._id}>
                         <a href={article.url}>
-                        <strong><h3> {article.title} seen on {article.date} <br/> </h3> </strong>
-                          </a>
-                            <p>Note : {article.note}</p>
-                            <p>Tags: </p>
-                            <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
-                            </ul>
+                        <strong><h4> {article.title} seen on {article.date.split("T")[0]} <br/> </h4> </strong>
+                        </a>
+                            <p>Tags:</p>
+                            <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}</ul>
                             <IconsContainer noteId="note" note={article.note}/>
                           <IconsContainer favoriteId="favorite"> 
                           <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/> </IconsContainer>
@@ -187,11 +182,9 @@ class Articles extends React.Component {
                     return (
                       
                       <ListItem key={article._id}>
-                       
                         <a href={article.url}>
-                        <strong><h3> {article.title} seen on {article.date} <br/> </h3> </strong>
+                        <strong><h4> {article.title} seen on {article.date.split("T")[0]} <br/> </h4> </strong>
                           </a>
-                            <p>Note : {article.note}</p>
                             <p>Tags: </p>
                             <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
                             </ul>

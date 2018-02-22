@@ -4,9 +4,6 @@ import ReactTooltip from 'react-tooltip';
 import NoteIcon from "../NoteIcon";
 import "./IconsContainer.css";
 class IconsContainer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render () {
     return (

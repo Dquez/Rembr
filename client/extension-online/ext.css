@@ -1,8 +1,10 @@
 body {
     color: honeydew;
     background-color :#1D3557;
+    border-color :#1D3557;
     font-family: Helvetica, sans-serif;
 }
+
 label {
     font-family: Times, serif;
     font-size: 1.1em
@@ -10,7 +12,7 @@ label {
 
 #ext-form {
     width: 400px;
-    padding: 10px;
+    padding: 16px;
 }
 
 #logout {

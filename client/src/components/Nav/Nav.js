@@ -1,8 +1,6 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { login, logout, isLoggedIn } from '../../utils/AuthService';
-import { Col, Row, Container } from "../../components/Grid";
 import logoDark from '../../pages/Articles/assets/images/R-dark.png';
 import "./nav.css"
 
@@ -29,9 +27,5 @@ class Nav extends React.Component {
   }
 
 }
-  // Nav.props = {
-  //   fluid: PropTypes.string,
-  //   children: PropTypes.node
-  // }
-  
+
   export default Nav;
