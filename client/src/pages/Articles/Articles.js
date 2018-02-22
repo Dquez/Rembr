@@ -115,7 +115,7 @@ class Articles extends React.Component {
                 {priority.map(article => {
                   return (         
                   <ListItem key={article._id}>
-                      <a href={article.url}>
+                      <a className="article-url" href={article.url}>
                       <strong><h4> {article.title} seen on {article.date.split("T")[0]} <br/> </h4> </strong>
                       </a>
                           <p>Tags:</p>
@@ -152,7 +152,7 @@ class Articles extends React.Component {
                   {backlog.map(article => {
                     return (
                       <ListItem key={article._id}>
-                        <a href={article.url}>
+                        <a className="article-url" href={article.url}>
                         <strong><h4> {article.title} seen on {article.date.split("T")[0]} <br/> </h4> </strong>
                         </a>
                             <p>Tags:</p>
@@ -180,7 +180,7 @@ class Articles extends React.Component {
                     return (
                       
                       <ListItem key={article._id}>
-                        <a href={article.url}>
+                        <a className="article-url" href={article.url}>
                         <strong><h4> {article.title} seen on {article.date.split("T")[0]} <br/> </h4> </strong>
                           </a>
                             <p>Tags: </p>

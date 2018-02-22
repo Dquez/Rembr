@@ -9,3 +9,12 @@ p {
     font-size: 1.2em;
     font-weight:300;
 }
+
+.article-url:hover {
+    text-decoration: underline #1D3557;
+    
+}
+
+.article-url h4 {
+    color: #4b88aa;
+}
