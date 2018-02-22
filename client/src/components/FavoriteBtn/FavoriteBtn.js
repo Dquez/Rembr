@@ -19,6 +19,7 @@ class FavoriteBtn extends React.Component {
 
 
 FavoriteBtn.props = {
+  type: PropTypes.string,
   onClick: PropTypes.func
 }
 

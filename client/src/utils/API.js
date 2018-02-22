@@ -30,19 +30,3 @@ export default {
     });
   },
 }
-
-
-
-
-
-// // Saves a book to the database
-// saveBook: function (bookData) {
-//   return axios.post("/api/books", bookData);
-// },
-// // Gets the book with the given id
-// getBook: function (id) {
-//   return axios.get("/api/books/" + id);
-// },
-// patchBook: function (id, bookData) {
-//   return axios.patch("/api/books/" + id, bookData);
-// },

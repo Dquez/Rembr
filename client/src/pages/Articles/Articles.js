@@ -2,12 +2,10 @@ import React from "react";
 import IconsContainer from "../../components/IconsContainer";
 import Banner from "../../components/Banner";
 import DeleteBtn from "../../components/DeleteBtn";
-import NoteIcon from "../../components/NoteIcon";
 import API from "../../utils/API";
 import Nav from "../../components/Nav";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
 import {getUserInfo} from '../../utils/AuthService'; 
 import {isLoggedIn } from '../../utils/AuthService';
 import Particles from 'react-particles-js';
@@ -97,10 +95,10 @@ class Articles extends React.Component {
     return (
       <Container fluid>
         <Row>
-          <Col style="side-bar" size="md-2">
+          <Col styleProp="side-bar" size="md-2">
             <Nav/>
           </Col>
-          <Col style="main" size="md-10 sm-12">
+          <Col styleProp="main" size="md-10 sm-12">
           <Particles style={{position:"absolute"}} params={particlesConfig}/>
           <Banner/>
             <Row>
@@ -110,7 +108,7 @@ class Articles extends React.Component {
             <Col size="md-12"><h3 className="text-center">Please save articles using the extension to view them here.</h3></Col> : ""}
             {isLoggedIn() && this.state.articles.length ?
              <div>
-              <Col style="left-articles" size="md-4">
+              <Col styleProp="left-articles" size="md-4">
               {priority.length ? (
               <List>
                 <h3 style={{textAlign:"center"}}>Priority</h3>
@@ -147,7 +145,7 @@ class Articles extends React.Component {
                 <h3 style={{textAlign:"center"}}>Priority</h3>
               )}
               </Col>
-              <Col style="mid-articles" size="md-4">
+              <Col styleProp="mid-articles" size="md-4">
               {backlog.length ? (
                 <List>
                   <h3 style={{textAlign:"center"}}>Backlog</h3>
@@ -174,7 +172,7 @@ class Articles extends React.Component {
                   <h3 style={{textAlign:"center"}}>Nothing on backlog yet</h3>
                 )}
                 </Col>
-                <Col style="right-articles" size="md-4">
+                <Col styleProp="right-articles" size="md-4">
               {favorites.length ? (
                 <List>
                   <h3 style={{textAlign:"center"}}>Favorites</h3>

@@ -1,8 +1,13 @@
-chrome.identity.getAuthToken({ 'interactive': true }, token => {
-  chrome.browserAction.setBadgeText({
-    text: "ON"
+try {
+  chrome.identity.getAuthToken({ 'interactive': true }, token => {
+    chrome.browserAction.setBadgeText({
+      text: "ON"
+    });
   });
-});
+}
+catch (err) {
+}
+
 
 $("#logout").on("click", (e) => {
   e.preventDefault()
@@ -72,8 +77,7 @@ $("#submit-article").on("click", (e) => {
         date
       };
       $.ajax({
-        // url: "https://rembr-app.herokuapp.com/rembrTab",
-        url: "http://localhost:3000/rembrTab",
+        url: "https://rembr-app.herokuapp.com/rembrTab",
         type: "POST",
         data: userArticle,
         success: data => {

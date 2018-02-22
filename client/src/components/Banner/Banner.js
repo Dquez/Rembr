@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import logo from './assets/images/R.png';
 import "./banner.css";
 class Banner extends React.Component {
@@ -15,10 +14,6 @@ class Banner extends React.Component {
       );
     }
 
-}
-
-Banner.props = {
-  children: PropTypes.node
 }
 
 export default Banner;
