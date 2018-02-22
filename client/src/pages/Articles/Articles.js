@@ -2,12 +2,10 @@ import React from "react";
 import IconsContainer from "../../components/IconsContainer";
 import Banner from "../../components/Banner";
 import DeleteBtn from "../../components/DeleteBtn";
-import NoteIcon from "../../components/NoteIcon";
 import API from "../../utils/API";
 import Nav from "../../components/Nav";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
 import {getUserInfo} from '../../utils/AuthService'; 
 import {isLoggedIn } from '../../utils/AuthService';
 import Particles from 'react-particles-js';
@@ -97,10 +95,10 @@ class Articles extends React.Component {
     return (
       <Container fluid>
         <Row>
-          <Col style="side-bar" size="md-2">
+          <Col styleProp="side-bar" size="md-2">
             <Nav/>
           </Col>
-          <Col style="main" size="md-10 sm-12">
+          <Col styleProp="main" size="md-10 sm-12">
           <Particles style={{position:"absolute"}} params={particlesConfig}/>
           <Banner/>
             <Row>
@@ -110,7 +108,7 @@ class Articles extends React.Component {
             <Col size="md-12"><h3 className="text-center">Please save articles using the extension to view them here.</h3></Col> : ""}
             {isLoggedIn() && this.state.articles.length ?
              <div>
-              <Col style="left-articles" size="md-4">
+              <Col styleProp="left-articles" size="md-4">
               {priority.length ? (
               <List>
                 <h3 style={{textAlign:"center"}}>Priority</h3>
@@ -119,10 +117,8 @@ class Articles extends React.Component {
                   <ListItem key={article._id}>
                       <a href={article.url}>
                       <strong><h4> {article.title} seen on {article.date.split("T")[0]} <br/> </h4> </strong>
-                        </a>
-                          <div onClick={this.handleClickEvent}>
-                            <p>Tags:</p>
-                          
+                      </a>
+                          <p>Tags:</p>
                           <ul>{article.tags.length === 0 ? 
                              <form style={{padding:"12px"}} onSubmit={(e) => {
                               this.handleSubmit(e, article._id);
@@ -133,7 +129,6 @@ class Articles extends React.Component {
                             article.tags.map((tag, i)=> <li key={i}>{tag}</li>)
                             }
                           </ul>
-                          </div>
                           <IconsContainer noteId="note" note={article.note}/>
                           <IconsContainer favoriteId="favorite"> 
                           <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/> </IconsContainer>
@@ -150,7 +145,7 @@ class Articles extends React.Component {
                 <h3 style={{textAlign:"center"}}>Priority</h3>
               )}
               </Col>
-              <Col style="mid-articles" size="md-4">
+              <Col styleProp="mid-articles" size="md-4">
               {backlog.length ? (
                 <List>
                   <h3 style={{textAlign:"center"}}>Backlog</h3>
@@ -158,12 +153,10 @@ class Articles extends React.Component {
                     return (
                       <ListItem key={article._id}>
                         <a href={article.url}>
-                        <strong><h3> {article.title} seen on {article.date} <br/> </h3> </strong>
-                          </a>
-                            <p>Note : {article.note}</p>
-                            <p>Tags: </p>
-                            <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
-                            </ul>
+                        <strong><h4> {article.title} seen on {article.date.split("T")[0]} <br/> </h4> </strong>
+                        </a>
+                            <p>Tags:</p>
+                            <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}</ul>
                             <IconsContainer noteId="note" note={article.note}/>
                           <IconsContainer favoriteId="favorite"> 
                           <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/> </IconsContainer>
@@ -179,7 +172,7 @@ class Articles extends React.Component {
                   <h3 style={{textAlign:"center"}}>Nothing on backlog yet</h3>
                 )}
                 </Col>
-                <Col style="right-articles" size="md-4">
+                <Col styleProp="right-articles" size="md-4">
               {favorites.length ? (
                 <List>
                   <h3 style={{textAlign:"center"}}>Favorites</h3>
@@ -187,11 +180,9 @@ class Articles extends React.Component {
                     return (
                       
                       <ListItem key={article._id}>
-                       
                         <a href={article.url}>
-                        <strong><h3> {article.title} seen on {article.date} <br/> </h3> </strong>
+                        <strong><h4> {article.title} seen on {article.date.split("T")[0]} <br/> </h4> </strong>
                           </a>
-                            <p>Note : {article.note}</p>
                             <p>Tags: </p>
                             <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
                             </ul>

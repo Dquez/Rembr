@@ -3,14 +3,17 @@
   "manifest_version": 2,
   "short_name": "Rembr",
   "name": "Rembr",
-  "version": "1.0.4.1", 
-  "permissions": ["http://*/", "https://*/", "activeTab", "tabs", "bookmarks", "identity",  "identity.email", "https://accounts.google.com/*", "https://www.googleapis.com/*"],
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": [ "jquery.js", "content-script.js"]
-    }
-  ],
+  "version": "1.0.5",
+  "icons": {
+    "48": "icon48.png",
+    "128": "icon128.png",
+    "256": "icon256.png"
+  },
+  "permissions": ["http://*/", "https://*/", "activeTab", "tabs", "bookmarks", "identity", "identity.email", "https://accounts.google.com/*", "https://www.googleapis.com/*"],
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["jquery.js", "content-script.js"]
+  }],
   "oauth2": {
     "client_id": "610105421590-cmlmi74luvqehuok9pbd8bfmeacf3qn5.apps.googleusercontent.com",
     "scopes": ["profile", "email", "openid"]

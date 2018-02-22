@@ -15,7 +15,6 @@ class BacklogBtn extends React.Component {
 
 
 BacklogBtn.props = {
-  type: PropTypes.string,
   onClick: PropTypes.func
 }
 

@@ -1,5 +1,5 @@
 .list-overflow-container {
-  max-height: 545px;
+  max-height: 65%;
   border: 1px #DDDDDD solid;
   background-color: #F1FAEE;
   border-radius: 4px;
@@ -19,5 +19,4 @@
 
 .list-group-item {
   background-color: #F1FAEE;
-  padding:14px;
 }

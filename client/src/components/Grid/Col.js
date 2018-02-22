@@ -1,17 +1,16 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import "./col.css";
-// import Particles from "react-particles-js";
 
 class Col extends React.Component {
 
   render () {
-    const {style, size, children} = this.props
+    const {styleProp, size, children} = this.props
 
     const klass = size.split(" ").map(size => "col-" + size).join(" ");
     return (
         
-      <div className={style + " " + klass}>
+      <div className={styleProp + " " + klass}>
           {children}
       </div>
     );
@@ -19,6 +18,7 @@ class Col extends React.Component {
 };
 
 Col.props = {
+  styleProp: PropTypes.string,
   size: PropTypes.string,
   children: PropTypes.node
 }

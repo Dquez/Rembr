@@ -10,5 +10,8 @@ class NoteIcon extends React.Component {
     );
   }
 }
+NoteIcon.props = {
+  onClick: PropTypes.func,
+}
 
 export default NoteIcon;
