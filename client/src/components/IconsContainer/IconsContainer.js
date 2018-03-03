@@ -15,10 +15,10 @@ class IconsContainer extends React.Component {
           </span>
         }
 
-        {(this.props.favoriteId || this.props.unfavoriteId) && 
+        {(this.props.favoriteId) && 
         <span>
-          <ReactTooltip id={this.props.favoriteId || this.props.unfavoriteId} place="right" type="dark" effect="float"/> 
-          <span data-for={this.props.favoriteId ? "favorite" : "unfavorite"} data-tip={this.props.favoriteId ?  "Favorite this article": "Unfavorite this article"}>{this.props.children}</span> 
+          <ReactTooltip id={this.props.favoriteId} place="right" type="dark" effect="float"/> 
+          <span data-for={this.props.favoriteId} data-tip={this.props.value ? "Unfavorite this article" :"Favorite this article" }>{this.props.children}</span> 
         </span>
         }
 
