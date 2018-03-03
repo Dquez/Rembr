@@ -3,9 +3,11 @@ import IconsContainer from "../../components/IconsContainer";
 import Banner from "../../components/Banner";
 import DeleteBtn from "../../components/DeleteBtn";
 import API from "../../utils/API";
+import Search from "../../utils/Search";
 import Nav from "../../components/Nav";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
+import SearchBar from "../../components/Search";
 import {getUserInfo} from '../../utils/AuthService'; 
 import {isLoggedIn } from '../../utils/AuthService';
 import Particles from 'react-particles-js';
@@ -23,7 +25,9 @@ class Articles extends React.Component {
       articles: [],
       email: "",
       articleId : null,
-      tag: ""
+      tag: "",
+      search: "",
+      keywordArticles : []
     };
   }
 
@@ -70,12 +74,22 @@ class Articles extends React.Component {
       .catch(err => console.log(err));
   };
 
-  handleInputChange = (e, articleId) => {
+  handleTagChange = (e, articleId) => {
     const {value} = e.target
     this.setState ({
       tag : value
     })
   }
+
+    // Handles updating component state when the user types into the input field
+  handleInputChange = event => {
+      const { name, value } = event.target;
+      this.setState({
+        [name]: value,
+        keywordArticles : Search.keywordSearch(this.state.articles, value)
+    });
+    console.log(this.state.keywordArticles);
+  };
 
   handleSubmit = (e, id) => {
     e.preventDefault();
@@ -124,7 +138,7 @@ class Articles extends React.Component {
                              <form style={{padding:"12px"}} onSubmit={(e) => {
                               this.handleSubmit(e, article._id);
                              }}>
-                             <input type="text" onChange={this.handleInputChange} className="form-control" placeholder="Enter a tag"/>
+                             <input type="text" onChange={this.handleTagChange} className="form-control" placeholder="Enter a tag"/>
                              </form>
                             :
                             article.tags.map((tag, i)=> <li key={i}>{tag}</li>)
@@ -175,9 +189,15 @@ class Articles extends React.Component {
                 )}
                 </Col>
                 <Col styleProp="right-articles" size="md-4">
-              {favorites.length ? (
+
+              
+                <SearchBar value={this.state.search}
+                    onChange={this.handleInputChange}
+                    name="search"
+                    placeholder="Search for a keyword..." 
+                  />
+                   {this.state.keywordArticles.length && this.state.search && (
                 <List>
-                  <h3 style={{textAlign:"center"}}>Favorites</h3>
                   {favorites.map(article => {
                     return (
                       
@@ -199,9 +219,8 @@ class Articles extends React.Component {
                     );
                   })}
                 </List>
-              ) : (
-                  <h3 style={{textAlign:"center"}} >You haven't saved any favorites yet</h3>
-                )}
+                   )}
+                 
                 </Col>
               </div> : ""}
               </Row>
