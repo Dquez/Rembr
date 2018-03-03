@@ -27,7 +27,8 @@ class Articles extends React.Component {
       articleId : null,
       tag: "",
       search: "",
-      keywordArticles : []
+      keywordArticles : [],
+      favToggle: false
     };
   }
 
@@ -88,7 +89,6 @@ class Articles extends React.Component {
         [name]: value,
         keywordArticles : Search.keywordSearch(this.state.articles, value)
     });
-    console.log(this.state.keywordArticles);
   };
 
   handleSubmit = (e, id) => {
@@ -102,10 +102,8 @@ class Articles extends React.Component {
   }
 
   render() {
-    let priority = this.state.articles.filter(article=> !article.saveForLater && !article.favorited);
-    let backlog = this.state.articles.filter(article=> article.saveForLater && !article.favorited);
-    let favorites = this.state.articles.filter(article=> article.favorited);
-                        
+    let priority = this.state.articles.filter(article=> !article.saveForLater);
+    let backlog = this.state.articles.filter(article=> article.saveForLater);           
     return (
       <Container fluid>
         <Row>
@@ -145,8 +143,9 @@ class Articles extends React.Component {
                             }
                           </ul>
                           <IconsContainer noteId="note" note={article.note}/>
-                          <IconsContainer favoriteId="favorite"> 
-                          <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/> </IconsContainer>
+                          <IconsContainer value={article.favorited} favoriteId="favorite"> 
+                            <FavoriteBtn type="favorite" value={article.favorited} onClick={() => this.favoriteArticle(article._id, !article.favorited)}/> 
+                          </IconsContainer>
                           <IconsContainer backlogId="backlog">
                           <BacklogBtn type="toBacklog" onClick={() => this.saveForLater(article._id, true)} />
                           </IconsContainer>
@@ -170,12 +169,12 @@ class Articles extends React.Component {
                         <a className="article-url" href={article.url}>
                         <strong><h4> {article.title} </h4> </strong></a>
                         <p> Viewed: {article.date.split("T")[0]} </p>  
-                       
                             <p>Tags:</p>
                             <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}</ul>
                             <IconsContainer noteId="note" note={article.note}/>
-                          <IconsContainer favoriteId="favorite"> 
-                          <FavoriteBtn type="favorite" onClick={() => this.favoriteArticle(article._id, true)}/> </IconsContainer>
+                            <IconsContainer value={article.favorited} favoriteId="favorite"> 
+                              <FavoriteBtn type="favorite" value={article.favorited} onClick={() => this.favoriteArticle(article._id, !article.favorited)}/> 
+                            </IconsContainer>
                           <IconsContainer priorityId="priority">
                           <PriorityBtn onClick={() => this.saveForLater(article._id, false)} />
                           </IconsContainer>       
@@ -189,38 +188,37 @@ class Articles extends React.Component {
                 )}
                 </Col>
                 <Col styleProp="right-articles" size="md-4">
-
-              
                 <SearchBar value={this.state.search}
                     onChange={this.handleInputChange}
                     name="search"
                     placeholder="Search for a keyword..." 
                   />
-                   {this.state.keywordArticles.length && this.state.search && (
-                <List>
-                  {favorites.map(article => {
-                    return (
-                      
-                      <ListItem key={article._id}>
-                        <a className="article-url" href={article.url}>
-                        <strong><h4> {article.title} </h4> </strong> </a>
-                        <p> Viewed: {article.date.split("T")[0]} </p>  
-                      
-                            <p>Tags: </p>
-                            <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
-                            </ul>
-                            <IconsContainer noteId="note" note={article.note}/>
-                            <IconsContainer unfavoriteId="unfavorite"> 
-                            <FavoriteBtn onClick={() => this.favoriteArticle(article._id, false)}/> 
+                   {this.state.keywordArticles.length && this.state.search ? (
+                  <List>
+                    {this.state.keywordArticles.map(article => {
+                      return (
+                        
+                        <ListItem key={article._id}>
+                          <a className="article-url" href={article.url}>
+                          <strong><h4> {article.title} </h4> </strong> </a>
+                          <p> Viewed: {article.date.split("T")[0]} </p>  
+                        
+                              <p>Tags: </p>
+                              <ul>{article.tags.map((tag, i)=> <li key={i}>{tag}</li>)}
+                              </ul>
+                              <IconsContainer noteId="note" note={article.note}/>
+                              <IconsContainer value={article.favorited} favoriteId="favorite"> 
+                                <FavoriteBtn type="favorite" value={article.favorited} onClick={() => {
+                                  this.favoriteArticle(article._id, !article.favorited)
+                                }}/> 
                             </IconsContainer>
-                            <DeleteBtn onClick={() => this.deleteArticle(article._id)} />                     
-                      </ListItem>
+                              <DeleteBtn onClick={() => this.deleteArticle(article._id)} />                     
+                        </ListItem>
 
-                    );
-                  })}
-                </List>
-                   )}
-                 
+                      );
+                    })}
+                  </List>
+                   ) : ""}
                 </Col>
               </div> : ""}
               </Row>

@@ -20,6 +20,8 @@ export default {
     });
   },
   favoriteArticle: function (id, decision) {
+    console.log(decision);
+    // decision === false ? true : false
     return axios.patch("/api/favoriteArticle/" + id, {
       favorited: decision
     });
