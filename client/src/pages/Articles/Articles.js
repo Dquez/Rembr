@@ -8,6 +8,7 @@ import Nav from "../../components/Nav";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import SearchBar from "../../components/Search";
+// import Filter from "../../components/Filter";
 import {getUserInfo} from '../../utils/AuthService'; 
 import {isLoggedIn } from '../../utils/AuthService';
 import Particles from 'react-particles-js';
@@ -188,11 +189,12 @@ class Articles extends React.Component {
                 )}
                 </Col>
                 <Col styleProp="right-articles" size="md-4">
-                <SearchBar value={this.state.search}
+                <SearchBar style={{width:"100%", clear:"both"}} value={this.state.search}
                     onChange={this.handleInputChange}
                     name="search"
                     placeholder="Search for a keyword..." 
                   />
+                {/* <Filter toggle={"dropdown"} style={{width:"50%"}}/> */}
                    {this.state.keywordArticles.length && this.state.search ? (
                   <List>
                     {this.state.keywordArticles.map(article => {

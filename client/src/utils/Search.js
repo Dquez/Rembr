@@ -19,11 +19,14 @@ export default {
         const filteredIds = filteredStrings.map(article => article.split("?/*")[1]);
         // filter out the articles which have an Id equal to the Id from the above array, filteredIds
         return articles.filter(filteredArticle => {
+            // this anonymous IIFE is required to return from the outer arrow function, otherwise there's a lint error
+            return  (() => {
                 for(let i = 0; i < filteredIds.length; i++) {
                     if (filteredArticle._id === filteredIds[i]) {
                         return filteredArticle;
                     }
                 }
+            })()
         })
     }
 }
