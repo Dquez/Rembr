@@ -1,7 +1,12 @@
 # Rembr
+
+![Rembr Chrome Extension](https://media.giphy.com/media/3tGUl8GqYFBojtmfEV/giphy.gif)
+
 Rembr is a MERN, single-page web application for people who are tired of slowing down their computers with countless tabs and browsers open. Rembr's utility lies in the accompanying Chrome extension that saves a page's url, a custom title, and a note to remember why you saved the page in the first place. The extension and access to the web app free of charge, the only thing required is a gmail account so you can log in to the chrome extension and web app using the same email. Once you're logged in, save your webpage using the extension for later reading and then visit the web application when you're ready to read or organize your saved pages. An intuitive, personalized bookmarking system.
 
 ### [Rembr](https://rembr-app.herokuapp.com/) deployed on heroku
+
+![Rembr Web Application](https://media.giphy.com/media/1XhtZPa4a7e4DaaReV/giphy.gif)
 
 ## Built With
 
