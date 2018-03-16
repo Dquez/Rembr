@@ -46,6 +46,7 @@ Before serious development even started, I knew I had to get ready to read the [
 ## Accomplishments that I'm proud of
 That being said, working on the entire app, from start to finish, including design specs, was immensly gratifying. Also, learning a new technology, google's [chrome extension](https://developer.chrome.com/extensions/devguide), proved to be a major boost in my confidence as a developer. Seamlessly including third party API's like particles-js and [indico.io](https://www.npmjs.com/package/indico.io) was also a great accomplishment.
 
+<img src="http://res.cloudinary.com/dquez/image/upload/v1521158262/Screen_Shot_2018-03-14_at_8.58.06_PM_y5hncw.png"/>
 
 ## What I learned
 I learned how beneficial wireframing and brainstorming are before any major project. I also followed git version control best practices (checking out to a separate branch, not pushing to master), but more importantly I followed a work flow developed on Trello. I was able to quantify my progress by checking back with the goals I set out at the start of the project. The goals and expectations mutated as the project went on but I was always able to work towards a MVP with key pieces in mind that I needed to incorporate.
