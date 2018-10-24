@@ -4,6 +4,7 @@ import _ from "lodash";
 export default function (state = {}, action) {
     switch(action.type){
         case FETCH_ARTICLES:
+            console.log(action.payload.data);
             // set up an object of objects, in which the keys("id") correspond to each "article" object
             return _.mapKeys(action.payload.data, "_id");
         case FAVORITE_ARTICLE:

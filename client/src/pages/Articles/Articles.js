@@ -1,21 +1,21 @@
 import React from "react";
+import _ from "lodash";
+import {connect} from "react-redux";
+import {getArticles} from "../../actions";
 import IconsContainer from "../../components/IconsContainer";
 import Banner from "../../components/Banner";
-import DeleteBtn from "../../components/DeleteBtn";
 import API from "../../utils/API";
 import Search from "../../utils/Search";
 import Nav from "../../components/Nav";
 import { Col, Row, Container } from "../../components/Grid";
+import { DeleteBtn, PriorityBtn, BacklogBtn, FavoriteBtn} from "../../components/Buttons";
 import { List, ListItem } from "../../components/List";
 import SearchBar from "../../components/Search";
+import Particles from 'react-particles-js';
+import particlesConfig from "./particlesConfig.json";
 // import Filter from "../../components/Filter";
 import {getUserInfo} from '../../utils/AuthService'; 
 import {isLoggedIn } from '../../utils/AuthService';
-import Particles from 'react-particles-js';
-import particlesConfig from "./particlesConfig.json";
-import PriorityBtn from "../../components/PriorityBtn";
-import BacklogBtn from "../../components/BacklogBtn"; 
-import FavoriteBtn from "../../components/FavoriteBtn";
 import "./article.css";
 
 
@@ -46,9 +46,11 @@ class Articles extends React.Component {
 
   // Loads all books  and sets them to this.state.books
   loadBooks = (email) => {
-    API.getArticles(email)
-      .then(res =>
+    this.props.getArticles(email)
+      .then(res => {
+        console.log(res)
         this.setState({ articles: res.data})
+      }
       )
       .catch(err => console.log(err));
   };
@@ -88,7 +90,7 @@ class Articles extends React.Component {
       const { name, value } = event.target;
       this.setState({
         [name]: value,
-        keywordArticles : Search.keywordSearch(this.state.articles, value)
+        keywordArticles : Search.keywordSearch(this.props.articles, value)
     });
   };
 
@@ -103,8 +105,8 @@ class Articles extends React.Component {
   }
 
   render() {
-    let priority = this.state.articles.filter(article=> !article.saveForLater);
-    let backlog = this.state.articles.filter(article=> article.saveForLater);           
+    // let priority = this.props.articles.filter(article=> !article.saveForLater);
+    // let backlog = this.props.articles.filter(article=> article.saveForLater);           
     return (
       <Container fluid>
         <Row>
@@ -117,12 +119,12 @@ class Articles extends React.Component {
             <Row>
             {!isLoggedIn() && 
             <Col size="md-12"> <h3 className="text-center">Please log in to view your articles.</h3> </Col>}
-            {!this.state.articles.length && isLoggedIn() ? 
+            {!this.props.articles.length && isLoggedIn() ? 
             <Col size="md-12"><h3 className="text-center">Please save articles using the extension to view them here.</h3></Col> : ""}
-            {isLoggedIn() && this.state.articles.length ?
+            {isLoggedIn() && this.props.articles.length ?
              <div>
               <Col styleProp="left-articles" size="md-4">
-              {priority.length ? (
+              {/* {priority.length ? (
               <List>
                 <h3 style={{textAlign:"center"}}>Priority</h3>
                 {priority.map(article => {
@@ -186,7 +188,7 @@ class Articles extends React.Component {
                 </List>
               ) : (
                   <h3 style={{textAlign:"center"}}>Nothing on backlog yet</h3>
-                )}
+                )} */}
                 </Col>
                 <Col styleProp="right-articles" size="md-4">
                 <SearchBar style={{width:"100%", clear:"both"}} value={this.state.search}
@@ -232,4 +234,10 @@ class Articles extends React.Component {
   }
 }
 
-export default Articles;
+
+function mapStateToProps({articles}){
+  return {articles};
+}
+
+// getArticles is a destructured methods, now hooked up to redux and available as props
+export default connect(mapStateToProps, {getArticles})(Articles);
