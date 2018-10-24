@@ -1,5 +1,5 @@
 {
-  "name": "mern",
+  "name": "rembr",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -10,7 +10,8 @@
     "start": "concurrently \"nodemon server.js\" \"npm run client\"",
     "build": "node scripts/build.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "installDeps": "yarn && cd client && yarn"
+    "installDeps": "yarn && cd client && yarn",
+    "seed": "node scripts/seedDB.js"
   },
   "author": "Dariell Vasquez",
   "license": "ISC",

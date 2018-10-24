@@ -13,6 +13,7 @@ mongoose.connect(
 
 const articleSeed = [
   {
+    email: "dariellv7@gmail.com",
     title: "ES6",
     url: "https://github.com/DrkSephy/es6-cheatsheet",
     tags: ["Tech", "Javascript"],
@@ -20,6 +21,7 @@ const articleSeed = [
     date: new Date(Date.now())
   },
   {
+    email: "dariellv7@gmail.com",
     title: "JS sorting algorithms",
     url: "http://khan4019.github.io/front-end-Interview-Questions/sort.html#quickSort",
     tags: ["Tech", "Javascript"],
@@ -27,6 +29,7 @@ const articleSeed = [
     date: new Date(Date.now())
   },
   {
+    email: "dariellv7@gmail.com",
     title: "AI nanodegree term one",
     url: "https://medium.com/udacity/ai-nanodegree-program-syllabus-term-1-in-depth-80c41297acaf",
     tags: ["Tech", "AI"],
