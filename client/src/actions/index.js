@@ -23,7 +23,7 @@ export function getArticles (email) {
 
 
 export function deleteArticle (id) {
-    axios.delete(`${ROOT_URL}/articles/${id}`);
+    axios.delete(`${ROOT_URL}/article/${id}`);
     return {
         type: DELETE_ARTICLE,
         payload: id

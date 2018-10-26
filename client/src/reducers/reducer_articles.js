@@ -9,10 +9,9 @@ export default function (state = {}, action) {
         case FAVORITE_ARTICLE:
             return {...state, [action.payload.data._id]: action.payload.data};
         case BACKLOG_ARTICLE:
-            console.log(action.payload);
             return {...state, [action.payload.data._id]: action.payload.data};
         case DELETE_ARTICLE:
-            return state;
+            return _.omit(state, action.payload);
         default:
             return state;
     }
