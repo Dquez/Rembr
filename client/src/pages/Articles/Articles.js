@@ -10,7 +10,6 @@ import SearchBar from "../../components/Search";
 import Particles from 'react-particles-js';
 import particlesConfig from "./particlesConfig.json";
 // import Filter from "../../components/Filter";
-// import Search from "../../utils/Search";
 import {getUserInfo} from '../../utils/AuthService'; 
 import {isLoggedIn } from '../../utils/AuthService';
 import "./article.css";
@@ -20,10 +19,8 @@ class Articles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      articles: [],
       email: "",
       search: "",
-      // keywordArticles : [],
     };
   }
 
@@ -36,6 +33,7 @@ class Articles extends React.Component {
     }) 
   }
   
+  // when redux updates state, this function gets called
   componentWillReceiveProps() {
     this.props.getArticles(this.state.email);
   }
@@ -70,11 +68,9 @@ class Articles extends React.Component {
   }
 
   render() {
-    const {articles} = this.props; 
-  
+    const {articles, keywordArticles} = this.props; 
     const priority = _.filter(articles, article=> !article.saveForLater);
     const backlog = _.filter(articles, article=> article.saveForLater);
-    const {keywordArticles} = this.props; 
     return (
       <Container fluid>
         <Row>
@@ -115,15 +111,13 @@ class Articles extends React.Component {
                     : ""}
                 </Col>
               </div> : ""}
-              </Row>
-              
+              </Row>   
           </Col>
         </Row>
       </Container>
     );
   }
 }
-
 
 function mapStateToProps({articles, keywordArticles}){
   return {articles, keywordArticles};

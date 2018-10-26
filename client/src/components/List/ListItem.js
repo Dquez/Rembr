@@ -11,16 +11,12 @@ class ListItem extends React.Component {
     super(props)
     this.state = {
       tag: "",
-      // search: "",
-      // keywordArticles : [],
     }
   }
   handleTagChange = e => {
     const {value} = e.target
     this.setState ({tag : value})
   }
-
-
 
   handleSubmit = (e, id) => {
     e.preventDefault();
@@ -74,10 +70,12 @@ class ListItem extends React.Component {
 }
 
 ListItem.props = {
-  children: PropTypes.node
+  articles: PropTypes.array,
+  favoriteArticle: PropTypes.func,
+  saveForLater: PropTypes.func,
+  deleteArticle: PropTypes.func,
+  addTag: PropTypes.func
 }
-
-
 
 // favoriteArticle, saveForLater, deleteArticle are destructured methods, now hooked up to redux and available as props
 export default connect(null, {favoriteArticle, saveForLater, deleteArticle, addTag})(ListItem);
