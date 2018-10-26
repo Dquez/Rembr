@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-// import {favoriteArticle, saveForLater, deleteArticle} from "../../actions";
+import {favoriteArticle, saveForLater, deleteArticle} from "../../actions";
 import { DeleteBtn, PriorityBtn, BacklogBtn, FavoriteBtn} from "../../components/Buttons";
 import IconsContainer from "../../components/IconsContainer";
 import "./List.css"
@@ -55,6 +55,6 @@ ListItem.props = {
 }
 
 
-export default ListItem;
+
 // favoriteArticle, saveForLater, deleteArticle are destructured methods, now hooked up to redux and available as props
-// export default connect(null, {favoriteArticle, saveForLater, deleteArticle})(ListItem);
+export default connect(null, {favoriteArticle, saveForLater, deleteArticle})(ListItem);

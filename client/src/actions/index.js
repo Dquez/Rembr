@@ -22,48 +22,48 @@ export function getArticles (email) {
 
 
 
-// export function deleteArticle (id) {
-//     axios.delete(`${ROOT_URL}/articles/${id}`);
-//     return {
-//         type: DELETE_ARTICLE,
-//         payload: id
-//     }
-// }
+export function deleteArticle (id) {
+    axios.delete(`${ROOT_URL}/articles/${id}`);
+    return {
+        type: DELETE_ARTICLE,
+        payload: id
+    }
+}
 
-// export function saveForLater (id, decision) {
-//     const request = axios.patch("/api/articles/" + id, {
-//       saveForLater: decision
-//     });
-//     return {
-//         type: BACKLOG_ARTICLE,
-//         payload: request
-//     }
-// }
+export function saveForLater (id, decision) {
+    const request = axios.patch("/api/articles/" + id, {
+      saveForLater: decision
+    });
+    return {
+        type: BACKLOG_ARTICLE,
+        payload: request
+    }
+}
 
-// export function favoriteArticle (id, decision) {
-//     const request = axios.patch("/api/favoriteArticle/" + id, {
-//         favorited: decision
-//       });
-//     return {
-//         type: FAVORITE_ARTICLE,
-//         payload: request
-//     }
-// }
+export function favoriteArticle (id, decision) {
+    const request = axios.patch("/api/favoriteArticle/" + id, {
+        favorited: decision
+      });
+    return {
+        type: FAVORITE_ARTICLE,
+        payload: request
+    }
+}
 
-// export function addTag (id, tag) {
-//     const request = axios.patch("/api/articleTag/" + id, {
-//         tags: tag
-//       });
-//     return {
-//         type: ADD_TAG,
-//         payload: request
-//     }
-// }
+export function addTag (id, tag) {
+    const request = axios.patch("/api/articleTag/" + id, {
+        tags: tag
+      });
+    return {
+        type: ADD_TAG,
+        payload: request
+    }
+}
 
-// export function postArticle (article) {
-//     const request = axios.post("/login", article);
-//     return {
-//         type: POST_ARTICLE,
-//         payload: request
-//     }
-// }
+export function postArticle (article) {
+    const request = axios.post("/login", article);
+    return {
+        type: POST_ARTICLE,
+        payload: request
+    }
+}
