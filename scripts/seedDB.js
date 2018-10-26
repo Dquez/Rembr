@@ -32,7 +32,7 @@ const articleSeed = [
     email: "dariellv7@gmail.com",
     title: "AI nanodegree term one",
     url: "https://medium.com/udacity/ai-nanodegree-program-syllabus-term-1-in-depth-80c41297acaf",
-    tags: ["Tech", "AI"],
+    tags: [],
     note: "Possible study material after graduation",
     date: new Date(Date.now())
   }
