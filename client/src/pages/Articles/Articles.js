@@ -97,37 +97,33 @@ class Articles extends React.Component {
     })
       .catch(err => console.log(err));
   }
-  renderLeftArticles = (priority) => {
+  renderArticles = (priority, type) => {
     return (
       <List>
-        <h3 style={{textAlign:"center"}}>Priority</h3>
+        <h3 style={{textAlign:"center"}}>{type}</h3>
         {priority.map(article => {
         return (         
-            <ListItem key={article._id}>
-              <a className="article-url" href={article.url}>
-                <strong><h4> {article.title} </h4></strong>
-              </a>
-              <p> Viewed: {article.date.split("T")[0]} </p>  
-              <p>Tags:</p>
-              <ul>{article.tags.length === 0 
-                ? 
-                <form style={{padding:"12px"}} onSubmit={(e) => {
-                  this.handleSubmit(e, article._id);
-                }}>
-                    <input type="text" onChange={this.handleTagChange} className="form-control" placeholder="Enter a tag"/>
-                </form>
-                :
-                article.tags.map((tag, i)=> <li key={i}>{tag}</li>
-                )}
-              </ul>
-              <IconsContainer noteId="note" note={article.note}/>
+            <ListItem 
+              key={article._id} 
+              article={article} 
+              handleTagChange={this.handleTagChange} 
+              handleSubmit={this.handleSubmit}
+            >
+              {/* <IconsContainer noteId="note" note={article.note}/>
               <IconsContainer value={article.favorited} favoriteId="favorite"> 
                 <FavoriteBtn type="favorite" value={article.favorited} onClick={() => this.favoriteArticle(article._id, !article.favorited)}/> 
-              </IconsContainer>
+              </IconsContainer> */}
+              {type === "Priority" ?
+               
               <IconsContainer backlogId="backlog">
                 <BacklogBtn type="toBacklog" onClick={() => this.saveForLater(article._id, true)} />
               </IconsContainer>
-              <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
+              :
+              <IconsContainer priorityId="priority">
+                          <PriorityBtn onClick={() => this.saveForLater(article._id, false)} />
+              </IconsContainer>      
+              }
+              {/* <DeleteBtn onClick={() => this.deleteArticle(article._id)} /> */}
             </ListItem>
           );
       })}
