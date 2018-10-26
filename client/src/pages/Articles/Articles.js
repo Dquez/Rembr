@@ -8,7 +8,7 @@ import API from "../../utils/API";
 import Search from "../../utils/Search";
 import Nav from "../../components/Nav";
 import { Col, Row, Container } from "../../components/Grid";
-import { DeleteBtn, PriorityBtn, BacklogBtn, FavoriteBtn} from "../../components/Buttons";
+import { DeleteBtn, PriorityBtn, FavoriteBtn} from "../../components/Buttons";
 import { List, ListItem } from "../../components/List";
 import SearchBar from "../../components/Search";
 import Particles from 'react-particles-js';
@@ -41,14 +41,7 @@ class Articles extends React.Component {
       this.props.getArticles(email)
     }) 
   }
-
-  // // Loads all articles
-  // loadBooks = (email) => {
-    
-  //     .then()
-  //     .catch(err => console.log(err));
-  // };
-
+  
   // // Deletes a book from the database with a given id, then reloads books from the db
   // deleteArticle = id => {
   //   API.deleteArticle(id)
@@ -108,21 +101,25 @@ class Articles extends React.Component {
               article={article} 
               handleTagChange={this.handleTagChange} 
               handleSubmit={this.handleSubmit}
+              type={type}
             >
               {/* <IconsContainer noteId="note" note={article.note}/>
               <IconsContainer value={article.favorited} favoriteId="favorite"> 
                 <FavoriteBtn type="favorite" value={article.favorited} onClick={() => this.favoriteArticle(article._id, !article.favorited)}/> 
               </IconsContainer> */}
-              {type === "Priority" ?
-               
+              {/* {type === "Priority" ?
               <IconsContainer backlogId="backlog">
                 <BacklogBtn type="toBacklog" onClick={() => this.saveForLater(article._id, true)} />
               </IconsContainer>
               :
+              type ==="Backlog"
+              ?
               <IconsContainer priorityId="priority">
                           <PriorityBtn onClick={() => this.saveForLater(article._id, false)} />
-              </IconsContainer>      
-              }
+              </IconsContainer> 
+              :
+              ""     
+              } */}
               {/* <DeleteBtn onClick={() => this.deleteArticle(article._id)} /> */}
             </ListItem>
           );
@@ -135,10 +132,9 @@ class Articles extends React.Component {
 
   render() {
     const {articles} = this.props; 
+  
     const priority = _.filter(articles, article=> !article.saveForLater);
-    const backlog = _.filter(articles, article=> article.saveForLater); 
-    // let priority = this.props.articles.filter(article=> !article.saveForLater);
-    // let backlog = this.props.articles.filter(article=> article.saveForLater);           
+    const backlog = _.filter(articles, article=> article.saveForLater);      
     return (
       <Container fluid>
         <Row>
@@ -158,7 +154,7 @@ class Articles extends React.Component {
             {isLoggedIn() && _.size(articles) > 0 ?
              <div>
               <Col styleProp="left-articles" size="md-4">
-              {priority.length ? this.renderLeftArticles(priority) : 
+              {priority.length ? this.renderArticles(priority, "Priority") : 
                 // if there are no articles in the priority array, display a standalone h3 tag
                 (<h3 style={{textAlign:"center"}}>Priority</h3>)}
               </Col>
