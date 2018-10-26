@@ -1,7 +1,7 @@
 import React from "react";
 import _ from "lodash";
 import {connect} from "react-redux";
-import {getArticles} from "../../actions";
+import {getArticles, keywordSearch} from "../../actions";
 import Banner from "../../components/Banner";
 import Nav from "../../components/Nav";
 import { Col, Row, Container } from "../../components/Grid";
@@ -10,7 +10,7 @@ import SearchBar from "../../components/Search";
 import Particles from 'react-particles-js';
 import particlesConfig from "./particlesConfig.json";
 // import Filter from "../../components/Filter";
-import Search from "../../utils/Search";
+// import Search from "../../utils/Search";
 import {getUserInfo} from '../../utils/AuthService'; 
 import {isLoggedIn } from '../../utils/AuthService';
 import "./article.css";
@@ -23,7 +23,7 @@ class Articles extends React.Component {
       articles: [],
       email: "",
       search: "",
-      keywordArticles : [],
+      // keywordArticles : [],
     };
   }
 
@@ -43,10 +43,8 @@ class Articles extends React.Component {
   // Handles updating component state when the user types into the input field
   handleInputChange = event => {
       const { name, value } = event.target;
-      this.setState({
-        [name]: value,
-        keywordArticles : Search.keywordSearch(this.props.articles, value)
-    });
+      this.setState({[name]: value,});
+      this.props.keywordSearch(this.props.articles, value)
   };
 
   renderArticles = (articles, type) => {
@@ -75,7 +73,8 @@ class Articles extends React.Component {
     const {articles} = this.props; 
   
     const priority = _.filter(articles, article=> !article.saveForLater);
-    const backlog = _.filter(articles, article=> article.saveForLater);      
+    const backlog = _.filter(articles, article=> article.saveForLater);
+    const {keywordArticles} = this.props; 
     return (
       <Container fluid>
         <Row>
@@ -111,8 +110,8 @@ class Articles extends React.Component {
                     placeholder="Search for a keyword..." 
                   />
                 {/* <Filter toggle={"dropdown"} style={{width:"50%"}}/> */}
-                   {this.state.keywordArticles.length && this.state.search ? 
-                      this.renderArticles(this.state.keywordArticles)
+                   {keywordArticles.length && this.state.search ? 
+                      this.renderArticles(keywordArticles)
                     : ""}
                 </Col>
               </div> : ""}
@@ -126,9 +125,9 @@ class Articles extends React.Component {
 }
 
 
-function mapStateToProps({articles}){
-  return {articles};
+function mapStateToProps({articles, keywordArticles}){
+  return {articles, keywordArticles};
 }
 
 // getArticles is a destructured methods, now hooked up to redux and available as props
-export default connect(mapStateToProps, {getArticles})(Articles);
+export default connect(mapStateToProps, {getArticles, keywordSearch})(Articles);

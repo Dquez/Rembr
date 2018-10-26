@@ -1,7 +1,17 @@
+import {KEYWORD_SEARCH} from "../actions";
 import _ from "lodash";
-export default {
-    // function to search for a specific article via keyword, including url, title or note
-    keywordSearch: function (articles, keyword) {
+// state argument is not application state, only the state this reduce is responsible for
+export default function (state = [], action) {
+    switch(action.type){
+        case KEYWORD_SEARCH:
+            return keywordSearch(action.payload, action.keyword);
+        default:
+            return state;
+    }
+}
+
+// function to search for a specific article via keyword, including url, title or note
+function keywordSearch (articles, keyword) {
         // if user deleted the keyword, no articles are shown
         if (!keyword) return [];
 
@@ -28,5 +38,4 @@ export default {
                 }
             })()
         })
-    }
 }

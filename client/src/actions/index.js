@@ -9,6 +9,7 @@ export const FAVORITE_ARTICLE = 'FAVORITE_ARTICLE';
 export const DELETE_ARTICLE = 'DELETE_ARTICLE';
 export const ADD_TAG = 'ADD_TAG';
 export const POST_ARTICLE = 'POST_ARTICLE'
+export const KEYWORD_SEARCH = 'KEYWORD_SEARCH'
 
 // Gets all articles
 export function getArticles (email) {
@@ -19,7 +20,6 @@ export function getArticles (email) {
         payload: request
     }
 }
-
 
 // remove article from DB
 export function deleteArticle (id) {
@@ -52,6 +52,7 @@ export function favoriteArticle (id, decision) {
     }
 }
 
+// add a tag if missing on article
 export function addTag (id, tag) {
     const request = axios.patch("/api/articleTag/" + id, {
         tags: tag
@@ -62,10 +63,11 @@ export function addTag (id, tag) {
     }
 }
 
-export function postArticle (article) {
-    const request = axios.post("/login", article);
+// search for articles using keywords
+export function keywordSearch (articles, keyword) {
     return {
-        type: POST_ARTICLE,
-        payload: request
+        type: KEYWORD_SEARCH,
+        payload: articles,
+        keyword
     }
 }
