@@ -8,18 +8,27 @@
     "axios": "^0.16.2",
     "jwt-decode": "^2.2.0",
     "particle.js": "^1.0.7",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
     "react-particles-js": "^2.1.0",
+    "react-redux": "5.0.7",
     "react-router": "^3.2.0",
-    "react-router-dom": "^4.1.2",
-    "react-scripts": "1.0.14",
-    "react-tooltip": "^3.4.0"
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "^2.0.5",
+    "react-tooltip": "^3.4.0",
+    "redux": "4.0.0",
+    "redux-promise": "^0.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
