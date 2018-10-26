@@ -39,7 +39,7 @@ class ListItem extends React.Component {
               :
               this.props.type === "Backlog" ?
               <IconsContainer priorityId="priority">
-                          <PriorityBtn onClick={() => this.props.saveForLater(article._id, false)} />
+                <PriorityBtn onClick={() => this.props.saveForLater(article._id, false)} />
               </IconsContainer> 
               :
               ""     
