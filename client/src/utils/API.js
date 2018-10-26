@@ -10,21 +10,9 @@ export default {
   //   // const url = `${BASE_URL}/api/articles/${email}`;
   //   return axios.get(`api/articles/${email}`, email);
   // },
-  postArticle: function (article) {
-    console.log(article)
-    return axios.post("/login", article);
-  },
-  // saveForLater: function (id, decision) {
-  //   return axios.patch("/api/articles/" + id, {
-  //     saveForLater: decision
-  //   });
-  // },
-  // favoriteArticle: function (id, decision) {
-  //   console.log(decision);
-  //   // decision === false ? true : false
-  //   return axios.patch("/api/favoriteArticle/" + id, {
-  //     favorited: decision
-  //   });
+  // postArticle: function (article) {
+  //   console.log(article)
+  //   return axios.post("/login", article);
   // },
   addTag: function (id, tag) {
     return axios.patch("/api/articleTag/" + id, {

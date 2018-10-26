@@ -21,7 +21,7 @@ export function getArticles (email) {
 }
 
 
-
+// remove article from DB
 export function deleteArticle (id) {
     axios.delete(`${ROOT_URL}/article/${id}`);
     return {
@@ -30,6 +30,7 @@ export function deleteArticle (id) {
     }
 }
 
+// backlog article so it's not in the main queue
 export function saveForLater (id, decision) {
     const request = axios.patch("/api/articles/" + id, {
       saveForLater: decision
@@ -40,6 +41,7 @@ export function saveForLater (id, decision) {
     }
 }
 
+// favorite an article
 export function favoriteArticle (id, decision) {
     const request = axios.patch("/api/favoriteArticle/" + id, {
         favorited: decision

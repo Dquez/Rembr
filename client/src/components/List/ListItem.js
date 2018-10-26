@@ -4,8 +4,31 @@ import {connect} from "react-redux";
 import {favoriteArticle, saveForLater, deleteArticle} from "../../actions";
 import { DeleteBtn, PriorityBtn, BacklogBtn, FavoriteBtn} from "../../components/Buttons";
 import IconsContainer from "../../components/IconsContainer";
+
 import "./List.css"
 class ListItem extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      tag: "",
+      // search: "",
+      // keywordArticles : [],
+    }
+  }
+  handleTagChange = e => {
+    const {value} = e.target
+    this.setState ({tag : value})
+  }
+
+
+
+  handleSubmit = (e, id) => {
+    e.preventDefault();
+    const tag = this.state.tag;
+    this.props.addTag(id,tag)
+    .then()
+    .catch(err => console.log(err));
+  }
 
   render () {
     const {article} = this.props;
@@ -19,8 +42,8 @@ class ListItem extends React.Component {
               <ul>{article.tags.length === 0 
                 ? 
                 <form style={{padding:"12px"}} 
-                  onSubmit={e => this.props.handleSubmit(e, article._id)}>
-                    <input type="text" onChange={this.props.handleTagChange} className="form-control" placeholder="Enter a tag"/>
+                  onSubmit={e => this.handleSubmit(e, article._id)}>
+                    <input type="text" onChange={this.handleTagChange} className="form-control" placeholder="Enter a tag"/>
                 </form>
                 :
                 article.tags.map((tag, i)=> <li key={i}>{tag}</li>
