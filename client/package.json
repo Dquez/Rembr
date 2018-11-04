@@ -6,7 +6,10 @@
   "dependencies": {
     "auth0-js": "^9.3.0",
     "axios": "^0.16.2",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
     "jwt-decode": "^2.2.0",
+    "moxios": "^0.4.0",
     "particle.js": "^1.0.7",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
