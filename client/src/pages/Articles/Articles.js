@@ -69,6 +69,7 @@ class Articles extends React.Component {
 
   render() {
     const {articles, keywordArticles} = this.props; 
+    console.log(articles)
     const priority = _.filter(articles, article=> !article.saveForLater);
     const backlog = _.filter(articles, article=> article.saveForLater);
     return (
