@@ -6,15 +6,16 @@ import Callback from './components/Callback';
 
 import {requireAuth} from './utils/AuthService';
 
-const App = () =>
-<Router>
-  <div>
+const App = () => {
+  return(
+    <Router>
       <Switch>
         <Route exact path="/" onEnter={requireAuth} component={Articles} />
         <Route path="/callback" component={Callback} />
         <Route component={NoMatch} />
       </Switch>
-  </div>
-</Router>;
+    </Router>
+  ) 
+}
 export default App;
 

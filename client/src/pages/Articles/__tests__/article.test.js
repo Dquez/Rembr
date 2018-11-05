@@ -1,15 +1,13 @@
 import React from "react";
 import {mount} from "enzyme";
-import Root from "Root";
-import Articles from "../Articles";
+import moxios from "moxios";
+import Root from "../../../Root";
+// import Articles from "../Articles";
+import App from "../../../App";
+import { MemoryRouter } from 'react-router-dom';
 
 let wrapped;
 beforeEach(()=>{
-    wrapped = mount(
-        <Root>
-            <Articles />
-        </Root>
-    )
     moxios.install();
     const response = {
         "5bdf3cbac9c86c12773555be" : {
@@ -54,19 +52,23 @@ beforeEach(()=>{
 } 
 
 );
-afterEach(()=> wrapped.unmount());
+afterEach(()=>{
+    moxios.uninstall();
+});
 
 it("can fetch a list of articles and display one LI per article", (done)=>{
-    const wrapped = mount(
-        <Root>
-            <App />
-        </Root>
+    wrapped = mount(
+        <MemoryRouter>
+            <Root>
+                <App />
+            </Root>
+        </MemoryRouter>
     )
     moxios.wait(()=> {
         wrapped.update();
-        expect(wrapped.find("li").length).toEqual(3);
+        console.log(wrapped.html())
+        expect(wrapped.find(".list-group-item").length).toEqual(3);
         done();
         wrapped.unmount()
-    
     })    
 })

@@ -7,8 +7,8 @@ import Nav from "../../components/Nav";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import SearchBar from "../../components/Search";
-import Particles from 'react-particles-js';
-import particlesConfig from "./particlesConfig.json";
+// import Particles from 'react-particles-js';
+// import particlesConfig from "./particlesConfig.json";
 // import Filter from "../../components/Filter";
 import {getUserInfo} from '../../utils/AuthService'; 
 import {isLoggedIn } from '../../utils/AuthService';
@@ -68,8 +68,42 @@ class Articles extends React.Component {
   }
 
   render() {
-    const {articles, keywordArticles} = this.props; 
-    console.log(articles)
+    const { keywordArticles} = this.props; 
+    const articles =  {
+      "5bdf3cbac9c86c12773555be" : {
+          date: "2018-11-04T18:38:50.758Z",
+          email: "dariellv7@gmail.com",
+          favorited: true,
+          note: "Read before applying for positions",
+          saveForLater: false,
+          tags: ["Tech", "Javascript"],
+          title: "ES6",
+          url: "https://github.com/DrkSephy/es6-cheatsheet",
+          _id: "5bdf3cbac9c86c12773555be"
+      },
+      "5bdf3cbac9c86c12773555bf": {
+          date: "2018-11-04T18:38:50.758Z",
+          email: "dariellv7@gmail.com",
+          favorited: false,
+          note: "Read before applying for positions",
+          saveForLater: false,
+          tags: ["Tech", "Javascript"],
+          title: "JS sorting algorithms",
+          url: "http://khan4019.github.io/front-end-Interview-Questions/sort.html#quickSort",
+          _id: "5bdf3cbac9c86c12773555bf"
+      },
+      "5bdf3cbac9c86c12773555c0": {
+          date: "2018-11-04T18:38:50.758Z",
+          email: "dariellv7@gmail.com",
+          favorited: false,
+          note: "Possible study material after graduation",
+          saveForLater: false,
+          tags: [],
+          title: "AI nanodegree term one",
+          url: "https://medium.com/udacity/ai-nanodegree-program-syllabus-term-1-in-depth-80c41297acaf",
+          _id: "5bdf3cbac9c86c12773555c0"
+      }
+    }
     const priority = _.filter(articles, article=> !article.saveForLater);
     const backlog = _.filter(articles, article=> article.saveForLater);
     return (
@@ -79,16 +113,16 @@ class Articles extends React.Component {
             <Nav/>
           </Col>
           <Col styleProp="main" size="md-10 sm-12">
-          <Particles style={{position:"absolute"}} params={particlesConfig}/>
+          {/* <Particles style={{position:"absolute"}} params={particlesConfig}/> */}
           <Banner/>
             <Row>
-            {!isLoggedIn() && 
-            <Col size="md-12"> <h3 className="text-center">Please log in to view your articles.</h3> 
-            </Col>}
-            {_.size(articles) === 0 && isLoggedIn() ? 
-            <Col size="md-12"><h3 className="text-center">Please save articles using the extension to view them here.</h3>
-            </Col> : ""}
-            {isLoggedIn() && _.size(articles) > 0 ?
+            {/* {!isLoggedIn() && 
+            <Col styleProp="login" size="md-12"> <h3 className="text-center">Please log in to view your articles.</h3> 
+            </Col>} */}
+            {/* {_.size(articles) === 0 && isLoggedIn() ? 
+            <Col styleProp="save-articles" size="md-12"><h3 className="text-center">Please save articles using the extension to view them here.</h3>
+            </Col> : ""} */}
+            {_.size(articles) > 0 ?
              <div>
               <Col styleProp="left-articles" size="md-4">
                 {priority.length ? this.renderArticles(priority, "Priority") : 
