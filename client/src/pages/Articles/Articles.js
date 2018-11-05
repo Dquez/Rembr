@@ -11,7 +11,7 @@ import SearchBar from "../../components/Search";
 // import particlesConfig from "./particlesConfig.json";
 // import Filter from "../../components/Filter";
 import {getUserInfo} from '../../utils/AuthService'; 
-import {isLoggedIn } from '../../utils/AuthService';
+import {isLoggedIn} from '../../utils/AuthService';
 import "./article.css";
 
 
@@ -21,23 +21,18 @@ class Articles extends React.Component {
     this.state = {
       email: "",
       search: "",
+      isLoggedIn: false
     };
   }
 
-  // When the component mounts, load all books and save them to this.state.books
   componentDidMount() {
     // callback function to retrieve the user's email from the AuthService file
     getUserInfo(email=> {
-      this.setState({email});
+      this.setState({email, isLoggedIn:isLoggedIn()});
       this.props.getArticles(email)
     }) 
   }
   
-  // when redux updates state, this function gets called
-  componentWillReceiveProps() {
-    this.props.getArticles(this.state.email);
-  }
-
   // Handles updating component state when the user types into the input field
   handleInputChange = event => {
       const { name, value } = event.target;
@@ -68,42 +63,7 @@ class Articles extends React.Component {
   }
 
   render() {
-    const { keywordArticles} = this.props; 
-    const articles =  {
-      "5bdf3cbac9c86c12773555be" : {
-          date: "2018-11-04T18:38:50.758Z",
-          email: "dariellv7@gmail.com",
-          favorited: true,
-          note: "Read before applying for positions",
-          saveForLater: false,
-          tags: ["Tech", "Javascript"],
-          title: "ES6",
-          url: "https://github.com/DrkSephy/es6-cheatsheet",
-          _id: "5bdf3cbac9c86c12773555be"
-      },
-      "5bdf3cbac9c86c12773555bf": {
-          date: "2018-11-04T18:38:50.758Z",
-          email: "dariellv7@gmail.com",
-          favorited: false,
-          note: "Read before applying for positions",
-          saveForLater: false,
-          tags: ["Tech", "Javascript"],
-          title: "JS sorting algorithms",
-          url: "http://khan4019.github.io/front-end-Interview-Questions/sort.html#quickSort",
-          _id: "5bdf3cbac9c86c12773555bf"
-      },
-      "5bdf3cbac9c86c12773555c0": {
-          date: "2018-11-04T18:38:50.758Z",
-          email: "dariellv7@gmail.com",
-          favorited: false,
-          note: "Possible study material after graduation",
-          saveForLater: false,
-          tags: [],
-          title: "AI nanodegree term one",
-          url: "https://medium.com/udacity/ai-nanodegree-program-syllabus-term-1-in-depth-80c41297acaf",
-          _id: "5bdf3cbac9c86c12773555c0"
-      }
-    }
+    const {articles, keywordArticles} = this.props; 
     const priority = _.filter(articles, article=> !article.saveForLater);
     const backlog = _.filter(articles, article=> article.saveForLater);
     return (
@@ -116,13 +76,13 @@ class Articles extends React.Component {
           {/* <Particles style={{position:"absolute"}} params={particlesConfig}/> */}
           <Banner/>
             <Row>
-            {/* {!isLoggedIn() && 
+            {!this.state.isLoggedIn && 
             <Col styleProp="login" size="md-12"> <h3 className="text-center">Please log in to view your articles.</h3> 
-            </Col>} */}
-            {/* {_.size(articles) === 0 && isLoggedIn() ? 
+            </Col>}
+            {_.size(articles) === 0 && this.state.isLoggedIn ? 
             <Col styleProp="save-articles" size="md-12"><h3 className="text-center">Please save articles using the extension to view them here.</h3>
-            </Col> : ""} */}
-            {_.size(articles) > 0 ?
+            </Col> : ""}
+            {this.state.isLoggedIn && _.size(articles) > 0 ?
              <div>
               <Col styleProp="left-articles" size="md-4">
                 {priority.length ? this.renderArticles(priority, "Priority") : 

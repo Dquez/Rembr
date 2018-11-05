@@ -64,6 +64,7 @@ it("can fetch a list of articles and display one LI per article", (done)=>{
             </Root>
         </MemoryRouter>
     )
+    wrapped.setState({isLoggedIn: true})
     moxios.wait(()=> {
         wrapped.update();
         console.log(wrapped.html())
