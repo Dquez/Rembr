@@ -27,6 +27,7 @@ class Articles extends React.Component {
 
   componentDidMount() {
     // callback function to retrieve the user's email from the AuthService file
+    
     getUserInfo(email=> {
       this.setState({email, isLoggedIn:isLoggedIn()});
       this.props.getArticles(email)
