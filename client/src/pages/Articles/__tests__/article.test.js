@@ -2,11 +2,12 @@ import React from "react";
 import {mount} from "enzyme";
 import moxios from "moxios";
 import Root from "../../../Root";
-// import Articles from "../Articles";
+import Articles from "../Articles";
 import App from "../../../App";
 import { MemoryRouter } from 'react-router-dom';
 
-let wrapped;
+let wrapper;
+
 beforeEach(()=>{
     moxios.install();
     const response = {
@@ -57,19 +58,21 @@ afterEach(()=>{
 });
 
 it("can fetch a list of articles and display one LI per article", (done)=>{
-    wrapped = mount(
-        <MemoryRouter>
+    wrapper = mount(
             <Root>
-                <App />
-            </Root>
-        </MemoryRouter>
+                {/* <MemoryRouter> */}
+                    <App/>
+                {/* </MemoryRouter> */}
+             </Root>
     )
-    wrapped.setState({isLoggedIn: true})
+    // this selector is required to find the nested component and set isLoggedIn to true
+    // wrapper.find(Articles).children().setState({isLoggedIn:true});
+    console.log(wrapper.debug());
     moxios.wait(()=> {
-        wrapped.update();
-        console.log(wrapped.html())
-        expect(wrapped.find(".list-group-item").length).toEqual(3);
+        wrapper.update();
+        console.log(wrapper.find(Articles).html())
+        expect(wrapper.find(".list-group-item").length).toEqual(3);
         done();
-        wrapped.unmount()
+        wrapper.unmount()
     })    
 })
