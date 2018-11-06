@@ -36,7 +36,7 @@ export function getUserInfo(callback) {
         });
       }
       catch(error) {
-        console.log(error);
+        // console.log(error);
       }
 }
 

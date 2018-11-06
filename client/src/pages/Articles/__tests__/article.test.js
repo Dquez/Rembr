@@ -59,18 +59,23 @@ afterEach(()=>{
 
 it("can fetch a list of articles and display one LI per article", (done)=>{
     wrapper = mount(
+            <MemoryRouter>
             <Root>
-                {/* <MemoryRouter> */}
+              
                     <App/>
-                {/* </MemoryRouter> */}
+                
              </Root>
+             </MemoryRouter>
+      
+    
+
     )
     // this selector is required to find the nested component and set isLoggedIn to true
-    // wrapper.find(Articles).children().setState({isLoggedIn:true});
+    wrapper.find(Articles).children().setState({isLoggedIn:true});
     console.log(wrapper.debug());
     moxios.wait(()=> {
         wrapper.update();
-        console.log(wrapper.find(Articles).html())
+        console.log(wrapper.html())
         expect(wrapper.find(".list-group-item").length).toEqual(3);
         done();
         wrapper.unmount()
