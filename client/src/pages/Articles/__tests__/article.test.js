@@ -9,7 +9,6 @@ import { MemoryRouter } from 'react-router-dom';
 let wrapper;
 
 beforeEach(()=>{
-    moxios.install();
     const response = {
         "5bdf3cbac9c86c12773555be" : {
             date: "2018-11-04T18:38:50.758Z",
@@ -45,39 +44,33 @@ beforeEach(()=>{
             _id: "5bdf3cbac9c86c12773555c0"
         }
     }
-    
-    moxios.stubRequest("/api/articles/:email", {
-    status: 200,
-    response
-    })
-} 
+    const initialState = {
+        articles: response
+    }
 
-);
-afterEach(()=>{
-    moxios.uninstall();
+    wrapper = mount(
+        <MemoryRouter>
+            <Root initialState={initialState}>
+                <Articles/>
+            </Root>
+         </MemoryRouter>
+    )
 });
 
-it("can fetch a list of articles and display one LI per article", (done)=>{
-    wrapper = mount(
-            <MemoryRouter>
-            <Root>
-              
-                    <App/>
-                
-             </Root>
-             </MemoryRouter>
-      
-    
 
-    )
-    // this selector is required to find the nested component and set isLoggedIn to true
+it("can display a list of articles from redux store and display one LI per article", (done)=>{
     wrapper.find(Articles).children().setState({isLoggedIn:true});
-    console.log(wrapper.debug());
-    moxios.wait(()=> {
-        wrapper.update();
-        console.log(wrapper.html())
-        expect(wrapper.find(".list-group-item").length).toEqual(3);
-        done();
-        wrapper.unmount()
-    })    
+    expect(wrapper.find(".list-group-item").length).toEqual(3);
+    done();
+    wrapper.unmount()
 })
+
+    // moxios.install();
+    // moxios.stubRequest("/api/articles/dariellv7@gmail.com", {
+    // status: 200,
+    // response
+    // })
+    // moxios.uninstall();
+    // moxios.wait(()=> {
+    // wrapper.update();
+     // })    
