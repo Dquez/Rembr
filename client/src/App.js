@@ -7,9 +7,6 @@ import Callback from './components/Callback';
 import {requireAuth} from './utils/AuthService';
 
 export default class App extends Component {
-  state ={
-    hello: "world"
-  }
   render(){
     return(
       <Router>
