@@ -7,11 +7,11 @@ import Nav from "../../components/Nav";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import SearchBar from "../../components/Search";
-import Particles from 'react-particles-js';
-import particlesConfig from "./particlesConfig.json";
+// import Particles from 'react-particles-js';
+// import particlesConfig from "./particlesConfig.json";
 // import Filter from "../../components/Filter";
 import {getUserInfo} from '../../utils/AuthService'; 
-import {isLoggedIn } from '../../utils/AuthService';
+import {isLoggedIn} from '../../utils/AuthService';
 import "./article.css";
 
 
@@ -21,23 +21,18 @@ class Articles extends React.Component {
     this.state = {
       email: "",
       search: "",
+      isLoggedIn: false
     };
   }
 
-  // When the component mounts, load all books and save them to this.state.books
   componentDidMount() {
     // callback function to retrieve the user's email from the AuthService file
     getUserInfo(email=> {
-      this.setState({email});
+      this.setState({email, isLoggedIn:isLoggedIn()});
       this.props.getArticles(email)
     }) 
   }
   
-  // when redux updates state, this function gets called
-  componentWillReceiveProps() {
-    this.props.getArticles(this.state.email);
-  }
-
   // Handles updating component state when the user types into the input field
   handleInputChange = event => {
       const { name, value } = event.target;
@@ -78,16 +73,16 @@ class Articles extends React.Component {
             <Nav/>
           </Col>
           <Col styleProp="main" size="md-10 sm-12">
-          <Particles style={{position:"absolute"}} params={particlesConfig}/>
+          {/* <Particles style={{position:"absolute"}} params={particlesConfig}/> */}
           <Banner/>
             <Row>
-            {!isLoggedIn() && 
-            <Col size="md-12"> <h3 className="text-center">Please log in to view your articles.</h3> 
+            {!this.state.isLoggedIn && 
+            <Col styleProp="login" size="md-12"> <h3 className="text-center">Please log in to view your articles.</h3> 
             </Col>}
-            {_.size(articles) === 0 && isLoggedIn() ? 
-            <Col size="md-12"><h3 className="text-center">Please save articles using the extension to view them here.</h3>
+            {_.size(articles) === 0 && this.state.isLoggedIn ? 
+            <Col styleProp="save-articles" size="md-12"><h3 className="text-center">Please save articles using the extension to view them here.</h3>
             </Col> : ""}
-            {isLoggedIn() && _.size(articles) > 0 ?
+            {this.state.isLoggedIn && _.size(articles) > 0 ?
              <div>
               <Col styleProp="left-articles" size="md-4">
                 {priority.length ? this.renderArticles(priority, "Priority") : 
