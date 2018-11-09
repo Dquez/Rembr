@@ -7,7 +7,7 @@ import { MemoryRouter } from 'react-router-dom';
 let wrapper;
 
 beforeEach(()=>{
-    const response = {
+    const articles = {
         "5bdf3cbac9c86c12773555be" : {
             date: "2018-11-04T18:38:50.758Z",
             email: "dariellv7@gmail.com",
@@ -42,9 +42,7 @@ beforeEach(()=>{
             _id: "5bdf3cbac9c86c12773555c0"
         }
     }
-    const initialState = {
-        articles: response
-    }
+    const initialState = {articles}
 
     wrapper = mount(
         <MemoryRouter>
@@ -55,13 +53,16 @@ beforeEach(()=>{
     )
 });
 
+describe("articlePage component", ()=>{
+    it("can display a list of articles from redux store and display one LI per article", (done)=>{
+        wrapper.find(Articles).children().setState({isLoggedIn:true});
+        expect(wrapper.find(".list-group-item").length).toEqual(3);
+        done();
+        wrapper.unmount()
+    })
 
-it("can display a list of articles from redux store and display one LI per article", (done)=>{
-    wrapper.find(Articles).children().setState({isLoggedIn:true});
-    expect(wrapper.find(".list-group-item").length).toEqual(3);
-    done();
-    wrapper.unmount()
 })
+
 
     // moxios.install();
     // moxios.stubRequest("/api/articles/dariellv7@gmail.com", {

@@ -1,8 +1,9 @@
-#delete-btn {
+.delete-btn {
   background-color: red;
   border-color: red;
   float: right;
   margin-top:12px;
+  color:white;
 }
 
 

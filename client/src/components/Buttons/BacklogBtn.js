@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 class BacklogBtn extends React.Component {
   render () {
     return (
-      <div className=" btn-lg">
+      <div className="btn-lg">
         <span onClick={this.props.onClick} className="glyphicon glyphicon-send"></span>
       </div>
     );
