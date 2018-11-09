@@ -60,6 +60,14 @@ describe("articlePage component", ()=>{
         done();
         wrapper.unmount()
     })
+    it("can remove an article when delete button is clicked", (done)=>{
+        wrapper.find(Articles).children().setState({isLoggedIn:true});
+        const deleteBtnArr = wrapper.find(".delete-btn");
+        deleteBtnArr[0].simulate("click")
+        expect(wrapper.find(".list-group-item").length).toEqual(2);
+        done();
+        wrapper.unmount()
+    })
 
 })
 
