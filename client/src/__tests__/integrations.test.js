@@ -3,11 +3,13 @@ import {mount} from "enzyme";
 import Root from "../Root";
 import Articles from "../pages/Articles";
 import { MemoryRouter } from 'react-router-dom';
+import _ from "lodash";
+import moxios from "moxios";
 
 let wrapper;
-
+let articles;
 beforeEach(()=>{
-    const articles = {
+    articles = {
         "5bdf3cbac9c86c12773555be" : {
             date: "2018-11-04T18:38:50.758Z",
             email: "dariellv7@gmail.com",
@@ -61,26 +63,21 @@ describe("articlePage component", ()=>{
         wrapper.unmount()
     })
     it("can remove an article when delete button is clicked", (done)=>{
+        // When button is clicked, it sends a delete request to the server, so we have to stub out that request from the jsdom and also make our code work with asynchronouse rendering, which is why we use moxios.wait
+        moxios.install();
+        moxios.stubRequest("/api/article/:id", {
+            status: 200,
+            response: _.omit(articles, "5bdf3cbac9c86c12773555be")
+        })
+
         wrapper.find(Articles).children().setState({isLoggedIn:true});
-        console.log(wrapper.find(".delete-btn").parent());
-        // .childAt(0).simulate("click");
-        setTimeout(()=>{
+        wrapper.find(".delete-btn").at(0).simulate("click");
+        moxios.wait(()=> {
+            wrapper.update();
             expect(wrapper.find(".list-group-item").length).toEqual(2);
-        },1000)
-        
-        done();
-        wrapper.unmount()
+            done();
+            wrapper.unmount()
+            moxios.uninstall();
+        })         
     })
-
 })
-
-
-    // moxios.install();
-    // moxios.stubRequest("/api/articles/dariellv7@gmail.com", {
-    // status: 200,
-    // response
-    // })
-    // moxios.uninstall();
-    // moxios.wait(()=> {
-    // wrapper.update();
-     // })    
