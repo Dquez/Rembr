@@ -10,8 +10,7 @@ import SearchBar from "../../components/Search";
 // import Particles from 'react-particles-js';
 // import particlesConfig from "./particlesConfig.json";
 // import Filter from "../../components/Filter";
-import {getUserInfo} from '../../utils/AuthService'; 
-import {isLoggedIn} from '../../utils/AuthService';
+import {getUserInfo, isLoggedIn} from '../../utils/AuthService'; 
 import "./article.css";
 
 

@@ -13,7 +13,7 @@ beforeEach(()=>{
         "5bdf3cbac9c86c12773555be" : {
             date: "2018-11-04T18:38:50.758Z",
             email: "dariellv7@gmail.com",
-            favorited: true,
+            favorited: false,
             note: "Read before applying for positions",
             saveForLater: false,
             tags: ["Tech", "Javascript"],
@@ -75,6 +75,27 @@ describe("articlePage component", ()=>{
         moxios.wait(()=> {
             wrapper.update();
             expect(wrapper.find(".list-group-item").length).toEqual(2);
+            done();
+            wrapper.unmount()
+            moxios.uninstall();
+        })         
+    })
+    it("can move an article from priority to backlog when backlog button is clicked", (done)=>{
+        // When button is clicked, it sends a delete request to the server, so we have to stub out that request from the jsdom and also make our code work with asynchronouse rendering, which is why we use moxios.wait
+        moxios.install();
+        const response = {...articles};
+        response["5bdf3cbac9c86c12773555be"].saveForLater = true;
+        moxios.stubRequest("/api/articles/:id", {
+            status: 200,
+            response
+        })
+
+        wrapper.find(Articles).children().setState({isLoggedIn:true});
+        expect(wrapper.find(".mid-articles").childAt(0).contains("Nothing on backlog yet"))
+        wrapper.find(".glyphicon-send").at(0).simulate("click");
+        moxios.wait(()=> {
+            wrapper.update();
+            expect(wrapper.find(".mid-articles").children().hasClass("list-group-item"));
             done();
             wrapper.unmount()
             moxios.uninstall();
