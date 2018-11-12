@@ -14,10 +14,10 @@ class Nav extends React.Component {
             <Link to="/">Home</Link>
             </div>
             {
-                isLoggedIn() ?   <button className="btn btn-danger" onClick={() =>{
+                isLoggedIn() ?   <button className="btn btn-danger logout" onClick={() =>{
                   logout()
                   window.location = "/";
-                }}>Log out </button>: <button className="btn btn-info" onClick={() => login()}>Log In</button>
+                }}>Log out </button>: <button className="btn btn-info login" onClick={() => login()}>Log In</button>
             }
             {/* <div className="navbar-tutorial">
             <Link to="/tutorial">Tutorial</Link>

@@ -5,6 +5,7 @@ import Articles from "../pages/Articles";
 import { MemoryRouter } from 'react-router-dom';
 import _ from "lodash";
 import moxios from "moxios";
+import { debug } from "util";
 
 let wrapper;
 let articles;
@@ -56,6 +57,7 @@ beforeEach(()=>{
 });
 
 describe("articlePage component", ()=>{
+
     it("can display a list of articles from redux store and display one LI per article", (done)=>{
         wrapper.find(Articles).children().setState({isLoggedIn:true});
         expect(wrapper.find(".list-group-item").length).toEqual(3);
