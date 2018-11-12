@@ -31,11 +31,11 @@ class ListItem extends React.Component {
     return (
       <li className="list-group-item">
         <a className="article-url" href={article.url}>
-                <strong><h4> {article.title} </h4></strong>
-              </a>
-              <p> Viewed: {article.date.split("T")[0]} </p>  
-              <p>Tags:</p>
-              <ul>{article.tags.length === 0 
+            <strong><h4> {article.title} </h4></strong>
+        </a>
+        <p> Viewed: {article.date.split("T")[0]} </p>  
+        <p>Tags:</p>
+        <ul>{article.tags.length === 0 
                 ? 
                 <form style={{padding:"12px"}} 
                   onSubmit={e => this.handleSubmit(e, article._id)}>
@@ -44,7 +44,7 @@ class ListItem extends React.Component {
                 :
                 article.tags.map((tag, i)=> <li key={i}>{tag}</li>
                 )}
-              </ul>
+        </ul>
               <IconsContainer noteId="note" note={article.note}/>
               <IconsContainer value={article.favorited} favoriteId="favorite"> 
                 <FavoriteBtn type="favorite" value={article.favorited} onClick={() => this.props.favoriteArticle(article._id, !article.favorited)}/> 
@@ -64,7 +64,7 @@ class ListItem extends React.Component {
               ""     
               }
               <DeleteBtn onClick={() => this.props.deleteArticle(article._id)} />
-      </li>
+    </li>
     )
   }
 }

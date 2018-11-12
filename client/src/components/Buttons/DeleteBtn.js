@@ -6,7 +6,7 @@ class DeleteBtn extends React.Component {
   
   render () {
     return (
-      <button id="delete-btn" className="btn btn-sm btn-danger" onClick={this.props.onClick}>
+      <button className="btn btn-sm btn-danger delete-btn" onClick={this.props.onClick}>
         Remove Page
       </button>
     );

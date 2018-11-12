@@ -3,15 +3,17 @@ import {mount} from "enzyme";
 import Root from "../Root";
 import Articles from "../pages/Articles";
 import { MemoryRouter } from 'react-router-dom';
+import _ from "lodash";
+import moxios from "moxios";
 
 let wrapper;
-
+let articles;
 beforeEach(()=>{
-    const response = {
+    articles = {
         "5bdf3cbac9c86c12773555be" : {
             date: "2018-11-04T18:38:50.758Z",
             email: "dariellv7@gmail.com",
-            favorited: true,
+            favorited: false,
             note: "Read before applying for positions",
             saveForLater: false,
             tags: ["Tech", "Javascript"],
@@ -42,9 +44,7 @@ beforeEach(()=>{
             _id: "5bdf3cbac9c86c12773555c0"
         }
     }
-    const initialState = {
-        articles: response
-    }
+    const initialState = {articles}
 
     wrapper = mount(
         <MemoryRouter>
@@ -55,20 +55,63 @@ beforeEach(()=>{
     )
 });
 
+describe("articlePage component", ()=>{
 
-it("can display a list of articles from redux store and display one LI per article", (done)=>{
-    wrapper.find(Articles).children().setState({isLoggedIn:true});
-    expect(wrapper.find(".list-group-item").length).toEqual(3);
-    done();
-    wrapper.unmount()
+    beforeEach(()=>{
+        wrapper.find(Articles).children().setState({isLoggedIn:true});
+    })
+    afterEach(()=>{
+        wrapper.unmount()
+    })
+    it("can display a list of articles from redux store and display one LI per article", (done)=>{
+        expect(wrapper.find(".list-group-item").length).toEqual(3);
+        done();
+    })
+    
+    it("can remove an article when delete button is clicked", (done)=>{
+        // When button is clicked, it sends a delete request to the server, so we have to stub out that request from the jsdom and also make our code work with asynchronouse rendering, which is why we use moxios.wait
+        moxios.install();
+        moxios.stubRequest("/api/article/:id", {
+            status: 200,
+            response: _.omit(articles, "5bdf3cbac9c86c12773555be")
+        })
+
+        wrapper.find(".delete-btn").at(0).simulate("click");
+        moxios.wait(()=> {
+            wrapper.update();
+            expect(wrapper.find(".list-group-item").length).toEqual(2);
+            done();
+            
+            moxios.uninstall();
+        })         
+    })
+    it("can move an article from priority to backlog when backlog button is clicked", (done)=>{
+        // When button is clicked, it sends a delete request to the server, so we have to stub out that request from the jsdom and also make our code work with asynchronouse rendering, which is why we use moxios.wait
+        moxios.install();
+        const response = {...articles};
+        response["5bdf3cbac9c86c12773555be"].saveForLater = true;
+        moxios.stubRequest("/api/articles/:id", {
+            status: 200,
+            response
+        })
+
+        
+        // expect nothing to be in backlog area before you click a button
+        expect(wrapper.find(".mid-articles").childAt(0).contains("Nothing on backlog yet"))
+        wrapper.find(".glyphicon-send").at(0).simulate("click");
+        moxios.wait(()=> {
+            wrapper.update();
+            expect(wrapper.find(".mid-articles").children().hasClass("list-group-item"));
+            done();
+            moxios.uninstall();
+        })         
+    })
+    it("can render articles in the .right-articles container when searching for existing articles", ()=>{    
+        // simulate typing into the search bar
+        wrapper.find('.right-articles').childAt(0).simulate('change', {
+            target: { value: 'es6' }
+        })
+        // expect there to be at least one article when you type ES6
+        expect(wrapper.find('.mid-articles').children().hasClass("list-group-item"));
+    })
 })
-
-    // moxios.install();
-    // moxios.stubRequest("/api/articles/dariellv7@gmail.com", {
-    // status: 200,
-    // response
-    // })
-    // moxios.uninstall();
-    // moxios.wait(()=> {
-    // wrapper.update();
-     // })    
