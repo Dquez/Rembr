@@ -5,7 +5,6 @@ import Articles from "../pages/Articles";
 import { MemoryRouter } from 'react-router-dom';
 import _ from "lodash";
 import moxios from "moxios";
-import { debug } from "util";
 
 let wrapper;
 let articles;
@@ -58,12 +57,17 @@ beforeEach(()=>{
 
 describe("articlePage component", ()=>{
 
-    it("can display a list of articles from redux store and display one LI per article", (done)=>{
+    beforeEach(()=>{
         wrapper.find(Articles).children().setState({isLoggedIn:true});
-        expect(wrapper.find(".list-group-item").length).toEqual(3);
-        done();
+    })
+    afterEach(()=>{
         wrapper.unmount()
     })
+    it("can display a list of articles from redux store and display one LI per article", (done)=>{
+        expect(wrapper.find(".list-group-item").length).toEqual(3);
+        done();
+    })
+    
     it("can remove an article when delete button is clicked", (done)=>{
         // When button is clicked, it sends a delete request to the server, so we have to stub out that request from the jsdom and also make our code work with asynchronouse rendering, which is why we use moxios.wait
         moxios.install();
@@ -72,13 +76,12 @@ describe("articlePage component", ()=>{
             response: _.omit(articles, "5bdf3cbac9c86c12773555be")
         })
 
-        wrapper.find(Articles).children().setState({isLoggedIn:true});
         wrapper.find(".delete-btn").at(0).simulate("click");
         moxios.wait(()=> {
             wrapper.update();
             expect(wrapper.find(".list-group-item").length).toEqual(2);
             done();
-            wrapper.unmount()
+            
             moxios.uninstall();
         })         
     })
@@ -92,7 +95,7 @@ describe("articlePage component", ()=>{
             response
         })
 
-        wrapper.find(Articles).children().setState({isLoggedIn:true});
+        
         // expect nothing to be in backlog area before you click a button
         expect(wrapper.find(".mid-articles").childAt(0).contains("Nothing on backlog yet"))
         wrapper.find(".glyphicon-send").at(0).simulate("click");
@@ -100,12 +103,10 @@ describe("articlePage component", ()=>{
             wrapper.update();
             expect(wrapper.find(".mid-articles").children().hasClass("list-group-item"));
             done();
-            wrapper.unmount()
             moxios.uninstall();
         })         
     })
-    it("can render articles in the .right-articles container when searching for existing articles", ()=>{ 
-        wrapper.find(Articles).children().setState({isLoggedIn:true});
+    it("can render articles in the .right-articles container when searching for existing articles", ()=>{    
         // simulate typing into the search bar
         wrapper.find('.right-articles').childAt(0).simulate('change', {
             target: { value: 'es6' }

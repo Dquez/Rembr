@@ -7,7 +7,7 @@ class IconsContainer extends React.Component {
 
   render () {
     return (
-      <div id="floatRight">
+      <div className="floatRight">
         {this.props.noteId && 
           <span>
             <ReactTooltip id={this.props.noteId} place="right" type="dark" effect="float"/> 
