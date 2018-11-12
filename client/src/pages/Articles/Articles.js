@@ -97,7 +97,7 @@ class Articles extends React.Component {
                 <SearchBar style={{width:"100%", clear:"both"}} value={this.state.search}
                     onChange={this.handleInputChange}
                     name="search"
-                    placeholder="Search for a keyword..." 
+                    placeholder="Search for a keyword..."
                   />
                 {/* <Filter toggle={"dropdown"} style={{width:"50%"}}/> */}
                    {keywordArticles.length && this.state.search ? 

@@ -91,6 +91,7 @@ describe("articlePage component", ()=>{
         })
 
         wrapper.find(Articles).children().setState({isLoggedIn:true});
+        // expect nothing to be in backlog area before you click a button
         expect(wrapper.find(".mid-articles").childAt(0).contains("Nothing on backlog yet"))
         wrapper.find(".glyphicon-send").at(0).simulate("click");
         moxios.wait(()=> {
@@ -100,5 +101,14 @@ describe("articlePage component", ()=>{
             wrapper.unmount()
             moxios.uninstall();
         })         
+    })
+    it("can render articles in the .right-articles container when searching for existing articles", ()=>{ 
+        wrapper.find(Articles).children().setState({isLoggedIn:true});
+        // simulate typing into the search bar
+        wrapper.find('.right-articles').childAt(0).simulate('change', {
+            target: { value: 'es6' }
+        })
+        // expect there to be at least one article when you type ES6
+        expect(wrapper.find('.mid-articles').children().hasClass("list-group-item"));
     })
 })
