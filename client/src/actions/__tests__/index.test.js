@@ -132,3 +132,68 @@ describe("favoriteArticle", ()=>{
         
     })
 })
+
+
+describe("favoriteArticle", ()=>{
+    beforeEach(()=>{
+        action = actions.favoriteArticle("5bdf3cbac9c86c12773555be", true);
+    })
+    it("has the correct type", ()=>{
+        expect(action.type).toEqual(actions.FAVORITE_ARTICLE);
+    })
+    articles["5bdf3cbac9c86c12773555be"].favorited = true;
+    moxios.install();
+    moxios.stubRequest("api/favoriteArticle/5bdf3cbac9c86c12773555be", {
+        status: 200,
+        response: articles
+    })
+    it("has the correct payload", ()=>{
+        moxios.wait(()=> {
+            expect(action.payload["5bdf3cbac9c86c12773555be"].favorited).toBeTruthy();
+            done();
+            moxios.uninstall();
+        })         
+        
+    })
+})
+
+describe("addTag", ()=>{
+    beforeEach(()=>{
+        action = actions.addTag("5bdf3cbac9c86c12773555c0", "Javascript");
+    })
+    it("has the correct type", ()=>{
+        expect(action.type).toEqual(actions.ADD_TAG);
+    })
+    articles["5bdf3cbac9c86c12773555c0"].tags.push("Javascript");
+    moxios.install();
+    moxios.stubRequest("api/articleTag/5bdf3cbac9c86c12773555c0", {
+        status: 200,
+        response: articles
+    })
+    it("has the correct payload", ()=>{
+        moxios.wait(()=> {
+            expect(action.payload["5bdf3cbac9c86c12773555c0"].tags.indexOf(0)).toEqual("Javascript");
+            done();
+            moxios.uninstall();
+        })         
+        
+    })
+})
+
+describe("keywordSearch", ()=>{
+    beforeEach(()=>{
+        action = actions.keywordSearch(articles, "ES6");
+    })
+    it("has the correct type", ()=>{
+        expect(action.type).toEqual(actions.KEYWORD_SEARCH);
+    })
+    it("has the correct payload", ()=>{
+        expect(action.payload).toEqual(articles); 
+    })
+    it("has the correct keyword", ()=>{
+        expect(action.keyword).toEqual("ES6"); 
+    })
+})
+
+
+
