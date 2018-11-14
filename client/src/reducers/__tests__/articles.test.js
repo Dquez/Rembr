@@ -53,7 +53,6 @@ it("handles actions of type FETCH_ARTICLES", ()=>{
     expect(newState).toEqual(_.mapKeys(articles, "_id"));
 })
 
-
 it("handles action with unknown type", ()=>{
     const newState = articlesReducer({}, {});
     expect(newState).toEqual({})

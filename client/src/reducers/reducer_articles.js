@@ -1,4 +1,4 @@
-import {FETCH_ARTICLES, BACKLOG_ARTICLE, FAVORITE_ARTICLE, DELETE_ARTICLE} from "../actions";
+import {FETCH_ARTICLES, BACKLOG_ARTICLE, FAVORITE_ARTICLE, DELETE_ARTICLE, ADD_TAG} from "../actions";
 import _ from "lodash";
 // state argument is not application state, only the state this reduce is responsible for
 export default function (state = {}, action) {
@@ -12,6 +12,8 @@ export default function (state = {}, action) {
             return {...state, [action.payload.data._id]: action.payload.data};
         case DELETE_ARTICLE:
             return _.omit(state, action.payload);
+        case ADD_TAG:
+            return {...state, [action.payload.data._id]: action.payload.data};
         default:
             return state;
     }
