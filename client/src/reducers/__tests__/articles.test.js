@@ -8,8 +8,7 @@ import {
 import _ from "lodash";
 
 const articles = {
-    "5bdf3cbac9c86c12773555be": 
-        {
+    "5bdf3cbac9c86c12773555be": {
             date: "2018-11-04T18:38:50.758Z",
             email: "dariellv7@gmail.com",
             favorited: false,
@@ -20,8 +19,7 @@ const articles = {
             url: "https://github.com/DrkSephy/es6-cheatsheet",
             _id: "5bdf3cbac9c86c12773555be"
         },
-    "5bdf3cbac9c86c12773555bf":
-       {
+    "5bdf3cbac9c86c12773555bf": {
             date: "2018-11-04T18:38:50.758Z",
             email: "dariellv7@gmail.com",
             favorited: false,
@@ -32,8 +30,7 @@ const articles = {
             url: "http://khan4019.github.io/front-end-Interview-Questions/sort.html#quickSort",
             _id: "5bdf3cbac9c86c12773555bf"
         },
-        "5bdf3cbac9c86c12773555c0":
-        {
+    "5bdf3cbac9c86c12773555c0": {
             date: "2018-11-04T18:38:50.758Z",
             email: "dariellv7@gmail.com",
             favorited: false,
@@ -45,6 +42,7 @@ const articles = {
             _id: "5bdf3cbac9c86c12773555c0"
         }
     }
+    
 it("handles actions of type FETCH_ARTICLES", ()=>{
     const action = {
         type: FETCH_ARTICLES,
@@ -53,7 +51,7 @@ it("handles actions of type FETCH_ARTICLES", ()=>{
         }
     }
     const newState = articlesReducer({}, action);
-    expect(newState).toEqual(_.mapKeys(articles, "_id"));
+    expect(newState).toEqual(articles);
 })
 
 it("handles actions of type FAVORITE_ARTICLE", ()=>{
@@ -78,6 +76,55 @@ it("handles actions of type FAVORITE_ARTICLE", ()=>{
     const newState = articlesReducer(articles, action);
     expect(newState).toEqual(data);
 })
+
+it("handles actions of type FAVORITE_ARTICLE", ()=>{
+    const data = {...articles};
+    data["5bdf3cbac9c86c12773555be"].favorited = true;
+    const action = {
+        type: FAVORITE_ARTICLE,
+        payload: {
+            data: {
+                date: "2018-11-04T18:38:50.758Z",
+                email: "dariellv7@gmail.com",
+                favorited: true,
+                note: "Read before applying for positions",
+                saveForLater: false,
+                tags: ["Tech", "Javascript"],
+                title: "ES6",
+                url: "https://github.com/DrkSephy/es6-cheatsheet",
+                _id: "5bdf3cbac9c86c12773555be"
+            }
+        }
+    }
+    const newState = articlesReducer(articles, action);
+    expect(newState).toEqual(data);
+    data["5bdf3cbac9c86c12773555be"].favorited = false;
+})
+
+
+it("handles actions of type BACKLOG_ARTICLE", ()=>{
+    const data = {...articles};
+    data["5bdf3cbac9c86c12773555be"].saveForLater = true;
+    const action = {
+        type: FAVORITE_ARTICLE,
+        payload: {
+            data: {
+                date: "2018-11-04T18:38:50.758Z",
+                email: "dariellv7@gmail.com",
+                favorited: true,
+                note: "Read before applying for positions",
+                saveForLater: true,
+                tags: ["Tech", "Javascript"],
+                title: "ES6",
+                url: "https://github.com/DrkSephy/es6-cheatsheet",
+                _id: "5bdf3cbac9c86c12773555be"
+            }
+        }
+    }
+    const newState = articlesReducer(articles, action);
+    expect(newState).toEqual(data);
+})
+
 
 it("handles action with unknown type", ()=>{
     const newState = articlesReducer({}, {});
