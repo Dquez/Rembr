@@ -7,8 +7,8 @@ import Nav from "../../components/Nav";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import SearchBar from "../../components/Search";
-// import Particles from 'react-particles-js';
-// import particlesConfig from "./particlesConfig.json";
+import Particles from 'react-particles-js';
+import particlesConfig from "./particlesConfig.json";
 // import Filter from "../../components/Filter";
 import {getUserInfo, isLoggedIn} from '../../utils/AuthService'; 
 import "./article.css";
@@ -72,7 +72,7 @@ class Articles extends React.Component {
             <Nav/>
           </Col>
           <Col styleProp="main" size="md-10 sm-12">
-          {/* <Particles style={{position:"absolute"}} params={particlesConfig}/> */}
+          <Particles style={{position:"absolute"}} params={particlesConfig}/>
           <Banner/>
             <Row>
             {!this.state.isLoggedIn && 
