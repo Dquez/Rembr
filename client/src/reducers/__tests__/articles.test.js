@@ -7,7 +7,8 @@ import {
     } from "../../actions";
 import _ from "lodash";
 
-const articles = [
+const articles = {
+    "5bdf3cbac9c86c12773555be": 
         {
             date: "2018-11-04T18:38:50.758Z",
             email: "dariellv7@gmail.com",
@@ -19,6 +20,7 @@ const articles = [
             url: "https://github.com/DrkSephy/es6-cheatsheet",
             _id: "5bdf3cbac9c86c12773555be"
         },
+    "5bdf3cbac9c86c12773555bf":
        {
             date: "2018-11-04T18:38:50.758Z",
             email: "dariellv7@gmail.com",
@@ -30,6 +32,7 @@ const articles = [
             url: "http://khan4019.github.io/front-end-Interview-Questions/sort.html#quickSort",
             _id: "5bdf3cbac9c86c12773555bf"
         },
+        "5bdf3cbac9c86c12773555c0":
         {
             date: "2018-11-04T18:38:50.758Z",
             email: "dariellv7@gmail.com",
@@ -41,7 +44,7 @@ const articles = [
             url: "https://medium.com/udacity/ai-nanodegree-program-syllabus-term-1-in-depth-80c41297acaf",
             _id: "5bdf3cbac9c86c12773555c0"
         }
-    ]
+    }
 it("handles actions of type FETCH_ARTICLES", ()=>{
     const action = {
         type: FETCH_ARTICLES,
@@ -54,7 +57,7 @@ it("handles actions of type FETCH_ARTICLES", ()=>{
 })
 
 it("handles actions of type FAVORITE_ARTICLE", ()=>{
-    const data = _.mapKeys(articles, "_id");
+    const data = {...articles};
     data["5bdf3cbac9c86c12773555be"].favorited = true;
     const action = {
         type: FAVORITE_ARTICLE,
@@ -72,7 +75,7 @@ it("handles actions of type FAVORITE_ARTICLE", ()=>{
             }
         }
     }
-    const newState = articlesReducer(_.mapKeys(articles, "_id"), action);
+    const newState = articlesReducer(articles, action);
     expect(newState).toEqual(data);
 })
 
