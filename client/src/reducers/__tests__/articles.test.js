@@ -1,8 +1,8 @@
 import articlesReducer from "../reducer_articles";
 import {
     FETCH_ARTICLES,
-    BACKLOG_ARTICLE,
     FAVORITE_ARTICLE,
+    BACKLOG_ARTICLE,
     DELETE_ARTICLE
     } from "../../actions";
 import _ from "lodash";
@@ -51,6 +51,29 @@ it("handles actions of type FETCH_ARTICLES", ()=>{
     }
     const newState = articlesReducer({}, action);
     expect(newState).toEqual(_.mapKeys(articles, "_id"));
+})
+
+it("handles actions of type FAVORITE_ARTICLE", ()=>{
+    const data = _.mapKeys(articles, "_id");
+    data["5bdf3cbac9c86c12773555be"].favorited = true;
+    const action = {
+        type: FAVORITE_ARTICLE,
+        payload: {
+            data: {
+                date: "2018-11-04T18:38:50.758Z",
+                email: "dariellv7@gmail.com",
+                favorited: true,
+                note: "Read before applying for positions",
+                saveForLater: false,
+                tags: ["Tech", "Javascript"],
+                title: "ES6",
+                url: "https://github.com/DrkSephy/es6-cheatsheet",
+                _id: "5bdf3cbac9c86c12773555be"
+            }
+        }
+    }
+    const newState = articlesReducer(_.mapKeys(articles, "_id"), action);
+    expect(newState).toEqual(data);
 })
 
 it("handles action with unknown type", ()=>{

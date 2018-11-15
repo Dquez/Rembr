@@ -1,10 +1,6 @@
 import * as actions from "../index";
 import moxios from "moxios"
 
-// let action;
-// beforeEach(()=>{
-//     action = saveComment("New comment");
-// })
 let action;
 const articles = {
     "5bdf3cbac9c86c12773555be" : {
