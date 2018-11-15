@@ -105,7 +105,7 @@ class Articles extends React.Component {
                     : ""}
                 </Col>
               </div> : ""}
-              </Row>   
+            </Row>   
           </Col>
         </Row>
       </Container>

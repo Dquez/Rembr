@@ -13,13 +13,7 @@ export const KEYWORD_SEARCH = 'KEYWORD_SEARCH'
 
 // Gets all articles
 export function getArticles (email) {
-    let request;
-    try {
-       request = axios.get(`${ROOT_URL}/articles/${email}`);
-    }
-    catch(err){
-        console.log(err);
-    }
+    const request = axios.get(`${ROOT_URL}/articles/${email}`);
     return {
         type: FETCH_ARTICLES,
         payload: request

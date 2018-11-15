@@ -1,7 +1,7 @@
 import {KEYWORD_SEARCH} from "../actions";
 import _ from "lodash";
 // state argument is not application state, only the state this reduce is responsible for
-export default function (state = [], action) {
+export default function (state = {}, action) {
     switch(action.type){
         case KEYWORD_SEARCH:
             return keywordSearch(action.payload, action.keyword);
