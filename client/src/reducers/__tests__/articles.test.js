@@ -3,7 +3,8 @@ import {
     FETCH_ARTICLES,
     FAVORITE_ARTICLE,
     BACKLOG_ARTICLE,
-    DELETE_ARTICLE
+    DELETE_ARTICLE,
+    ADD_TAG
     } from "../../actions";
 import _ from "lodash";
 
@@ -83,7 +84,7 @@ it("handles actions of type BACKLOG_ARTICLE", ()=>{
     const data = {...articles};
     data["5bdf3cbac9c86c12773555be"].saveForLater = true;
     const action = {
-        type: FAVORITE_ARTICLE,
+        type: BACKLOG_ARTICLE,
         payload: {
             data: {
                 date: "2018-11-04T18:38:50.758Z",
@@ -110,6 +111,29 @@ it("handles actions of type DELETE_ARTICLE", ()=>{
     }
     const newState = articlesReducer(articles, action);
     expect(newState).toEqual(_.omit(data, action.payload));
+})
+
+it("handles actions of type ADD_TAG", ()=>{
+    const data = {...articles};
+    data["5bdf3cbac9c86c12773555c0"].tags.push("AI");
+    const action = {
+        type: ADD_TAG,
+        payload: {
+            data:{
+                    date: "2018-11-04T18:38:50.758Z",
+                    email: "dariellv7@gmail.com",
+                    favorited: false,
+                    note: "Possible study material after graduation",
+                    saveForLater: false,
+                    tags: ["AI"],
+                    title: "AI nanodegree term one",
+                    url: "https://medium.com/udacity/ai-nanodegree-program-syllabus-term-1-in-depth-80c41297acaf",
+                    _id: "5bdf3cbac9c86c12773555c0"
+            }
+        }
+    }
+    const newState = articlesReducer(articles, action);
+    expect(newState).toEqual(data);
 })
 
 
