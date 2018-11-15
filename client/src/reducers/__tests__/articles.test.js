@@ -111,7 +111,7 @@ it("handles actions of type BACKLOG_ARTICLE", ()=>{
             data: {
                 date: "2018-11-04T18:38:50.758Z",
                 email: "dariellv7@gmail.com",
-                favorited: true,
+                favorited: false,
                 note: "Read before applying for positions",
                 saveForLater: true,
                 tags: ["Tech", "Javascript"],
@@ -123,6 +123,16 @@ it("handles actions of type BACKLOG_ARTICLE", ()=>{
     }
     const newState = articlesReducer(articles, action);
     expect(newState).toEqual(data);
+})
+
+it("handles actions of type DELETE_ARTICLE", ()=>{
+    const data = {...articles};
+    const action = {
+        type: DELETE_ARTICLE,
+        payload:"5bdf3cbac9c86c12773555be"
+    }
+    const newState = articlesReducer(articles, action);
+    expect(newState).toEqual(_.omit(data, action.payload));
 })
 
 
