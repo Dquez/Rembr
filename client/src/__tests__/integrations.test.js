@@ -5,8 +5,6 @@ import Articles from "../pages/Articles/ArticlesTest";
 import { MemoryRouter } from 'react-router-dom';
 import _ from "lodash";
 import moxios from "moxios";
-import { debug } from "util";
-import BacklogBtn from "../components/Buttons/BacklogBtn"
 
 let wrapper;
 let articles;
@@ -90,32 +88,26 @@ describe("articlePage component", ()=>{
     it("can move an article from priority to backlog and vice versa when appropriate button is clicked", (done)=>{
         // When button is clicked, it sends a delete request to the server, so we have to stub out that request from the jsdom and also make our code work with asynchronouse rendering, which is why we use moxios.wait
         moxios.install();
-        const action = {
-                payload: {
-                    data: {
-                        date: "2018-11-04T18:38:50.758Z",
-                        email: "dariellv7@gmail.com",
-                        favorited: false,
-                        note: "Read before applying for positions",
-                        saveForLater: true,
-                        tags: ["Tech", "Javascript"],
-                        title: "ES6",
-                        url: "https://github.com/DrkSephy/es6-cheatsheet",
-                        _id: "5bdf3cbac9c86c12773555be"
-                    }
-                }
-        };
-        console.log(action);
         moxios.stubRequest("/api/articles/5bdf3cbac9c86c12773555be", {
             status: 200,
-            response: action
+            response: {
+                date: "2018-11-04T18:38:50.758Z",
+                email: "dariellv7@gmail.com",
+                note: "Read before applying for positions",
+                favorited: false,
+                saveForLater: true,
+                tags: ["Tech", "Javascript"],
+                title: "ES6",
+                url: "https://github.com/DrkSephy/es6-cheatsheet",
+                _id: "5bdf3cbac9c86c12773555be"
+            }
         })    
         // expect nothing to be in backlog area before you click a button
-        expect(wrapper.find(".mid-articles").contains("Nothing on baacklog yet"))
+        expect(wrapper.find(".mid-articles").contains("Nothing on backlog yet"))
         wrapper.find(".glyphicon-send").at(0).simulate("click");
         moxios.wait(()=> {
             wrapper.update();
-            expect(wrapper.find(".glyphicon-send").length).toEqual(2);
+            expect(wrapper.find(".glyphicon-hourglass").length).toEqual(1);
             // wrapper.find(".glyphicon-hourglass").at(0).simulate("click");
             // wrapper.find(".mid-articles").children(".glyphicon-hourglass").simulate("click");
             
