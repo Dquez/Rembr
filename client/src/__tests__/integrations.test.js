@@ -5,6 +5,8 @@ import Articles from "../pages/Articles/ArticlesTest";
 import { MemoryRouter } from 'react-router-dom';
 import _ from "lodash";
 import moxios from "moxios";
+import { debug } from "util";
+import BacklogBtn from "../components/Buttons/BacklogBtn"
 
 let wrapper;
 let articles;
@@ -44,7 +46,7 @@ beforeEach(()=>{
             _id: "5bdf3cbac9c86c12773555c0"
         }
     }
-    const initialState = {articles}
+    const initialState = {articles};
 
     wrapper = mount(
         <MemoryRouter>
@@ -85,26 +87,31 @@ describe("articlePage component", ()=>{
             moxios.uninstall();
         })         
     })
-    it("can move an article from priority to backlog when backlog button is clicked", (done)=>{
+    it("can move an article from priority to backlog and vice versa when appropriate button is clicked", (done)=>{
         // When button is clicked, it sends a delete request to the server, so we have to stub out that request from the jsdom and also make our code work with asynchronouse rendering, which is why we use moxios.wait
         moxios.install();
         const response = {...articles};
         response["5bdf3cbac9c86c12773555be"].saveForLater = true;
-        moxios.stubRequest("/api/articles/:id", {
+        moxios.stubRequest("/api/articles/5bdf3cbac9c86c12773555be", {
             status: 200,
             response
-        })
-
-        
+        })    
         // expect nothing to be in backlog area before you click a button
-        expect(wrapper.find(".mid-articles").childAt(0).contains("Nothing on backlog yet"))
+        expect(wrapper.find(".mid-articles").contains("Nothing on baacklog yet"))
         wrapper.find(".glyphicon-send").at(0).simulate("click");
         moxios.wait(()=> {
             wrapper.update();
-            expect(wrapper.find(".mid-articles").children().hasClass("list-group-item"));
-            done();
-            moxios.uninstall();
-        })         
+            expect(wrapper.find(".glyphicon-send").length).toEqual(2);
+            // wrapper.find(".glyphicon-hourglass").at(0).simulate("click");
+            // wrapper.find(".mid-articles").children(".glyphicon-hourglass").simulate("click");
+            
+            // moxios.wait((done)=> {
+            //     expect(wrapper.find(".mid-articles").children().hasClass("glyphicon-hourglass").toEqual(false));
+            //     moxios.uninstall();
+                done();
+                
+            // })
+        })
     })
     it("can render articles in the .right-articles container when searching for existing articles", ()=>{    
         // simulate typing into the search bar
