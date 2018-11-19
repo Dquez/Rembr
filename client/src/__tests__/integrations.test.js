@@ -90,11 +90,25 @@ describe("articlePage component", ()=>{
     it("can move an article from priority to backlog and vice versa when appropriate button is clicked", (done)=>{
         // When button is clicked, it sends a delete request to the server, so we have to stub out that request from the jsdom and also make our code work with asynchronouse rendering, which is why we use moxios.wait
         moxios.install();
-        const response = {...articles};
-        response["5bdf3cbac9c86c12773555be"].saveForLater = true;
+        const action = {
+                payload: {
+                    data: {
+                        date: "2018-11-04T18:38:50.758Z",
+                        email: "dariellv7@gmail.com",
+                        favorited: false,
+                        note: "Read before applying for positions",
+                        saveForLater: true,
+                        tags: ["Tech", "Javascript"],
+                        title: "ES6",
+                        url: "https://github.com/DrkSephy/es6-cheatsheet",
+                        _id: "5bdf3cbac9c86c12773555be"
+                    }
+                }
+        };
+        console.log(action);
         moxios.stubRequest("/api/articles/5bdf3cbac9c86c12773555be", {
             status: 200,
-            response
+            response: action
         })    
         // expect nothing to be in backlog area before you click a button
         expect(wrapper.find(".mid-articles").contains("Nothing on baacklog yet"))
