@@ -86,84 +86,45 @@ describe("articlePage component", ()=>{
         })         
     })
     it("can move an article from priority to backlog and vice versa when appropriate button is clicked", (done)=>{
-        // When button is clicked, it sends a delete request to the server, so we have to stub out that request from the jsdom and also make our code work with asynchronouse rendering, which is why we use moxios.wait
-        moxios.install();
-        moxios.stubRequest("/api/articles/5bdf3cbac9c86c12773555be", {
-            status: 200,
-            response: {
-                date: "2018-11-04T18:38:50.758Z",
-                email: "dariellv7@gmail.com",
-                note: "Read before applying for positions",
-                favorited: false,
-                saveForLater: true,
-                tags: ["Tech", "Javascript"],
-                title: "ES6",
-                url: "https://github.com/DrkSephy/es6-cheatsheet",
-                _id: "5bdf3cbac9c86c12773555be"
-            }
-        })    
-        // expect nothing to be in backlog area before you click a button
-        expect(wrapper.find(".mid-articles").contains("Nothing on backlog yet"))
-        wrapper.find(".glyphicon-send").at(0).simulate("click");
-        moxios.wait(()=> {
-            wrapper.update();
-            expect(wrapper.find(".glyphicon-hourglass").length).toEqual(1);
-            done()   
-        })
-    })
-    it("can move an article from priority to backlog when backlog button is clicked", (done)=>{
-        // When button is clicked, it sends a delete request to the server, so we have to stub out that request from the jsdom and also make our code work with asynchronouse rendering, which is why we use moxios.wait
-        moxios.install();
-        moxios.stubRequest("/api/articles/5bdf3cbac9c86c12773555be", {
-            status: 200,
-            response: {
-                date: "2018-11-04T18:38:50.758Z",
-                email: "dariellv7@gmail.com",
-                note: "Read before applying for positions",
-                favorited: false,
-                saveForLater: true,
-                tags: ["Tech", "Javascript"],
-                title: "ES6",
-                url: "https://github.com/DrkSephy/es6-cheatsheet",
-                _id: "5bdf3cbac9c86c12773555be"
-            }
-        })    
-        // expect nothing to be in backlog area before you click a button
-        expect(wrapper.find(".mid-articles").contains("Nothing on backlog yet"))
-        wrapper.find(".glyphicon-send").at(0).simulate("click");
-        moxios.wait(()=> {
-            wrapper.update();
-            expect(wrapper.find(".glyphicon-hourglass").length).toEqual(1);
-            done()   
-        })
-    })
-    it("can move an article from priority to backlog when backlog button is clicked", (done)=>{
-        // When button is clicked, it sends a delete request to the server, so we have to stub out that request from the jsdom and also make our code work with asynchronouse rendering, which is why we use moxios.wait
-        moxios.install();
-        moxios.stubRequest("/api/articles/5bdf3cbac9c86c12773555be", {
-            status: 200,
-            response: {
-                date: "2018-11-04T18:38:50.758Z",
-                email: "dariellv7@gmail.com",
-                note: "Read before applying for positions",
-                favorited: false,
-                saveForLater: false,
-                tags: ["Tech", "Javascript"],
-                title: "ES6",
-                url: "https://github.com/DrkSephy/es6-cheatsheet",
-                _id: "5bdf3cbac9c86c12773555be"
-            }
-        })    
-        expect(wrapper.find(".glyphicon-hourglass").length).toEqual(1);
-        wrapper.find(".glyphicon-hourglass").at(0).simulate("click");
-        moxios.wait(()=> {
-            wrapper.update();
-            expect(wrapper.find(".mid-articles").contains("Nothing on backlog yet"))
-            expect(wrapper.find(".glyphicon-hourglass").length).toEqual(0);
-            done()   
-        })
-    })
+        let response = {
+            date: "2018-11-04T18:38:50.758Z",
+            email: "dariellv7@gmail.com",
+            note: "Read before applying for positions",
+            favorited: false,
+            saveForLater: true,
+            tags: ["Tech", "Javascript"],
+            title: "ES6",
+            url: "https://github.com/DrkSephy/es6-cheatsheet",
+            _id: "5bdf3cbac9c86c12773555be"
+        }
 
+        // When button is clicked, it sends a delete request to the server, so we have to stub out that request from the jsdom and also make our code work with asynchronouse rendering, which is why we use moxios.wait
+        moxios.install();
+        moxios.stubRequest("/api/articles/5bdf3cbac9c86c12773555be", {
+            status: 200,
+            response
+        })    
+        // expect nothing to be in backlog area before you click a button
+        expect(wrapper.find(".mid-articles").contains("Nothing on backlog yet"))
+        // this click event initiates the saveForLater action
+        wrapper.find(".glyphicon-send").at(0).simulate("click");
+        moxios.wait(()=> {
+            wrapper.update();
+            // the glpyhicon-hourglass class is only present on the backlogged articles which have the icon
+            expect(wrapper.find(".glyphicon-hourglass").length).toEqual(1);
+            // change the response to stub the request to the server with new data
+            response.saveForLater = false;
+            wrapper.find(".glyphicon-hourglass").simulate("click");
+            // we need a second moxios async request in order to mock the second saveForLater action creator call
+            moxios.wait(()=> {
+                wrapper.update();
+                // once again, there are no articles in the middle/backlog section
+                expect(wrapper.find(".mid-articles").contains("Nothing on backlog yet"))
+                expect(wrapper.find(".glyphicon-hourglass").length).toEqual(0);
+                done()
+            })
+        })
+    })
     
     it("can render articles in the .right-articles container when searching for existing articles", ()=>{    
         // simulate typing into the search bar
