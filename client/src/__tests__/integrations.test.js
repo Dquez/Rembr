@@ -71,7 +71,7 @@ describe("articlePage component", ()=>{
     it("can remove an article when delete button is clicked", (done)=>{
         // When button is clicked, it sends a delete request to the server, so we have to stub out that request from the jsdom and also make our code work with asynchronouse rendering, which is why we use moxios.wait
         moxios.install();
-        moxios.stubRequest("/api/article/:id", {
+        moxios.stubRequest("/api/article/5bdf3cbac9c86c12773555be", {
             status: 200,
             response: _.omit(articles, "5bdf3cbac9c86c12773555be")
         })
@@ -81,12 +81,11 @@ describe("articlePage component", ()=>{
             wrapper.update();
             expect(wrapper.find(".list-group-item").length).toEqual(2);
             done();
-            
             moxios.uninstall();
         })         
     })
     it("can move an article from priority to backlog and vice versa when appropriate button is clicked", (done)=>{
-        let response = {
+        const response = {
             date: "2018-11-04T18:38:50.758Z",
             email: "dariellv7@gmail.com",
             note: "Read before applying for positions",
