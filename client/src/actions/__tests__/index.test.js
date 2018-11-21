@@ -39,14 +39,14 @@ const articles = {
 }
 describe("getArticles", ()=>{
     beforeEach(()=>{
-        action = actions.getArticles("email@yahoo.com");
+        action = actions.getArticles("dariellv7@gmail.com");
     })
     it("has the correct type", ()=>{
         expect(action.type).toEqual(actions.FETCH_ARTICLES);
        
     })
     moxios.install();
-    moxios.stubRequest("/api/articles/:email", {
+    moxios.stubRequest("/api/articles/dariellv7@gmail.com", {
         status: 200,
         response: articles
     })
@@ -105,7 +105,6 @@ describe("saveForLater", ()=>{
     })
 })
 
-
 describe("favoriteArticle", ()=>{
     beforeEach(()=>{
         action = actions.favoriteArticle("5bdf3cbac9c86c12773555be", true);
@@ -124,32 +123,7 @@ describe("favoriteArticle", ()=>{
             expect(action.payload["5bdf3cbac9c86c12773555be"].favorited).toBeTruthy();
             done();
             moxios.uninstall();
-        })         
-        
-    })
-})
-
-
-describe("favoriteArticle", ()=>{
-    beforeEach(()=>{
-        action = actions.favoriteArticle("5bdf3cbac9c86c12773555be", true);
-    })
-    it("has the correct type", ()=>{
-        expect(action.type).toEqual(actions.FAVORITE_ARTICLE);
-    })
-    articles["5bdf3cbac9c86c12773555be"].favorited = true;
-    moxios.install();
-    moxios.stubRequest("api/favoriteArticle/5bdf3cbac9c86c12773555be", {
-        status: 200,
-        response: articles
-    })
-    it("has the correct payload", ()=>{
-        moxios.wait(()=> {
-            expect(action.payload["5bdf3cbac9c86c12773555be"].favorited).toBeTruthy();
-            done();
-            moxios.uninstall();
-        })         
-        
+        })          
     })
 })
 
