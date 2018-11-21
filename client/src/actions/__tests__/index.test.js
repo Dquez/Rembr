@@ -39,14 +39,14 @@ const articles = {
 }
 describe("getArticles", ()=>{
     beforeEach(()=>{
-        action = actions.getArticles("email@yahoo.com");
+        action = actions.getArticles("dariellv7@gmail.com");
     })
     it("has the correct type", ()=>{
         expect(action.type).toEqual(actions.FETCH_ARTICLES);
        
     })
     moxios.install();
-    moxios.stubRequest("/api/articles/:email", {
+    moxios.stubRequest("/api/articles/dariellv7@gmail.com", {
         status: 200,
         response: articles
     })
