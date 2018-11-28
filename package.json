@@ -25,6 +25,7 @@
     "body-parser": "^1.17.2",
     "bson": "^3.0.2",
     "dotenv": "^5.0.0",
+    "event-stream": "^3.3.4",
     "express": "^4.15.4",
     "indico.io": "^0.10.5",
     "mongoose": "^4.11.7"
