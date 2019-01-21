@@ -15,6 +15,7 @@ Rembr is a MERN-redux, single-page web application for people who are tired of s
 * [body-parser](https://www.npmjs.com/package/body-parser) - Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
 * [bootstrap](https://getbootstrap.com/) - Front-end framework for styling
 * [chrome extension](https://developer.chrome.com/extensions/devguide) - Has access to HTML5, JSON, Chrome-specific APIs 
+* [docker](https://www.docker.com) - Packaged Software into Standardized Units for Development, Shipment and Deployment
 * [enzyme](https://airbnb.io/enzyme/) - Enzyme is a JavaScript Testing utility for React
 * [express](https://www.npmjs.com/package/express) - Framework we used to handle HTTP requests
 * [indico.io](https://www.npmjs.com/package/indico.io) - Artificial Intelligence APIs, Text Tagging used in this web app
@@ -25,6 +26,7 @@ Rembr is a MERN-redux, single-page web application for people who are tired of s
 * [react](https://reactjs.org/) - A JavaScript library for building component-based user interfaces
 * [react-router-dom](https://www.npmjs.com/package/react-router) - Enables client-side routing and component rendering
 * [redux](https://redux.js.org/) - Enables client-side predictable state containers
+* [travis-ci](https://travis-ci.org) - Travis CI is a hosted, distributed continuous integration service used to build and test software projects hosted at GitHub.
 
 
 ## Inspiration
