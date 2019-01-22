@@ -1,0 +1,15 @@
+sudo: requied
+services:
+  - docker
+
+before_install:
+  - docker build -t dquez/rembr -f ./client/Dockerfile.dev ./client
+
+script: 
+  - docker run dquez/rembr npm test -- --coverage
+
+after_success:
+  - docker build -t dquez/rembr-client ./client
+
+
+    
