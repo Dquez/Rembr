@@ -11,7 +11,7 @@ const SCOPE = 'openid profile email';
 const AUDIENCE = 'https://rembr-app.auth0.com/api/v2/';
 
 let auth = new auth0.WebAuth({
-    clientID: CLIENT_ID,
+    clientID: CLIENT_ID || process.env.CLIENT_ID,
     domain: CLIENT_DOMAIN
 });
 
