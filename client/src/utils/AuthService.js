@@ -1,17 +1,17 @@
 import decode from 'jwt-decode';
 import { browserHistory } from 'react-router';
 import auth0 from 'auth0-js';
-import CLIENTID from './key';
+import CLIENT_ID from './key';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 const CLIENT_DOMAIN = 'rembr-app.auth0.com';
-// const REDIRECT = 'https://rembr-app.herokuapp.com/callback';
-const REDIRECT = 'http://localhost:3000/callback';
+const REDIRECT = 'https://rembr-app.herokuapp.com/callback';
+// const REDIRECT = 'http://localhost:3000/callback';
 const SCOPE = 'openid profile email';
 const AUDIENCE = 'https://rembr-app.auth0.com/api/v2/';
 
 let auth = new auth0.WebAuth({
-    clientID: CLIENTID,
+    clientID: CLIENT_ID,
     domain: CLIENT_DOMAIN
 });
 
