@@ -1,7 +1,7 @@
 import decode from 'jwt-decode';
 import { browserHistory } from 'react-router';
 import auth0 from 'auth0-js';
-const CLIENT_ID = process.env.CLIENT_ID;
+import CLIENT_ID from './key';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 const CLIENT_DOMAIN = 'rembr-app.auth0.com';
