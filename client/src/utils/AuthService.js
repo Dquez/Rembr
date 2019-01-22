@@ -1,7 +1,7 @@
 import decode from 'jwt-decode';
 import { browserHistory } from 'react-router';
 import auth0 from 'auth0-js';
-const CLIENT_ID = process.env.CLIENT_ID || require('./key');
+const CLIENT_ID = process.env.CLIENT_ID;
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 const CLIENT_DOMAIN = 'rembr-app.auth0.com';
@@ -11,7 +11,7 @@ const SCOPE = 'openid profile email';
 const AUDIENCE = 'https://rembr-app.auth0.com/api/v2/';
 
 let auth = new auth0.WebAuth({
-    clientID: CLIENT_ID || process.env.CLIENT_ID,
+    clientID: CLIENT_ID,
     domain: CLIENT_DOMAIN
 });
 
