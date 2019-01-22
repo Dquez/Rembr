@@ -33,7 +33,7 @@ class ListItem extends React.Component {
         <a className="article-url" href={article.url}>
             <strong><h4> {article.title} </h4></strong>
         </a>
-        <p> Viewed: {article.date.split("T")[0]} </p>  
+        <p>Viewed: {article.date.split("T")[0]} </p>  
         <p>Tags:</p>
         <ul>{article.tags.length === 0 
                 ? 
