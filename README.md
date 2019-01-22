@@ -15,13 +15,19 @@ Rembr is a MERN-redux, single-page web application for people who are tired of s
 * [body-parser](https://www.npmjs.com/package/body-parser) - Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
 * [bootstrap](https://getbootstrap.com/) - Front-end framework for styling
 * [chrome extension](https://developer.chrome.com/extensions/devguide) - Has access to HTML5, JSON, Chrome-specific APIs 
+* [docker](https://www.docker.com) - Packaged Software into Standardized Units for Development, Shipment and Deployment
+* [enzyme](https://airbnb.io/enzyme/) - Enzyme is a JavaScript Testing utility for React
 * [express](https://www.npmjs.com/package/express) - Framework we used to handle HTTP requests
 * [indico.io](https://www.npmjs.com/package/indico.io) - Artificial Intelligence APIs, Text Tagging used in this web app
+* [jest](https://jestjs.io/) - Front-end JavaScript testing library with little configuration required. 
 * [jQuery](https://jquery.com/) - Front-end JavaScript library. 
 * [mongoose](https://www.npmjs.com/package/mongoose) Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment.
 * [nodemon](https://www.npmjs.com/package/nodemon) - Watches the files in the directory in which nodemon was started, and if any files change, nodemon will automatically restart your node application.
 * [react](https://reactjs.org/) - A JavaScript library for building component-based user interfaces
 * [react-router-dom](https://www.npmjs.com/package/react-router) - Enables client-side routing and component rendering
+* [redux](https://redux.js.org/) - Enables client-side predictable state containers
+* [travis-ci](https://travis-ci.org) - Travis CI is a hosted, distributed continuous integration service used to build and test software projects hosted at GitHub.
+
 
 ## Inspiration
 As any web developer will tell you, we love having multiple tabs open. Even if we don't intend on using the content of the tab for days, weeks, *or months*, we keep them open for that one time we might need the content on hand. This slows down your browser, prevents you from restarting your computer in fear of losing your precious tabs (*although with modern browsers, on restart, the browser will ask you to restore your tabs*). I wanted a way to avoid this pain point, without cluttering up my bookmarks with random web pages. *Fun fact* : During production, my active broswer window alone had 27 tabs open that I just couldn't let go of. 
@@ -34,8 +40,9 @@ Before I began coding out the app, I wireframed everything from the HTML page th
  * Authentication for the chrome extension first (to have a email to assoicat the data with)
  * Authentication for the client-side web app.
  * Web designing, documentation
- 
-The front-end for the web app is built with react, react-router-dom, and bootstrap. The backend is built with a node server, express framework and mongodb as a database. The extension uses HTML, bootstrap, and jquery/javascript.
+ * Hooked up application to Redux
+ * Added testing with Jest/Enzyme
+The front-end for the web app is built with react, redux, react-router, and bootstrap. The backend is built with a node server, express framework and mongodb as a database. The extension uses HTML, bootstrap, and jquery/javascript.
 
 ## Challenges I ran into
 Before serious development even started, I knew I had to get ready to read the [chrome extension](https://developer.chrome.com/extensions/devguide) documentation. At first, the process of using background pages and content scripts seemed obscure but after reading through the docs, looking at examples, I was able to hone into exactly what my app needed. Some of the other *minor* issues I ran into along the way :
