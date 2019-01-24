@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
   
 const articlesController = require("./controllers/articlesController");
 // Serve up static assets
-app.use(express.static("client/build"));
+app.use(express.static("../client/build"));
 // Add routes, both API and view
 app.use(articlesController);
 
