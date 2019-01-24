@@ -23,7 +23,7 @@ services:
       - ./server/.env      
   client:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./client
     volumes:
       - /app/node_modules
