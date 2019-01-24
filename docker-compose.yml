@@ -20,13 +20,10 @@ services:
       - /app/node_modules
       - ./server:/app
     env_file:
-      - ./server/.env
-    environment:
-      - MONGODB_URI=${MONGODB_URI}
-      
+      - ./server/.env      
   client:
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./client
     volumes:
       - /app/node_modules
