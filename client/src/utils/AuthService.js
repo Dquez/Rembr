@@ -7,7 +7,7 @@ const ACCESS_TOKEN_KEY = 'access_token';
 const CLIENT_DOMAIN = 'rembr-app.auth0.com';
 const CLIENT_ID = 'F3bv6-7PmyBo-GCCxiyewVN_Yf-CPOlg';
 // const REDIRECT = 'https://rembr-app.herokuapp.com/callback';
-const REDIRECT = 'http://localhost:3000/callback';
+const REDIRECT = 'http://localhost:8080/callback';
 const SCOPE = 'openid profile email';
 const AUDIENCE = 'https://rembr-app.auth0.com/api/v2/';
 
