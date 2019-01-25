@@ -66,7 +66,7 @@ indico.text_tags(input, {threshold: 0.08})
 
 //  If no API routes are hit, send the React app
 router.use(function (req, res) {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  res.sendFile(path.join(__dirname, "../../client/build/index.html"));
 });
 
 module.exports = router;

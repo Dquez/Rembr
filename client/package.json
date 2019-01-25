@@ -1,8 +1,7 @@
 {
-  "name": "mern",
+  "name": "rembr",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001/",
   "dependencies": {
     "auth0-js": "^9.3.0",
     "axios": "^0.16.2",
