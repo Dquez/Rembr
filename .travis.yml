@@ -10,6 +10,9 @@ script:
 
 after_success:
   - docker build -t dquez/rembr-client ./client
+  - docker build -t dquez/rembr-nginx ./nginx
+  - docker build -t dquez/rembr-server ./server
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push dquez/rembr-client
-    
+  - docker push dquez/rembr-nginx
+  - docker push dquez/rembr-server
