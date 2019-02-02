@@ -1,1 +1,1 @@
-export {default} from "./IconsContainer";
+export {default} from './IconsContainer';

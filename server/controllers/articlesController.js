@@ -1,6 +1,6 @@
-const path = require("path");
-const router = require("express").Router();
-const db = require("../models");
+const path = require('path');
+const router = require('express').Router();
+const db = require('../models');
 const indico = require('indico.io');
 indico.apiKey = process.env.INDICO_API_KEY;
 
@@ -33,17 +33,17 @@ const articleFunctions = {
   }
 }
 
-router.get("/api/articles/:email", articleFunctions.findAll);
+router.get('/api/articles/:email', articleFunctions.findAll);
 
-router.patch("/api/articles/:id", articleFunctions.update);
+router.patch('/api/articles/:id', articleFunctions.update);
 
-router.patch("/api/favoriteArticle/:id", articleFunctions.update);
+router.patch('/api/favoriteArticle/:id', articleFunctions.update);
 
-router.patch("/api/articleTag/:id", articleFunctions.update);
+router.patch('/api/articleTag/:id', articleFunctions.update);
 
-router.delete("/api/article/:id", articleFunctions.remove)
+router.delete('/api/article/:id', articleFunctions.remove)
 
-router.post("/rembrTab", (req, res)=> {
+router.post('/rembrTab', (req, res)=> {
 const {email, title, url, note, date} = req.body;
 
 //String of the title, url and note to use the indico machine learning API to parse the data develop text tags for each article or webpage saved
@@ -53,7 +53,7 @@ indico.text_tags(input, {threshold: 0.08})
   .then(response => {
     const tags = [];
     for(tag in response) {
-      if(tag.includes("_")){
+      if(tag.includes('_')){
         tag = tag.replace(/_/g, ' ')
       }
         tags.push(tag);
@@ -66,7 +66,7 @@ indico.text_tags(input, {threshold: 0.08})
 
 //  If no API routes are hit, send the React app
 router.use(function (req, res) {
-  res.sendFile(path.join(__dirname, "../../client/build/index.html"));
+  res.sendFile(path.join(__dirname, '../../client/build/index.html'));
 });
 
 module.exports = router;

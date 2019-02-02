@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-import "./container.css";
+import './container.css';
 
 class Container extends React.Component {
 
@@ -8,7 +8,7 @@ class Container extends React.Component {
     const { fluid, children } = this.props
 
     return (
-      <div className={`container${fluid ? "-fluid" : ""}`} >
+      <div className={`container${fluid ? '-fluid' : ''}`} >
         {children}
       </div>
     );

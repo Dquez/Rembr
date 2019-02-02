@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-// import "./FavoriteBtn.css";
+
 
 class FavoriteBtn extends React.Component {
   render () {
     return (
-      <div className="btn-lg">
+      <div className='btn-lg'>
         {this.props.value === true ?
-        <span onClick={this.props.onClick} className="glyphicon glyphicon-star"></span>
+        <span onClick={this.props.onClick} className='glyphicon glyphicon-star'></span>
         :  
-        <span onClick={this.props.onClick} className="glyphicon glyphicon-star-empty"></span>
+        <span onClick={this.props.onClick} className='glyphicon glyphicon-star-empty'></span>
         }
       </div>
     );
