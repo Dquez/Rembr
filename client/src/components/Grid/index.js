@@ -1,6 +1,6 @@
-import Col from "./Col";
-import Container from "./Container";
-import Row  from "./Row";
+import Col from './Col';
+import Container from './Container';
+import Row  from './Row';
 
 export {
     Col,

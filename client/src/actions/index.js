@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 // action creators always have to return an action, and actions always have to have a type property
-const ROOT_URL = "/api";
+const ROOT_URL = '/api';
 
 // variables to be imported and used in our reducers switch statement, instead of hard coding a string
 export const FETCH_ARTICLES = 'FETCH_ARTICLES';
@@ -31,7 +31,7 @@ export function deleteArticle (id) {
 
 // backlog article so it's not in the main queue
 export function saveForLater (id, decision) {
-    const request = axios.patch("/api/articles/" + id, {
+    const request = axios.patch('/api/articles/' + id, {
       saveForLater: decision
     });
     return {
@@ -42,7 +42,7 @@ export function saveForLater (id, decision) {
 
 // favorite an article
 export function favoriteArticle (id, decision) {
-    const request = axios.patch("/api/favoriteArticle/" + id, {
+    const request = axios.patch('/api/favoriteArticle/' + id, {
         favorited: decision
       });
     return {
@@ -53,7 +53,7 @@ export function favoriteArticle (id, decision) {
 
 // add a tag if missing on article
 export function addTag (id, tag) {
-    const request = axios.patch("/api/articleTag/" + id, {
+    const request = axios.patch('/api/articleTag/' + id, {
         tags: tag
       });
     return {

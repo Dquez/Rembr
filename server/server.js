@@ -1,18 +1,18 @@
 'use strict'
 
-const express = require("express");
+const express = require('express');
 const app = express();
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3001;
-const bodyParser = require("body-parser");
-require("dotenv").config();
+const bodyParser = require('body-parser');
+require('dotenv').config();
 // Configure body parser for AJAX requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
   
-const articlesController = require("./controllers/articlesController");
+const articlesController = require('./controllers/articlesController');
 // Serve up static assets
-app.use(express.static("../client/build"));
+app.use(express.static('../client/build'));
 // Add routes, both API and view
 app.use(articlesController);
 
@@ -22,7 +22,7 @@ app.use(articlesController);
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/rembr",
+  process.env.MONGODB_URI || 'mongodb://localhost/rembr',
   {
     useMongoClient: true
   }

@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 
 class SearchBar extends React.Component {
     render () {
         return (
-            <div className="form-group">
-            <input className="form-control" {...this.props} />
+            <div className='form-group'>
+            <input className='form-control' {...this.props} />
           </div>
         )
     }

@@ -19,9 +19,6 @@ class Nav extends React.Component {
                   window.location = "/";
                 }}>Log out </button>: <button className="btn btn-info login" onClick={() => login()}>Log In</button>
             }
-            {/* <div className="navbar-tutorial">
-            <Link to="/tutorial">Tutorial</Link>
-            </div> */}
           </div>
     );
   }

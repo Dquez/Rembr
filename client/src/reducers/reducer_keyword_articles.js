@@ -1,5 +1,5 @@
-import {KEYWORD_SEARCH} from "../actions";
-import _ from "lodash";
+import {KEYWORD_SEARCH} from '../actions';
+import _ from 'lodash';
 // state argument is not application state, only the state this reduce is responsible for
 export default function (state = {}, action) {
     switch(action.type){
@@ -26,7 +26,7 @@ function keywordSearch (articles, keyword) {
                 return articleParsed.includes(keyword.toLowerCase());
             })
         // make a new array of the IDs we will use to extract the correct articles, arbitrary characters used to split to make it easy to parse the Id from the string
-        const filteredIds = filteredStrings.map(article => article.split("?/*")[1]);
+        const filteredIds = filteredStrings.map(article => article.split('?/*')[1]);
         // filter out the articles which have an Id equal to the Id from the above array, filteredIds
         return _.filter(articles, filteredArticle => {
             // this anonymous IIFE is required to return from the outer arrow function, otherwise there's a lint error

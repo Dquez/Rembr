@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-// import "./PriorityBtn.css"
+// import './PriorityBtn.css'
 
 class BacklogBtn extends React.Component {
   render () {
     return (
-      <div className="btn-lg">
-        <span onClick={this.props.onClick} className="glyphicon glyphicon-send"></span>
+      <div className='btn-lg'>
+        <span onClick={this.props.onClick} className='glyphicon glyphicon-send'></span>
       </div>
     );
   }

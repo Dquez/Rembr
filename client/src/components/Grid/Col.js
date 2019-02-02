@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-import "./col.css";
+import './col.css';
 
 class Col extends React.Component {
 
   render () {
     const {styleProp, size, children} = this.props
 
-    const klass = size.split(" ").map(size => "col-" + size).join(" ");
+    const klass = size.split(' ').map(size => 'col-' + size).join(' ');
     return (
         
-      <div className={styleProp + " " + klass}>
+      <div className={styleProp + ' ' + klass}>
           {children}
       </div>
     );
